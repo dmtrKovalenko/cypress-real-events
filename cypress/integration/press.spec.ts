@@ -11,7 +11,7 @@ describe("cy.realPress", () => {
     cy.realPress("e");
     cy.realPress("s");
     cy.realPress("s");
-
+    
     cy.get("input[name=q]").should("have.value", "cypress");
   });
 

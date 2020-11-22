@@ -14,5 +14,6 @@ declare namespace Cypress {
       typeof import("./commands/realHover").realHover
     >;
     realPress: typeof import("./commands/realPress").realPress;
+    realType: typeof import("./commands/realType").realType;
   }
 }

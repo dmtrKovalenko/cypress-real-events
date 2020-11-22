@@ -1,9 +1,15 @@
-import { getCypressElementCoordinates } from "../getCypressElementCoordinates";
 import { keyCodeDefinitions } from "../keyCodeDefinitions";
 
 export interface RealPressOptions {
-  /** Delay between keyDown and keyUp events */
+  /** 
+   * Delay between keyDown and keyUp events (ms)
+   * @default 10
+   */
   pressDelay?: number;
+  /**
+   * Displays the command in the Cypress command log
+   * @default true
+   */
   log?: boolean;
 }
 
@@ -29,14 +35,19 @@ export async function realPress(
   key: keyof typeof keyCodeDefinitions,
   options: RealPressOptions = {}
 ) {
+  let log;
   const keyDefinition = getKeyDefinition(key);
-  const log = Cypress.log({
-    name: "realPress",
-    consoleProps: () => keyDefinition,
-  });
 
-  log.snapshot("before");
-  const res = await Cypress.automation("remote:debugger:protocol", {
+  if (options.log ?? true) {
+    log = Cypress.log({
+      name: "realPress",
+      consoleProps: () => keyDefinition,
+    });
+  }
+
+  log?.snapshot("before").end();
+
+  await Cypress.automation("remote:debugger:protocol", {
     command: "Input.dispatchKeyEvent",
     params: {
       type: "keyDown",
@@ -44,7 +55,7 @@ export async function realPress(
     },
   });
 
-  await new Promise((res) => setTimeout(res, options.pressDelay ?? 500));
+  await new Promise((res) => setTimeout(res, options.pressDelay ?? 25));
   await Cypress.automation("remote:debugger:protocol", {
     command: "Input.dispatchKeyEvent",
     params: {
@@ -54,5 +65,5 @@ export async function realPress(
     },
   });
 
-  log.snapshot("after").end();
+  log?.snapshot("after").end();
 }
