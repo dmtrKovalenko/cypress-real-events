@@ -19,7 +19,6 @@ export async function realHover(
     }),
   });
 
-  log.snapshot("before");
   await Cypress.automation("remote:debugger:protocol", {
     command: "Input.dispatchMouseEvent",
     params: {
@@ -31,7 +30,7 @@ export async function realHover(
     },
   });
 
-  log.snapshot("after").end();
+  log.snapshot().end();
 
   return subject;
 }
