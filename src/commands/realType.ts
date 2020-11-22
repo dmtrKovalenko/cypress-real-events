@@ -19,6 +19,14 @@ export interface RealTypeOptions {
   log?: boolean;
 }
 
+/**
+ * Runs a sequence of native press event (via cy.press)
+ * Type event is global. Make sure that it is not attached to any field.
+ * @example
+ * cy.get("input").realClick()
+ * cy.realType("some text {enter}")
+ * @param text text to type. Should be around the same as cypress's type command argument (https://docs.cypress.io/api/commands/type.html#Arguments)
+ */
 export async function realType(text: string, options: RealTypeOptions = {}) {
   let log;
 
@@ -32,8 +40,18 @@ export async function realType(text: string, options: RealTypeOptions = {}) {
   }
 
   log?.snapshot("before").end();
+  const chars = text
+    .split(/({.+?})/)
+    .filter(Boolean)
+    .reduce((acc, group) => {
+      return /({.+?})/.test(group)
+        ? [...acc, group]
+        : [...acc, ...group.split("")];
+    }, [] as string[]);
 
-  for (const char of text) {
+  console.log(chars);
+
+  for (const char of chars) {
     await realPress(char as keyof typeof keyCodeDefinitions, {
       pressDelay: options.pressDelay,
       log: false,

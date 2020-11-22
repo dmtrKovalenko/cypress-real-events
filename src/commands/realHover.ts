@@ -4,6 +4,12 @@ export interface RealHoverOptions {
   pointer?: "mouse" | "pen";
 }
 
+/**
+ * Fires real native hover event. Yes, it can test `:hover` preprocessor.
+ * @example
+ * cy.get("button").realHover()
+ * @param options
+ */
 export async function realHover(
   subject: JQuery,
   options: RealHoverOptions = {}

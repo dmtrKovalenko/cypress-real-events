@@ -2,7 +2,8 @@
   "compilerOptions": {
     "types": ["cypress"],
     "target": "es6",
-    "strict": true
+    "strict": true,
+    "moduleResolution": "node"
   },
   "include": ["src/**/*.ts"]
 }

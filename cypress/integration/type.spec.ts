@@ -16,4 +16,9 @@ describe("cy.realType", () => {
     cy.realType("pressing keys");
     cy.get("input[name=q]").should("have.value", "");
   });
+
+  it("supports cypress's keys shortcuts", () => {
+    cy.realType("Something{backspace}{backspace}")
+    cy.get("input[name=q]").should("have.value", "Somethi");
+  })
 });

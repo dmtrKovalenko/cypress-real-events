@@ -1,7 +1,7 @@
 import { keyCodeDefinitions } from "../keyCodeDefinitions";
 
 export interface RealPressOptions {
-  /** 
+  /**
    * Delay between keyDown and keyUp events (ms)
    * @default 10
    */
@@ -23,7 +23,7 @@ function getKeyDefinition(key: keyof typeof keyCodeDefinitions) {
   return {
     key: keyDefinition?.key ?? "",
     keyCode: keyDefinition.keyCode ?? 0,
-    text: keyDefinition.key,
+    text: keyDefinition.key.length === 1 ? keyDefinition.key : undefined,
     // @ts-ignore
     code: keyDefinition.code ?? "",
     // @ts-ignore
@@ -31,12 +31,22 @@ function getKeyDefinition(key: keyof typeof keyCodeDefinitions) {
   };
 }
 
+/**
+ * Fires native press event. Make sure that press event is global. It means that it is not attached to any field or control.
+ * In order to fill the input it is possible to do
+ * @example
+ * cy.get("input").focus()
+ * cy.realPress("K")
+ * @param key key to type. Should be around the same as cypress's type command argument (https://docs.cypress.io/api/commands/type.html#Arguments)
+ * @param options
+ */
 export async function realPress(
   key: keyof typeof keyCodeDefinitions,
   options: RealPressOptions = {}
 ) {
   let log;
   const keyDefinition = getKeyDefinition(key);
+  console.log(keyDefinition);
 
   if (options.log ?? true) {
     log = Cypress.log({
@@ -50,8 +60,9 @@ export async function realPress(
   await Cypress.automation("remote:debugger:protocol", {
     command: "Input.dispatchKeyEvent",
     params: {
-      type: "keyDown",
+      type: keyDefinition.text ? "keyDown" : "rawKeyDown",
       ...keyDefinition,
+      windowsVirtualKeyCode: keyDefinition.keyCode,
     },
   });
 

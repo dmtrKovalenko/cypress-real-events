@@ -5,6 +5,12 @@ export interface RealClickOptions {
   button?: "none" | "left" | "right" | "middle" | "back" | "forward";
 }
 
+/**
+ * Fires native system click event.
+ * @example
+ * cy.get("button").realClick()
+ * @param options 
+ */
 export async function realClick(
   subject: JQuery,
   options: RealClickOptions = {}
