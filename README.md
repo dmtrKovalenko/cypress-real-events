@@ -44,6 +44,16 @@ Register new commands by adding this to your `cypress/support.js` file.
 import "cypress-real-events/support";
 ```
 
+If you are using typescript, also add the following to `cypress/tsconfig.json`
+
+```json
+{
+  "compilerOptions": {
+    "types": ["cypress", "cypress-real-events"]
+  }
+}
+```
+
 ## Api
 
 Here is an overview of the available **real** event commands:
@@ -104,7 +114,7 @@ Fires native press event. Make sure that press event is global. It means that it
 In order to fill the input it is possible to do
 
 ```jsx
-cy.realPress("Tab"); // switch the focus for a11y testing
+cy.realType("Any text");
 ```
 
 ### Usage
@@ -159,3 +169,7 @@ Options:
 One problem of the real native system events I need to mention – you will not get an error message if event wasn't produced. Similar to selenium or playwright – if a javascript event was not fired you will not get a comprehensive error message.
 
 So probably this package should not be used as a replacement of the cypress events, at least for the writing tests experience 🐨
+
+## License
+
+The project is licensed under the terms of [MIT license](./LICENSE)

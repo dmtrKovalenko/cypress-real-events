@@ -17,6 +17,7 @@ workflows:
           # this avoids installing same dependencies 10 times
           requires:
             - cypress/install
+          browser: chrome
           # notice a trick to avoid re-installing dependencies
           # in this job - a do-nothing "install-command" parameter
           install-command: echo 'Nothing to install in this job'
