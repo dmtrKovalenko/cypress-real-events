@@ -1,14 +1,17 @@
 type NormalizeCypressCommand<TFun> = TFun extends (
   subject: any,
   ...args: infer TArgs
-) => infer TReturn
-  ? (...args: TArgs) => TReturn
-  : never;
+) => Promise<infer TReturn>
+  ? (...args: TArgs) => Cypress.Chainable<TReturn>
+  : TFun;
 
 declare namespace Cypress {
   interface Chainable {
     realClick: NormalizeCypressCommand<
       typeof import("./commands/realClick").realClick
+    >;
+    realHover: NormalizeCypressCommand<
+      typeof import("./commands/realHover").realHover
     >;
   }
 }
