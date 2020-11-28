@@ -1,3 +1,4 @@
+import { fireCdpCommand } from "../fireCdpCommand";
 import { getCypressElementCoordinates } from "../getCypressElementCoordinates";
 
 export interface RealHoverOptions {
@@ -25,15 +26,12 @@ export async function realHover(
     }),
   });
 
-  await Cypress.automation("remote:debugger:protocol", {
-    command: "Input.dispatchMouseEvent",
-    params: {
-      type: "mouseMoved",
-      x,
-      y,
-      button: "none",
-      pointerType: options.pointer ?? "mouse",
-    },
+  await fireCdpCommand("Input.dispatchMouseEvent", {
+    x,
+    y,
+    type: "mouseMoved",
+    button: "none",
+    pointerType: options.pointer ?? "mouse",
   });
 
   log.snapshot().end();

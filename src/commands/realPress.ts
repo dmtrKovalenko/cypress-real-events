@@ -1,3 +1,4 @@
+import { fireCdpCommand } from "../fireCdpCommand";
 import { keyCodeDefinitions } from "../keyCodeDefinitions";
 
 export interface RealPressOptions {
@@ -20,14 +21,16 @@ function getKeyDefinition(key: keyof typeof keyCodeDefinitions) {
     throw new Error(`Unsupported key '${key}'.`);
   }
 
+  const keyCode = keyDefinition.keyCode ?? 0;
   return {
+    keyCode: keyCode,
     key: keyDefinition?.key ?? "",
-    keyCode: keyDefinition.keyCode ?? 0,
     text: keyDefinition.key.length === 1 ? keyDefinition.key : undefined,
     // @ts-ignore
     code: keyDefinition.code ?? "",
     // @ts-ignore
     location: keyDefinition.location ?? 0,
+    windowsVirtualKeyCode: keyCode,
   };
 }
 
@@ -46,7 +49,6 @@ export async function realPress(
 ) {
   let log;
   const keyDefinition = getKeyDefinition(key);
-  console.log(keyDefinition);
 
   if (options.log ?? true) {
     log = Cypress.log({
@@ -57,23 +59,15 @@ export async function realPress(
 
   log?.snapshot("before").end();
 
-  await Cypress.automation("remote:debugger:protocol", {
-    command: "Input.dispatchKeyEvent",
-    params: {
-      type: keyDefinition.text ? "keyDown" : "rawKeyDown",
-      ...keyDefinition,
-      windowsVirtualKeyCode: keyDefinition.keyCode,
-    },
+  await fireCdpCommand("Input.dispatchKeyEvent", {
+    type: keyDefinition.text ? "keyDown" : "rawKeyDown",
+    ...keyDefinition,
   });
 
   await new Promise((res) => setTimeout(res, options.pressDelay ?? 25));
-  await Cypress.automation("remote:debugger:protocol", {
-    command: "Input.dispatchKeyEvent",
-    params: {
-      type: "keyUp",
-      ...keyDefinition,
-      windowsVirtualKeyCode: keyDefinition.keyCode,
-    },
+  await fireCdpCommand("Input.dispatchKeyEvent", {
+    type: "keyUp",
+    ...keyDefinition,
   });
 
   log?.snapshot("after").end();

@@ -32,7 +32,7 @@ export async function realType(text: string, options: RealTypeOptions = {}) {
 
   if (options.log ?? true) {
     log = Cypress.log({
-      name: "realPress",
+      name: "realType",
       consoleProps: () => ({
         Text: text,
       }),

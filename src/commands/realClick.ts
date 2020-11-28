@@ -1,3 +1,4 @@
+import { fireCdpCommand } from "../fireCdpCommand";
 import { getCypressElementCoordinates } from "../getCypressElementCoordinates";
 
 export interface RealClickOptions {
@@ -9,7 +10,7 @@ export interface RealClickOptions {
  * Fires native system click event.
  * @example
  * cy.get("button").realClick()
- * @param options 
+ * @param options
  */
 export async function realClick(
   subject: JQuery,
@@ -27,30 +28,24 @@ export async function realClick(
   });
 
   log.snapshot("before");
-  await Cypress.automation("remote:debugger:protocol", {
-    command: "Input.dispatchMouseEvent",
-    params: {
-      type: "mousePressed",
-      x,
-      y,
-      clickCount: 1,
-      buttons: 1,
-      pointerType: options.pointer ?? "mouse",
-      button: options.button ?? "left",
-    },
+  await fireCdpCommand("Input.dispatchMouseEvent", {
+    type: "mousePressed",
+    x,
+    y,
+    clickCount: 1,
+    buttons: 1,
+    pointerType: options.pointer ?? "mouse",
+    button: options.button ?? "left",
   });
 
-  await Cypress.automation("remote:debugger:protocol", {
-    command: "Input.dispatchMouseEvent",
-    params: {
-      type: "mouseReleased",
-      x,
-      y,
-      clickCount: 1,
-      buttons: 1,
-      pointerType: options.pointer ?? "mouse",
-      button: options.button ?? "left",
-    },
+  await fireCdpCommand("Input.dispatchMouseEvent", {
+    type: "mouseReleased",
+    x,
+    y,
+    clickCount: 1,
+    buttons: 1,
+    pointerType: options.pointer ?? "mouse",
+    button: options.button ?? "left",
   });
 
   log.snapshot("after").end();
