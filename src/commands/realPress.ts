@@ -34,15 +34,7 @@ function getKeyDefinition(key: keyof typeof keyCodeDefinitions) {
   };
 }
 
-/**
- * Fires native press event. Make sure that press event is global. It means that it is not attached to any field or control.
- * In order to fill the input it is possible to do
- * @example
- * cy.get("input").focus()
- * cy.realPress("K")
- * @param key key to type. Should be around the same as cypress's type command argument (https://docs.cypress.io/api/commands/type.html#Arguments)
- * @param options
- */
+/** @ignore this, update documentation for this function at index.d.ts */
 export async function realPress(
   key: keyof typeof keyCodeDefinitions,
   options: RealPressOptions = {}

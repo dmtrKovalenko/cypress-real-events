@@ -2,6 +2,7 @@
   "compilerOptions": {
     "types": ["cypress"],
     "target": "es6",
+    "lib": ["DOM","ES2016"],
     "outDir": "dist",
     "declaration": true,
     "strict": true,

@@ -48,7 +48,7 @@ Here is a simple test that can be written with native events:
 it("tests real events", () => {
   cy.get("input").realClick(); // perform a native real click on the field
   cy.realType("cypress real event"); // fires native system keypress events and fills the field
-  cy.press("Tab"); // native tab click switches the focus
+  cy.realPress("Tab"); // native tab click switches the focus
   cy.focused().realHover(); // hovers over the new focused element
   cy.contains("some text in the hovered popover");
 });
@@ -82,7 +82,13 @@ If you are using typescript, also add the following to `cypress/tsconfig.json`
 
 ## Api
 
+The idea of the commands – they should be as similar as possible to cypress default commands (like `cy.type`), but starts with `real` – `cy.realType`. 
+
 Here is an overview of the available **real** event commands:
+- [cy.realClick](#cy.realClick)
+- [cy.realHover](#cy.realHover)
+- [cy.realPress](#cy.realPress)
+- [cy.realType](#cy.realType)
 
 ## cy.realClick
 

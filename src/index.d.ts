@@ -9,35 +9,42 @@ declare namespace Cypress {
   interface Chainable {
     /**
      * Fires native system click event.
+     * @see https://github.com/dmtrKovalenko/cypress-real-events#cyrealclick
      * @example
      * cy.get("button").realClick()
-     * @param options
+     * @param options click options
      */
     realClick: NormalizeCypressCommand<
       typeof import("./commands/realClick").realClick
     >;
     /**
-     * Fires real native hover event. Yes, it can test `:hover` preprocessor.
+     * Fires native hover event. Yes, it can test `:hover` preprocessor.
+     * @see https://github.com/dmtrKovalenko/cypress-real-events#cyrealhover
      * @example
      * cy.get("button").realHover()
-     * @param options
+     * @param options hover options
      */
     realHover: NormalizeCypressCommand<
       typeof import("./commands/realHover").realHover
     >;
     /**
-     * Fires native press event. Press event is global it means that it is not attached to any field or control.
-     * In order to fill the do
+     * Fires native press event.
+     * @see https://github.com/dmtrKovalenko/cypress-real-events#cyrealpress
      * @example
      * cy.get("input").focus()
      * cy.realPress("K")
-     * @param key key to type. Should be around the same as cypress's type command argument – (https://docs.cypress.io/api/commands/type.html#Arguments)
-     * @param options
+     * @param key key to type. Should be the same as cypress's default type command argument (https://docs.cypress.io/api/commands/type.html#Arguments)
+     * @param options press options
      */
     realPress: typeof import("./commands/realPress").realPress;
     /**
      * Runs a sequence of native press event (via cy.press)
-     * @param text text to type
+     * Type event is global. Make sure that it is not attached to any field.
+     * @see https://github.com/dmtrKovalenko/cypress-real-events#cyrealtype
+     * @example
+     * cy.get("input").realClick()
+     * cy.realType("some text {enter}")
+     * @param text text to type. Should be the same as cypress's default type command argument (https://docs.cypress.io/api/commands/type.html#Arguments)
      */
     realType: typeof import("./commands/realType").realType;
   }

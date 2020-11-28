@@ -4,12 +4,12 @@ import { realPress } from "./realPress";
 export interface RealTypeOptions {
   /**
    * Delay after each keypress (ms)
-   * @default 30
+   * @default 25
    */
   delay?: number;
   /**
    * Delay between keyDown and keyUp events (ms)
-   * @default 10
+   * @default 15
    */
   pressDelay?: number;
   /**
@@ -19,14 +19,16 @@ export interface RealTypeOptions {
   log?: boolean;
 }
 
-/**
- * Runs a sequence of native press event (via cy.press)
- * Type event is global. Make sure that it is not attached to any field.
- * @example
- * cy.get("input").realClick()
- * cy.realType("some text {enter}")
- * @param text text to type. Should be around the same as cypress's type command argument (https://docs.cypress.io/api/commands/type.html#Arguments)
- */
+const availableChars = Object.keys(keyCodeDefinitions);
+function assertChar(
+  char: string
+): asserts char is keyof typeof keyCodeDefinitions {
+  if (!availableChars.includes(char)) {
+    throw new Error(`Unrecognized character "${char}".`);
+  }
+}
+
+/** @ignore this, update documentation for this function at index.d.ts */
 export async function realType(text: string, options: RealTypeOptions = {}) {
   let log;
 
@@ -49,15 +51,14 @@ export async function realType(text: string, options: RealTypeOptions = {}) {
         : [...acc, ...group.split("")];
     }, [] as string[]);
 
-  console.log(chars);
-
   for (const char of chars) {
-    await realPress(char as keyof typeof keyCodeDefinitions, {
-      pressDelay: options.pressDelay,
+    assertChar(char);
+    await realPress(char, {
+      pressDelay: options.pressDelay ?? 15,
       log: false,
     });
 
-    await new Promise((res) => setTimeout(res, options.pressDelay ?? 25));
+    await new Promise((res) => setTimeout(res, options.delay ?? 25));
   }
 
   log?.snapshot("after").end();
