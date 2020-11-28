@@ -2,15 +2,20 @@
   "name": "cypress-real-events",
   "version": "1.0.0",
   "description": "Real native events for cypress. Dispatched via CDP.",
-  "main": "index.js",
-  "author": "Dmitriy Kovalenko ",
+  "author": "Dmitriy Kovalenko",
   "license": "MIT",
-  "dependencies": {
-    "typescript": "^4.1.2"
+  "scripts": {
+    "build": "tsc",
+    "release": "yarn build && yarn version && node scripts/release.js && yarn publish dist"
+  },
+  "peerDependencies": {
+    "cypress": "^5.x"
   },
   "devDependencies": {
     "cypress": "^5.6.0",
+    "fs-extra": "^9.0.1",
     "typedoc": "^0.19.2",
-    "typedoc-plugin-markdown": "^3.0.11"
+    "typedoc-plugin-markdown": "^3.0.11",
+    "typescript": "^4.1.2"
   }
 }
