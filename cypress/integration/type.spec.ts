@@ -11,7 +11,7 @@ describe("cy.realType", () => {
     );
   });
 
-  it("do not types if element is not focused", () => {
+  it("does not type if element is not focused", () => {
     cy.realPress("Tab"); // move focus out
     cy.realType("pressing keys");
     cy.get("input[name=q]").should("have.value", "");

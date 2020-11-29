@@ -1,8 +1,19 @@
 import { fireCdpCommand } from "../fireCdpCommand";
-import { getCypressElementCoordinates } from "../getCypressElementCoordinates";
+import {
+  Position,
+  getCypressElementCoordinates,
+} from "../getCypressElementCoordinates";
 
 export interface RealHoverOptions {
+  /**
+   * If set to `pen`, simulates touch based hover (via long press)
+   */
   pointer?: "mouse" | "pen";
+  /** 
+   * Position relative to the element where to hover the element.
+   * @example cy.realHover({ position: "topLeft" })
+   */
+  position?: Position;
 }
 
 /** @ignore this, update documentation for this function at index.d.ts */
@@ -10,7 +21,7 @@ export async function realHover(
   subject: JQuery,
   options: RealHoverOptions = {}
 ) {
-  const { x, y } = getCypressElementCoordinates(subject);
+  const { x, y } = getCypressElementCoordinates(subject, options.position);
 
   const log = Cypress.log({
     $el: subject,

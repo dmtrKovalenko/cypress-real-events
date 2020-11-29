@@ -1,9 +1,59 @@
+export type Position =
+  | "topLeft"
+  | "top"
+  | "topRight"
+  | "left"
+  | "center"
+  | "right"
+  | "bottomLeft"
+  | "bottom"
+  | "bottomRight"
+  | { x: number; y: number };
+
+function getPositionedCoordinates(
+  x0: number,
+  y0: number,
+  width: number,
+  height: number,
+  position: Position
+) {
+  if (typeof position === "object" && position !== null) {
+    const { x, y } = position;
+    return [x0 + x, y0 + y];
+  }
+
+  switch (position) {
+    case "topLeft":
+      return [x0, y0];
+    case "top":
+      return [x0 + width / 2, y0];
+    case "topRight":
+      return [x0 + width - 1, y0];
+    case "left":
+      return [x0, y0 + height / 2];
+    case "right":
+      return [x0 + width - 1, y0 + height / 2];
+    case "bottomLeft":
+      return [x0, y0 + height - 1];
+    case "bottom":
+      return [x0 + width / 2, y0 + height - 1];
+    case "bottomRight":
+      return [x0 + width - 1, y0 + height - 1];
+    // center by default
+    default:
+      return [x0 + width / 2, y0 + height / 2];
+  }
+}
+
 /**
- * Cypress Automation debuggee is the whole tab.
+ * Cypress Automation debugee is the whole tab.
  * This function returns the element coordinates relative to the whole tab rot.
  * @param jqueryEl the element to introspect
  */
-export function getCypressElementCoordinates(jqueryEl: JQuery) {
+export function getCypressElementCoordinates(
+  jqueryEl: JQuery,
+  position: Position | undefined
+) {
   const htmlElement = jqueryEl.get(0);
   const cypressAppFrame = window.parent.document.querySelector("iframe");
 
@@ -25,9 +75,16 @@ export function getCypressElementCoordinates(jqueryEl: JQuery) {
 
   htmlElement.scrollIntoView({ block: "center" });
   const { x, y, width, height } = htmlElement.getBoundingClientRect();
+  const [posX, posY] = getPositionedCoordinates(
+    x,
+    y,
+    width,
+    height,
+    position ?? "center"
+  );
 
   return {
-    x: appFrameX + (x + window.pageXOffset + width / 2) * appFrameScale,
-    y: appFrameY + (y + window.pageYOffset + height / 2) * appFrameScale,
+    x: appFrameX + (window.pageXOffset + posX) * appFrameScale,
+    y: appFrameY + (window.pageYOffset + posY) * appFrameScale,
   };
 }
