@@ -11,11 +11,11 @@ jobs:
       - image: circleci/node:lts
     steps:
       - attach_workspace:
-          at: /tmp/workspace
+          at: ~/
       - run: yarn build
       - run: node scripts/release.js
       - persist_to_workspace:
-          root: .
+          root: ~/
           paths: .
 
   release:
@@ -23,7 +23,7 @@ jobs:
       - image: circleci/node:lts
     steps:
       - attach_workspace:
-          at: .
+          at: ~/
       - run: 
           name: Release
           working_directory: dist
