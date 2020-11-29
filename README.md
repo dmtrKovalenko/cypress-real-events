@@ -126,7 +126,7 @@ cy.realPress(key, options);
 
 | Name      | Type                                           | Default value | Description                                                                                                                          |
 | --------- | ---------------------------------------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
-| `key`     | string                                         | -             | key to type. Should be around the same as cypress's type command argument (https://docs.cypress.io/api/commands/type.html#Arguments) |
+| `key`     | string                                         | -             | key to type. Should be the same as cypress's [type command argument](https://docs.cypress.io/api/commands/type.html#Arguments). All the keys available [here](https://github.com/dmtrKovalenko/cypress-real-events/blob/main/src/keyCodeDefinitions.ts). |
 | `options` | - `Optional` **pointer**: \"mouse\" \| \"pen\" | {}            |                                                                                                                                      |
 
 ### cy.realType
