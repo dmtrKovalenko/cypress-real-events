@@ -88,10 +88,22 @@ cy.get("button").realClick();
 cy.get("button").realClick(options);
 ```
 
+Example: 
+
+```js
+cy.get("button").realClick({ position: "topLeft" }) // click on the top left corner of button
+cy.get("body").realClick({ x: 100, y: 1240 }) // click by the x & y coordinates relative to the whole window
+```
+
 Options:
 
 - `Optional` **button**: \"none\" \| \"left\" \| \"right\" \| \"middle\" \| \"back\" \| \"forward\"
 - `Optional` **pointer**: \"mouse\" \| \"pen\"
+- `Optional` x coordinate to click **x**: number 
+- `Optional` y coordinate to click **y**: number
+- `Optional`  **position**: "topLeft" | "top" | "topRight" | "left"  | "center" | "right" | "bottomLeft" | "bottom" | "bottomRight"
+
+> Make sure that `x` and `y` has bigger priority than `position`. 
 
 ## cy.realHover
 
@@ -105,6 +117,7 @@ cy.get("button").hover(options);
 Options:
 
 - `Optional` **pointer**: \"mouse\" \| \"pen\"
+- `Optional` **position**: "topLeft" | "top" | "topRight" | "left"  | "center" | "right" | "bottomLeft" | "bottom" | "bottomRight"
 
 ## cy.realPress
 
