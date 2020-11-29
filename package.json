@@ -1,6 +1,6 @@
 {
   "name": "cypress-real-events",
-  "version": "0.0.0-development",
+  "version": "1.0.1",
   "description": "Real native events for cypress. Dispatched via CDP.",
   "author": "Dmitriy Kovalenko",
   "license": "MIT",
@@ -30,6 +30,8 @@
     "url": "https://github.com/dmtrKovalenko/cypress-real-events.git"
   },
   "release": {
-    "branches": ["main"]
-  }  
+    "branches": [
+      "main"
+    ]
+  }
 }
