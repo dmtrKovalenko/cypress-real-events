@@ -1,4 +1,7 @@
-export async function fireCdpCommand(command: string, params: object) {
+export async function fireCdpCommand(
+  command: string,
+  params: Record<string, unknown>
+): Promise<void> {
   return Cypress.automation("remote:debugger:protocol", {
     command,
     params,

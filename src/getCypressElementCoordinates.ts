@@ -24,7 +24,7 @@ export function getCypressElementCoordinates(jqueryEl: JQuery) {
   const appFrameScale = appWidth / cypressAppFrame.offsetWidth;
 
   htmlElement.scrollIntoView({ block: "center" });
-  var { x, y, width, height } = htmlElement.getBoundingClientRect();
+  const { x, y, width, height } = htmlElement.getBoundingClientRect();
 
   return {
     x: appFrameX + (x + window.pageXOffset + width / 2) * appFrameScale,

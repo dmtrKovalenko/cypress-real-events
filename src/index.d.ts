@@ -1,4 +1,5 @@
 type NormalizeCypressCommand<TFun> = TFun extends (
+  // eslint-disable-next-line
   subject: any,
   ...args: infer TArgs
 ) => Promise<infer TReturn>
@@ -22,7 +23,7 @@ declare namespace Cypress {
      * @see https://github.com/dmtrKovalenko/cypress-real-events#cyrealhover
      * @example
      * cy.get("button").realHover()
-     * @param options hover options
+     * @param options hover options
      */
     realHover: NormalizeCypressCommand<
       typeof import("./commands/realHover").realHover
