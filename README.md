@@ -74,10 +74,10 @@ If you are using typescript, also add the following to `cypress/tsconfig.json`
 The idea of the commands – they should be as similar as possible to cypress default commands (like `cy.type`), but starts with `real` – `cy.realType`. 
 
 Here is an overview of the available **real** event commands:
-- [cy.realClick](#cy.realClick)
-- [cy.realHover](#cy.realHover)
-- [cy.realPress](#cy.realPress)
-- [cy.realType](#cy.realType)
+- [cy.realClick](#cyrealclick)
+- [cy.realHover](#cyrealhover)
+- [cy.realPress](#cyrealpress)
+- [cy.realType](#cyrealtype)
 
 ## cy.realClick
 
