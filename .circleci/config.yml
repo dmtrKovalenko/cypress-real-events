@@ -5,11 +5,38 @@ orbs:
   # the strict explicit version "cypress-io/cypress@1.x.y"
   # to lock the version and prevent unexpected CI changes
   cypress: cypress-io/cypress@1
+jobs:
+  build:
+    docker:
+      - image: circleci/node:lts
+    steps:
+      - attach_workspace:
+          at: /tmp/workspace
+      - run: yarn build
+      - run: node scripts/release.js
+      - persist_to_workspace:
+          root: .
+          paths: .
+
+  release:
+    docker:
+      - image: circleci/node:lts
+    steps:
+      - attach_workspace:
+          at: .
+      - run: 
+          name: Release
+          working_directory: dist
+          command: npx semantic-release
+
 workflows:
   build:
     jobs:
       - cypress/install:
           yarn: true
+      - build:
+          requires: 
+            - cypress/install
       - cypress/run:
           parallelism: 2
           # make sure app has been installed and built
@@ -32,3 +59,12 @@ workflows:
             TESTFILES=$(circleci tests glob "cypress/integration/**/*spec.{js,jsx,ts,tsx}" | circleci tests split --total=2)
             echo "Test files for this machine are $TESTFILES"
             npx cypress run --spec $TESTFILES
+      - release:
+          name: NPM release
+          filters:
+            branches:
+              only:
+                - main
+          requires: 
+            - build
+            - cypress/run
