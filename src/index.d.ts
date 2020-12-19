@@ -48,5 +48,17 @@ declare namespace Cypress {
      * @param text text to type. Should be the same as cypress's default type command argument (https://docs.cypress.io/api/commands/type.html#Arguments)
      */
     realType: typeof import("./commands/realType").realType;
+    /**
+     * Runs native drag and drop event.
+     * @see https://github.com/dmtrKovalenko/cypress-real-events#cyrealtype
+     * @example
+     * cy.get(".card").realDnd(".someOtherPane")
+     * cy.get(".card").realDnd({ x: 1000, y: 251 })
+     * @param destination where to drop the element
+     * @param options dnd options
+     */
+    realDnd: NormalizeCypressCommand<
+      typeof import("./commands/realDnd").realDnd
+    >;
   }
 }
