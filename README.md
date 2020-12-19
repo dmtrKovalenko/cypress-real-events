@@ -45,7 +45,15 @@ it("tests real events", () => {
 
 ## Installation
 
-Install npm package:
+Install {Cypress}(https://github.com/cypress-io/cypress) for Mac, Linux, or Windows, then get started.
+```
+npm install cypress --save-dev
+```
+or
+```
+yarn add cypress --dev
+```
+Install *npm package*:
 
 ```
 npm install cypress-real-events
@@ -69,6 +77,15 @@ If you are using typescript, also add the following to `cypress/tsconfig.json`
 }
 ```
 
+## Start tests
+Open terminal and type: 
+```
+./node_modules/.bin/cypress open
+```
+or 
+```
+yarn cypress open
+```
 ## Api
 
 The idea of the commands – they should be as similar as possible to cypress default commands (like `cy.type`), but starts with `real` – `cy.realType`. 
