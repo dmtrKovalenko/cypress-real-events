@@ -19,8 +19,12 @@ function getPositionedCoordinates(
 ) {
   if (typeof position === "object" && position !== null) {
     const { x, y } = position;
+    console.log(`position x=${x} y=${y}`)
     return [x0 + x, y0 + y];
   }
+  console.log(`width=${width} height=${height}`)
+
+  
 
   switch (position) {
     case "topLeft":
