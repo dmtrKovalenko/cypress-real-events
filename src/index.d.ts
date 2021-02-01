@@ -29,6 +29,16 @@ declare namespace Cypress {
       typeof import("./commands/realHover").realHover
     >;
     /**
+     * Fires native hover event. Yes, it can test `:hover` preprocessor.
+     * @see https://github.com/dmtrKovalenko/cypress-real-events#cyrealhover
+     * @example
+     * cy.get("button").realHover()
+     * @param options hover options
+     */
+    realSwipe: NormalizeCypressCommand<
+      typeof import("./commands/realSwipe").realSwipe
+    >;
+    /**
      * Fires native press event.
      * @see https://github.com/dmtrKovalenko/cypress-real-events#cyrealpress
      * @example

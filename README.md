@@ -79,6 +79,7 @@ Here is an overview of the available **real** event commands:
 - [cy.realPress](#cyrealpress)
 - [cy.realTouch](#cyrealtouch)
 - [cy.realType](#cyrealtype)
+- [cy.realSwipe](#cyrealswipe)
 
 ## cy.realClick
 
@@ -197,6 +198,39 @@ Options:
 - `Optional` **log**: undefined \| false \| true
   **`default`** true
 - `Optional` **pressDelay**: undefined \| number **`default`** 10
+
+### cy.realSwipe
+
+Runs a native swipe events. It means that **touch events** will be fired. Actually a sequence of `touchStart` -> `touchMove` -> `touchEnd`. It can perfectly swipe drawers and other tools [like this one](https://csb-dhe0i-qj8xxmx8y.vercel.app/).
+
+> Make sure to enable mobile viewport and pointer :)
+
+
+```js
+cy.get('.element').realSwipe("toLeft");  // swipes from right to left
+cy.get('.element').realSwipe("toRight"); // inverted
+```
+
+#### Usage:
+
+```js
+cy.realType(direction);
+cy.realType(direction, options);
+```
+
+#### Parameters:
+
+| Name      | Type    | Default value | Description                                                                                                                           |
+| --------- | ------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| `direction`    | `"toLeft" | "toTop" | "toRight" | "toBottom";`  | -             | text to type. Should be around the same as cypress's type command argument (https://docs.cypress.io/api/commands/type.html#Arguments) |
+| `options` | Options | {}            |                                                                                                                                       |
+
+Options:
+
+- `Optional` **length**: undefined \| number **`default`** 10
+- `Optional` x coordinate to touch **x**: number 
+- `Optional` y coordinate to touch **y**: number
+- `Optional` **touchPosition**: "topLeft" | "top" | "topRight" | "left"  | "center" | "right" | "bottomLeft" | "bottom" | "bottomRight"
 
 ## UX
 
