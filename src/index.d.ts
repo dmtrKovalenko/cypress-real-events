@@ -49,6 +49,17 @@ declare namespace Cypress {
      */
     realPress: typeof import("./commands/realPress").realPress;
     /**
+     * Fires native press event.
+     * @see https://github.com/dmtrKovalenko/cypress-real-events#cyrealtouch
+     * @example
+     * cy.get("input").focus()
+     * cy.realTouch("center")
+     * @param options press options
+     */
+    realTouch: NormalizeCypressCommand<
+      typeof import("./commands/realTouch").realTouch
+    >;
+    /**
      * Runs a sequence of native press event (via cy.press)
      * Type event is global. Make sure that it is not attached to any field.
      * @see https://github.com/dmtrKovalenko/cypress-real-events#cyrealtype

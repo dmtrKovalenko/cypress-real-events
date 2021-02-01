@@ -19,7 +19,7 @@
 
 ## Why?
 
-Cypress default events are simulated. That means that all events like `cy.click` or `cy.type` are fired from javascript. That's why this events will be untrusted (`event.isTrusted` will be `false`) and they can behave a little different from real native event. But for some cases it can be impossible to use native events, for example to fill a native alert or copy to clipboard.
+Cypress default events are simulated. That means that all events like `cy.click` or `cy.type` are fired from javascript. That's why these events will be untrusted (`event.isTrusted` will be `false`) and they can behave a little different from real native events. But for some cases it can be impossible to use native events, for example to fill a native alert or copy to the clipboard.
 
 <img src="https://forthebadge.com/images/badges/it-works-why.svg">
 
@@ -27,7 +27,7 @@ Thanks to [Chrome Devtools Protocol](https://chromedevtools.github.io/devtools-p
 
 ## Requirements
 
-Cypress only. Really. Cypress itself can fire native events. The only limitation for real events – **they work only in the chromium based browser**. That means that FireFox is not supported, at least for now.
+Cypress only. Really. Cypress itself can fire native events. The only limitation for real events – **they work only in the chromium-based browser**. That means that Firefox is not supported, at least for now.
 
 ## Quick overview
 
@@ -69,7 +69,7 @@ If you are using typescript, also add the following to `cypress/tsconfig.json`
 }
 ```
 
-## Api
+## API
 
 The idea of the commands – they should be as similar as possible to cypress default commands (like `cy.type`), but starts with `real` – `cy.realType`. 
 
@@ -77,6 +77,7 @@ Here is an overview of the available **real** event commands:
 - [cy.realClick](#cyrealclick)
 - [cy.realHover](#cyrealhover)
 - [cy.realPress](#cyrealpress)
+- [cy.realTouch](#cyrealtouch)
 - [cy.realType](#cyrealtype)
 - [cy.realSwipe](#cyrealswipe)
 
@@ -104,11 +105,11 @@ Options:
 - `Optional` y coordinate to click **y**: number
 - `Optional`  **position**: "topLeft" | "top" | "topRight" | "left"  | "center" | "right" | "bottomLeft" | "bottom" | "bottomRight"
 
-> Make sure that `x` and `y` has bigger priority than `position`. 
+> Make sure that `x` and `y` has a bigger priority than `position`. 
 
 ## cy.realHover
 
-Fires real native hover event. Yes, it can test `:hover` preprocessor.
+Fires a real native hover event. Yes, it can test `:hover` preprocessor.
 
 ```jsx
 cy.get("button").hover();
@@ -122,7 +123,7 @@ Options:
 
 ## cy.realPress
 
-Fires native press event. Make sure that press event is global. It means that it is not attached to any field or control.
+Fires native press event. Make sure that a press event is global. It means that it is not attached to any field or control.
 In order to fill the input it is possible to do
 
 ```jsx
@@ -142,6 +143,28 @@ cy.realPress(key, options);
 | --------- | ---------------------------------------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
 | `key`     | string                                         | -             | key to type. Should be the same as cypress's [type command argument](https://docs.cypress.io/api/commands/type.html#Arguments). All the keys available [here](https://github.com/dmtrKovalenko/cypress-real-events/blob/main/src/keyCodeDefinitions.ts). |
 | `options` | - `Optional` **pointer**: \"mouse\" \| \"pen\" | {}            |                                                                                                                                      |
+
+### cy.realTouch
+
+Fires native system touch event.
+
+```jsx
+cy.get("button").realTouch();
+cy.get("button").realTouch(options);
+```
+
+##### Usage: 
+
+```js
+cy.get("button").realTouch({ position: "topLeft" }) // touches the top left corner of button
+cy.get("body").realTouch({ x: 100, y: 1240 }) // touches the x & y coordinates relative to the whole window
+```
+
+Options:
+
+- `Optional` **x**: undefined \| number **`default`** 30
+- `Optional` **y**: undefined \| false \| true **`default`** true
+- `Optional` **position**: "topLeft" | "top" | "topRight" | "left"  | "center" | "right" | "bottomLeft" | "bottom" | "bottomRight"
 
 ### cy.realType
 
@@ -211,7 +234,7 @@ Options:
 
 ## UX
 
-One problem of the real native system events I need to mention – you will not get an error message if event wasn't produced. Similar to selenium or playwright – if a javascript event was not fired you will not get a comprehensive error message.
+One problem of the real native system events I need to mention – you will not get an error message if the event wasn't produced. Similar to selenium or playwright – if a javascript event was not fired you will not get a comprehensive error message.
 
 So probably this package should not be used as a replacement of the cypress events, at least for the writing tests experience 🐨
 
