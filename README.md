@@ -178,7 +178,9 @@ Options:
 
 ### cy.realSwipe
 
-Runs a native swipe events. It means that **touch events** will be fired. Actually a sequence of `touchStart` -> `touchMove` -> `touchEnd`. It can perfectly swipe drawers [like these](https://csb-dhe0i-qj8xxmx8y.vercel.app/).
+Runs a native swipe events. It means that **touch events** will be fired. Actually a sequence of `touchStart` -> `touchMove` -> `touchEnd`. It can perfectly swipe drawers and other tools [like this one](https://csb-dhe0i-qj8xxmx8y.vercel.app/).
+
+> Make sure to enable mobile viewport and pointer :)
 
 
 ```js
