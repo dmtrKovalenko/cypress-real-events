@@ -10,13 +10,7 @@ export type Position =
   | "bottomRight"
   | { x: number; y: number };
 
-export type Direction =
-  | "top"
-  | "left"
-  | "right"
-  | "bottom";
-
-function getPositionedCoordinates(
+  function getPositionedCoordinates(
   x0: number,
   y0: number,
   width: number,
