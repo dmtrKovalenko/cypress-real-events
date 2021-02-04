@@ -25,11 +25,65 @@ export interface RealSwipeOptions {
    */
   y?: number;
   /** Length of swipe (in pixels)
-   * @default 10
+   * @default 50
    * @example
    * cy.get(".drawer").realSwipe("toLeft", { length: 50 })
    */
   length?: number;
+  /**
+   * Swipe step (how often new touch move will be generated). Less more precise
+   * ! Must be less than options.length
+   * @default 10
+   * cy.get(".drawer").realSwipe("toLeft", { step: 5 })
+   */
+  step?: number;
+}
+
+async function forEachSwipePosition(
+  {
+    length,
+    step,
+    startPosition,
+    direction,
+  }: {
+    length: number;
+    step: number;
+    direction: SwipeDirection;
+    startPosition: { x: number; y: number };
+  },
+  onStep: (pos: { x: number; y: number }) => Promise<void>
+) {
+  if (length < step) {
+    throw new Error(
+      "cy.realSwipe: options.length can not be smaller than options.step"
+    );
+  }
+
+  const getPositionByDirection: Record<
+    SwipeDirection,
+    (step: number) => { x: number; y: number }
+  > = {
+    toTop: (step) => ({
+      x: startPosition.x,
+      y: startPosition.y - step,
+    }),
+    toBottom: (step) => ({
+      x: startPosition.x,
+      y: startPosition.y + step,
+    }),
+    toLeft: (step) => ({
+      x: startPosition.x - step,
+      y: startPosition.y,
+    }),
+    toRight: (step) => ({
+      x: startPosition.x + step,
+      y: startPosition.y,
+    }),
+  };
+
+  for (let i = 0; i <= length; i += step) {
+    await onStep(getPositionByDirection[direction](i));
+  }
 }
 
 export async function realSwipe(
@@ -43,35 +97,16 @@ export async function realSwipe(
       : options.touchPosition;
 
   const length = options.length ?? 10;
+  const step = options.step ?? 10;
   const startPosition = getCypressElementCoordinates(subject, position);
-
-  const endPositionMap: Record<SwipeDirection, { x: number; y: number }> = {
-    toTop: {
-      x: startPosition.x,
-      y: startPosition.y - length,
-    },
-    toBottom: {
-      x: startPosition.x,
-      y: startPosition.y + length,
-    },
-    toLeft: {
-      x: startPosition.x - length,
-      y: startPosition.y,
-    },
-    toRight: {
-      x: startPosition.x + length,
-      y: startPosition.y,
-    },
-  };
-
-  const endPosition = endPositionMap[direction];
 
   const log = Cypress.log({
     $el: subject,
     name: "realSwipe",
     consoleProps: () => ({
       "Applied To": subject.get(0),
-      "Absolute Coordinates": [startPosition],
+      "Swipe Length": length,
+      "Swipe Step": step,
     }),
   });
 
@@ -82,14 +117,23 @@ export async function realSwipe(
     touchPoints: [startPosition],
   });
 
-  await fireCdpCommand("Input.dispatchTouchEvent", {
-    type: "touchMove",
-    touchPoints: [endPosition],
-  });
+  await forEachSwipePosition(
+    {
+      length,
+      step,
+      direction,
+      startPosition,
+    },
+    (position) =>
+      fireCdpCommand("Input.dispatchTouchEvent", {
+        type: "touchMove",
+        touchPoints: [position],
+      })
+  );
 
   await fireCdpCommand("Input.dispatchTouchEvent", {
     type: "touchEnd",
-    touchPoints: [endPosition],
+    touchPoints: [],
   });
 
   log.snapshot("after").end();
