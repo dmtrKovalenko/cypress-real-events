@@ -152,6 +152,7 @@ export const keyCodeDefinitions =  {
   'Minus': {'keyCode': 189, 'code': 'Minus', 'shiftKey': '_', 'key': '-'},
   'Period': {'keyCode': 190, 'code': 'Period', 'shiftKey': '>', 'key': '.'},
   'Slash': {'keyCode': 191, 'code': 'Slash', 'shiftKey': '?', 'key': '/'},
+  '/': {'keyCode': 191, 'code': 'Slash', 'shiftKey': '?', 'key': '/'},
   'Backquote': {'keyCode': 192, 'code': 'Backquote', 'shiftKey': '~', 'key': '`'},
   'BracketLeft': {'keyCode': 219, 'code': 'BracketLeft', 'shiftKey': '{', 'key': '['},
   'Backslash': {'keyCode': 220, 'code': 'Backslash', 'shiftKey': '|', 'key': '\\'},
@@ -200,7 +201,6 @@ export const keyCodeDefinitions =  {
   '*': {'keyCode': 106, 'key': '*', 'code': 'NumpadMultiply', 'location': 3},
   '+': {'keyCode': 107, 'key': '+', 'code': 'NumpadAdd', 'location': 3},
   '-': {'keyCode': 109, 'key': '-', 'code': 'NumpadSubtract', 'location': 3},
-  '/': {'keyCode': 111, 'key': '/', 'code': 'NumpadDivide', 'location': 3},
   ';': {'keyCode': 186, 'key': ';', 'code': 'Semicolon'},
   '=': {'keyCode': 187, 'key': '=', 'code': 'Equal'},
   ',': {'keyCode': 188, 'key': ',', 'code': 'Comma'},
@@ -261,4 +261,4 @@ export const keyCodeDefinitions =  {
   '|': {'keyCode': 220, 'key': '|', 'code': 'Backslash'},
   '}': {'keyCode': 221, 'key': '}', 'code': 'BracketRight'},
   '"': {'keyCode': 222, 'key': '"', 'code': 'Quote'}
-};
+} as const

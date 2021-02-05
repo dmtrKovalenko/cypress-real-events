@@ -19,6 +19,17 @@ declare namespace Cypress {
       typeof import("./commands/realClick").realClick
     >;
     /**
+     * Fires native touch event. It mimics the native touch gesture and can fire html5 touch events.
+     * @see https://github.com/dmtrKovalenko/cypress-real-events#cyrealtouch
+     * @example
+     * cy.realTouch()
+     * cy.realTouch({ position: "center" })
+     * @param options touch options
+     */
+    realTouch: NormalizeCypressCommand<
+      typeof import("./commands/realTouch").realTouch
+    >;
+    /**
      * Fires native hover event. Yes, it can test `:hover` preprocessor.
      * @see https://github.com/dmtrKovalenko/cypress-real-events#cyrealhover
      * @example
@@ -29,11 +40,22 @@ declare namespace Cypress {
       typeof import("./commands/realHover").realHover
     >;
     /**
-     * Fires native press event.
+     * Fires native touch swipe event. Actually fires sequence of native events: touchStart -> touchMove[] -> touchEnd
+     * @see https://github.com/dmtrKovalenko/cypress-real-events#cyrealhover
+     * @example
+     * cy.get("swipeableRoot").realSwipe("toLeft") // or toRight, toTop, toBottom
+     * cy.get("swipeableRoot").realSwipe("toBottom", { length: 100, step: 10 })
+     * @param options hover options
+     */
+    realSwipe: NormalizeCypressCommand<
+      typeof import("./commands/realSwipe").realSwipe
+    >;
+    /**
+     * Fires native press event. It can fire one key event or the "shortcut" like Shift+Control+M
      * @see https://github.com/dmtrKovalenko/cypress-real-events#cyrealpress
      * @example
-     * cy.get("input").focus()
      * cy.realPress("K")
+     * cy.realPress(["Alt", "Meta", "P"]) // Alt+(Command or Control)+P
      * @param key key to type. Should be the same as cypress's default type command argument (https://docs.cypress.io/api/commands/type.html#Arguments)
      * @param options press options
      */
