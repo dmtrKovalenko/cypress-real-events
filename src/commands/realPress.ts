@@ -26,41 +26,68 @@ function getKeyDefinition(key: keyof typeof keyCodeDefinitions) {
     keyCode: keyCode,
     key: keyDefinition?.key ?? "",
     text: keyDefinition.key.length === 1 ? keyDefinition.key : undefined,
-    // @ts-ignore
+    // @ts-expect-error code exists anyway
     code: keyDefinition.code ?? "",
-    // @ts-ignore
+    // @ts-expect-error location exists anyway
     location: keyDefinition.location ?? 0,
     windowsVirtualKeyCode: keyCode,
   };
 }
 
+const keyToModifierBitMap: Record<string, number> = {
+  Alt: 1,
+  Control: 2,
+  Meta: 4,
+  Shift: 8,
+};
+
+type Key = keyof typeof keyCodeDefinitions;
+// unfortunately passing a string like Shift+P is not possible cause typescript template literals can not handle such giant union
+type KeyOrShortcut = Key | Array<Key>;
+
 /** @ignore this, update documentation for this function at index.d.ts */
 export async function realPress(
-  key: keyof typeof keyCodeDefinitions,
+  keyOrShortcut: KeyOrShortcut,
   options: RealPressOptions = {}
 ) {
   let log;
-  const keyDefinition = getKeyDefinition(key);
+
+  let modifiers = 0;
+  const keys = Array.isArray(keyOrShortcut) ? keyOrShortcut : [keyOrShortcut];
+  const keyDefinitions = keys.map(getKeyDefinition);
 
   if (options.log ?? true) {
     log = Cypress.log({
       name: "realPress",
-      consoleProps: () => keyDefinition,
+      consoleProps: () => ({
+        "System Key Definition": keyDefinitions,
+      }),
     });
   }
 
   log?.snapshot("before").end();
 
-  await fireCdpCommand("Input.dispatchKeyEvent", {
-    type: keyDefinition.text ? "keyDown" : "rawKeyDown",
-    ...keyDefinition,
-  });
+  for (const key of keyDefinitions) {
+    modifiers |= keyToModifierBitMap[key.key] ?? 0;
 
-  await new Promise((res) => setTimeout(res, options.pressDelay ?? 25));
-  await fireCdpCommand("Input.dispatchKeyEvent", {
-    type: "keyUp",
-    ...keyDefinition,
-  });
+    await fireCdpCommand("Input.dispatchKeyEvent", {
+      type: key.text ? "keyDown" : "rawKeyDown",
+      modifiers,
+      ...key,
+    });
+
+    await new Promise((res) => setTimeout(res, options.pressDelay ?? 25));
+  }
+
+  await Promise.all(
+    keyDefinitions.map((key) => {
+      return fireCdpCommand("Input.dispatchKeyEvent", {
+        type: "keyUp",
+        modifiers,
+        ...key,
+      });
+    })
+  );
 
   log?.snapshot("after").end();
 }
