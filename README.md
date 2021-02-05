@@ -123,11 +123,12 @@ Options:
 
 ## cy.realPress
 
-Fires native press event. Make sure that a press event is global. It means that it is not attached to any field or control.
-In order to fill the input it is possible to do
+Fires native press event. It can fire one key event or the "shortcut" like Shift+Control+M.
+Make sure that event is global, it means that it is required to **firstly** focus any control before firing this event. 
 
 ```jsx
 cy.realPress("Tab"); // switch the focus for a11y testing
+cy.realPress(["Alt", "Meta", "P"]) // Alt+(Command or Control)+P
 ```
 
 ### Usage
@@ -141,7 +142,7 @@ cy.realPress(key, options);
 
 | Name      | Type                                           | Default value | Description                                                                                                                          |
 | --------- | ---------------------------------------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
-| `key`     | string                                         | -             | key to type. Should be the same as cypress's [type command argument](https://docs.cypress.io/api/commands/type.html#Arguments). All the keys available [here](https://github.com/dmtrKovalenko/cypress-real-events/blob/main/src/keyCodeDefinitions.ts). |
+| `key`     | string | string[]                                        | -             | key or keys to press. Should be the same as cypress's [type command argument](https://docs.cypress.io/api/commands/type.html#Arguments). All the keys available [here](https://github.com/dmtrKovalenko/cypress-real-events/blob/main/src/keyCodeDefinitions.ts). |
 | `options` | - `Optional` **pointer**: \"mouse\" \| \"pen\" | {}            |                                                                                                                                      |
 
 ### cy.realTouch
@@ -203,7 +204,7 @@ Options:
 
 Runs a native swipe events. It means that **touch events** will be fired. Actually a sequence of `touchStart` -> `touchMove` -> `touchEnd`. It can perfectly swipe drawers and other tools [like this one](https://csb-dhe0i-qj8xxmx8y.vercel.app/).
 
-> Make sure to enable mobile viewport and pointer :)
+> Make sure to enable mobile viewport :) 
 
 
 ```js
