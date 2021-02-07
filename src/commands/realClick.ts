@@ -39,13 +39,14 @@ export async function realClick(
     : options.position;
 
   const { x, y } = getCypressElementCoordinates(subject, position);
+  console.log(`position x=${x} y=${y}`, options);
 
   const log = Cypress.log({
     $el: subject,
     name: "realClick",
     consoleProps: () => ({
       "Applied To": subject.get(0),
-      "Absolute Coordinates": { x, y },
+      "Absolute Coordinates here": { x, y },
     }),
   });
 
