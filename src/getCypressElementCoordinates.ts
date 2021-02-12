@@ -10,7 +10,9 @@ export type Position =
   | "bottomRight"
   | { x: number; y: number };
 
-  function getPositionedCoordinates(
+export type ScrollBehaviorOptions = false | 'center' | 'top' | 'bottom' | 'nearest';
+
+function getPositionedCoordinates(
   x0: number,
   y0: number,
   width: number,
@@ -52,7 +54,8 @@ export type Position =
  */
 export function getCypressElementCoordinates(
   jqueryEl: JQuery,
-  position: Position | undefined
+  position: Position | undefined,
+  scrollBehavior: ScrollBehaviorOptions = "center"
 ) {
   const htmlElement = jqueryEl.get(0);
   const cypressAppFrame = window.parent.document.querySelector("iframe");
@@ -73,7 +76,10 @@ export function getCypressElementCoordinates(
   // This breaks the coordinates system of the whole tab, so we need to compensate the scale value.
   const appFrameScale = appWidth / cypressAppFrame.offsetWidth;
 
-  htmlElement.scrollIntoView({ block: "center" });
+  if (scrollBehavior) {
+    scrollIntoView(htmlElement, scrollBehavior);
+  }
+
   const { x, y, width, height } = htmlElement.getBoundingClientRect();
   const [posX, posY] = getPositionedCoordinates(
     x,
@@ -87,4 +93,20 @@ export function getCypressElementCoordinates(
     x: appFrameX + (window.pageXOffset + posX) * appFrameScale,
     y: appFrameY + (window.pageYOffset + posY) * appFrameScale,
   };
+}
+
+/**
+ * Scrolls the given htmlElement into view on the page.
+ * The position the element is scrolled to can be customized with scrollBehavior.
+ */
+function scrollIntoView(htmlElement: HTMLElement, scrollBehavior: ScrollBehaviorOptions) {
+    let block: ScrollLogicalPosition = "center";
+
+    if (scrollBehavior === "top") {
+      block = "start";
+    } else if (scrollBehavior === "bottom") {
+      block = "end";
+    }
+
+    htmlElement.scrollIntoView({ block });
 }
