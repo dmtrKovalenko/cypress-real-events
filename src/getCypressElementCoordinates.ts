@@ -81,7 +81,7 @@ export function getCypressElementCoordinates(
   // This breaks the coordinates system of the whole tab, so we need to compensate the scale value.
   const appFrameScale = appWidth / cypressAppFrame.offsetWidth;
 
-  const { x, y, width, height } = htmlElement.getBoundingClientRect();
+  const { x, y, width, height } = getElementPositionXY(htmlElement);
   const [posX, posY] = getPositionedCoordinates(
     x,
     y,
@@ -112,4 +112,37 @@ function scrollIntoView(htmlElement: HTMLElement, scrollBehavior: ScrollBehavior
     }
 
     htmlElement.scrollIntoView({ block });
+}
+
+/**
+ * Returns the coordinates and size of a given Element, relative to the Cypress app <iframe>.
+ */
+function getElementPositionXY(htmlElement: HTMLElement) {
+  const {
+    x: startingX,
+    y: startingY,
+    width,
+    height,
+  }= htmlElement.getBoundingClientRect();
+
+  let finalX = startingX;
+  let finalY = startingY;
+
+  // If the app rendered within the Cypress frame has its own iframes,
+  // we navigate back up the tree of iframes to get the position relative to the Cypress window.
+  let currentWindow: Window | null = htmlElement.ownerDocument.defaultView;
+  while (currentWindow && currentWindow.frameElement && currentWindow !== window) {
+    const { x, y } = currentWindow.frameElement.getBoundingClientRect();
+    finalX += x;
+    finalY += y;
+
+    currentWindow = currentWindow.parent;
+  }
+
+  return {
+    x: finalX,
+    y: finalY,
+    width,
+    height,
+  };
 }
