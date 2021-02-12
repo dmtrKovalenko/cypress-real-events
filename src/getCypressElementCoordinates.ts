@@ -132,9 +132,13 @@ function getElementPositionXY(htmlElement: HTMLElement) {
   // we navigate back up the tree of iframes to get the position relative to the Cypress window.
   let currentWindow: Window | null = htmlElement.ownerDocument.defaultView;
   while (currentWindow && currentWindow.frameElement && currentWindow !== window) {
-    const { x, y } = currentWindow.frameElement.getBoundingClientRect();
-    finalX += x;
-    finalY += y;
+    const frame = currentWindow.frameElement;
+    const { x, y, width } = frame.getBoundingClientRect();
+    // @ts-expect-error offsetWidth will either exist or be undefined
+    const frameScale = width / (frame.offsetWidth ?? frame.clientWidth);
+
+    finalX += x * frameScale;
+    finalY += y * frameScale;
 
     currentWindow = currentWindow.parent;
   }
