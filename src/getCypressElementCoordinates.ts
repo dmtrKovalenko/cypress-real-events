@@ -10,7 +10,7 @@ export type Position =
   | "bottomRight"
   | { x: number; y: number };
 
-export type ScrollBehaviorOptions = false | 'center' | 'top' | 'bottom' | 'nearest';
+export type ScrollBehaviorOptions = 'center' | 'top' | 'bottom' | 'nearest';
 
 function getPositionedCoordinates(
   x0: number,
@@ -55,7 +55,7 @@ function getPositionedCoordinates(
 export function getCypressElementCoordinates(
   jqueryEl: JQuery,
   position: Position | undefined,
-  scrollBehavior?: ScrollBehaviorOptions,
+  scrollBehavior?: ScrollBehaviorOptions | false,
 ) {
   const htmlElement = jqueryEl.get(0);
   const cypressAppFrame = window.parent.document.querySelector("iframe");
@@ -100,13 +100,15 @@ export function getCypressElementCoordinates(
  * Scrolls the given htmlElement into view on the page.
  * The position the element is scrolled to can be customized with scrollBehavior.
  */
-function scrollIntoView(htmlElement: HTMLElement, scrollBehavior: ScrollBehaviorOptions) {
-    let block: ScrollLogicalPosition = "center";
+function scrollIntoView(htmlElement: HTMLElement, scrollBehavior: ScrollBehaviorOptions = 'center') {
+    let block: ScrollLogicalPosition;
 
     if (scrollBehavior === "top") {
       block = "start";
     } else if (scrollBehavior === "bottom") {
       block = "end";
+    } else {
+      block = scrollBehavior;
     }
 
     htmlElement.scrollIntoView({ block });

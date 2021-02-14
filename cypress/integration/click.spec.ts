@@ -1,3 +1,5 @@
+import scrollBehaviorSpecGenerator from './_scroll-behavior';
+
 describe("cy.realClick", () => {
   beforeEach(() => {
     cy.visit("https://example.cypress.io/commands/actions");
@@ -39,4 +41,6 @@ describe("cy.realClick", () => {
   it("opens system native event on right click", () => {
     cy.get(".action-btn").realClick({ button: "right" });
   });
+
+  scrollBehaviorSpecGenerator('realClick');
 });

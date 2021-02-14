@@ -1,3 +1,5 @@
+import scrollBehaviorSpecGenerator from './_scroll-behavior';
+
 describe("cy.realHover", () => {
   beforeEach(() => {
     cy.visit("https://example.cypress.io/commands/actions");
@@ -9,4 +11,6 @@ describe("cy.realHover", () => {
       .realHover()
       .should("have.css", "background-color", "rgb(201, 48, 44)");
   });
+
+  scrollBehaviorSpecGenerator('realHover');
 });

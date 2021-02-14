@@ -33,7 +33,7 @@ export interface RealClickOptions {
    * @example cy.realHover({ scrollBehavior: "top" });
    * @example cy.realHover({ scrollBehavior: false });
    */
-  scrollBehavior?: ScrollBehaviorOptions;
+  scrollBehavior?: ScrollBehaviorOptions | false;
 }
 
 /** @ignore this, update documentation for this function at index.d.ts */
