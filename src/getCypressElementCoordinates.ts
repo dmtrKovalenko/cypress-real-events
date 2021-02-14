@@ -55,7 +55,7 @@ function getPositionedCoordinates(
 export function getCypressElementCoordinates(
   jqueryEl: JQuery,
   position: Position | undefined,
-  scrollBehavior: ScrollBehaviorOptions = "center"
+  scrollBehavior?: ScrollBehaviorOptions,
 ) {
   const htmlElement = jqueryEl.get(0);
   const cypressAppFrame = window.parent.document.querySelector("iframe");
@@ -64,6 +64,11 @@ export function getCypressElementCoordinates(
     throw new Error(
       "Can not find cypress application iframe, it looks like critical issue. Please rise an issue on GitHub."
     );
+  }
+
+  const effectiveScrollBehavior = scrollBehavior ?? Cypress.config('scrollBehavior') ?? "center";
+  if (effectiveScrollBehavior) {
+    scrollIntoView(htmlElement, effectiveScrollBehavior);
   }
 
   const {
@@ -75,10 +80,6 @@ export function getCypressElementCoordinates(
   // When the window is too narrow in open mode the application iframe is getting transform: scale(0.x) style in order to fit window
   // This breaks the coordinates system of the whole tab, so we need to compensate the scale value.
   const appFrameScale = appWidth / cypressAppFrame.offsetWidth;
-
-  if (scrollBehavior) {
-    scrollIntoView(htmlElement, scrollBehavior);
-  }
 
   const { x, y, width, height } = htmlElement.getBoundingClientRect();
   const [posX, posY] = getPositionedCoordinates(
