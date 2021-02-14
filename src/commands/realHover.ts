@@ -17,11 +17,9 @@ export interface RealHoverOptions {
   position?: Position;
   /**
    * Controls how the page is scrolled to bring the subject into view, if needed.
-   * If false, the page will not be scrolled.
    * @example cy.realHover({ scrollBehavior: "top" });
-   * @example cy.realHover({ scrollBehavior: false });
    */
-  scrollBehavior?: ScrollBehaviorOptions | false;
+  scrollBehavior?: ScrollBehaviorOptions;
 }
 
 /** @ignore this, update documentation for this function at index.d.ts */

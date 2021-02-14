@@ -55,7 +55,7 @@ function getPositionedCoordinates(
 export function getCypressElementCoordinates(
   jqueryEl: JQuery,
   position: Position | undefined,
-  scrollBehavior?: ScrollBehaviorOptions | false,
+  scrollBehavior?: ScrollBehaviorOptions,
 ) {
   const htmlElement = jqueryEl.get(0);
   const cypressAppFrame = window.parent.document.querySelector("iframe");
@@ -66,10 +66,8 @@ export function getCypressElementCoordinates(
     );
   }
 
-  // @ts-expect-error Cypress.config('scrollBehavior') type not defined in Cypress <6.1.0
   const effectiveScrollBehavior = scrollBehavior ?? Cypress.config('scrollBehavior') ?? "center";
   if (effectiveScrollBehavior && typeof effectiveScrollBehavior !== 'object') {
-    // @ts-expect-error Cypress.config('scrollBehavior') type not defined in Cypress <6.1.0
     scrollIntoView(htmlElement, effectiveScrollBehavior);
   }
 
