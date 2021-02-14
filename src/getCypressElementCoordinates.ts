@@ -66,8 +66,10 @@ export function getCypressElementCoordinates(
     );
   }
 
+  // @ts-expect-error Cypress.config('scrollBehavior') type not defined in Cypress <6.1.0
   const effectiveScrollBehavior = scrollBehavior ?? Cypress.config('scrollBehavior') ?? "center";
-  if (effectiveScrollBehavior) {
+  if (effectiveScrollBehavior && typeof effectiveScrollBehavior !== 'object') {
+    // @ts-expect-error Cypress.config('scrollBehavior') type not defined in Cypress <6.1.0
     scrollIntoView(htmlElement, effectiveScrollBehavior);
   }
 
