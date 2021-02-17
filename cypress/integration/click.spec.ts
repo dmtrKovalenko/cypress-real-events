@@ -127,3 +127,33 @@ describe("cy.realClick", () => {
     });
   });
 });
+
+describe('iframe behavior', () => {
+  beforeEach(() => {
+    cy.visit('./cypress/fixtures/iframe-page.html');
+  });
+
+  it('clicks elements inside iframes', () => {
+    cy.get('iframe').then(($firstIframe) => {
+      return cy.wrap($firstIframe.contents().find('iframe'));
+    }).then(($secondIframe) => {
+      return cy.wrap($secondIframe.contents().find('body'));
+    }).within(() => {
+      cy.get('#target').contains('clicked').should('not.exist');
+      cy.get('#target').realClick().contains('clicked').should('exist');
+    });
+  });
+
+  it('clicks elements inside transformed iframes', () => {
+    cy.get('iframe').then(($firstIframe) => {
+      $firstIframe.css('transform', 'scale(.5)');
+      return cy.wrap($firstIframe.contents().find('iframe'));
+    }).then(($secondIframe) => {
+      $secondIframe.css('transform', 'scale(.75)');
+      return cy.wrap($secondIframe.contents().find('body'));
+    }).within(() => {
+      cy.get('#target').contains('clicked').should('not.exist');
+      cy.get('#target').realClick().contains('clicked').should('exist');
+    });
+  });
+});

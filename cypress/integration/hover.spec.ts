@@ -97,3 +97,43 @@ describe("cy.realHover", () => {
     });
   });
 });
+
+describe('iframe behavior', () => {
+  beforeEach(() => {
+    cy.visit('./cypress/fixtures/iframe-page.html');
+  });
+
+  it('hovers elements inside iframes', () => {
+    cy.get('iframe').then(($firstIframe) => {
+      return cy.wrap($firstIframe.contents().find('iframe'));
+    }).then(($secondIframe) => {
+      return cy.wrap($secondIframe.contents().find('body'));
+    }).within(() => {
+      cy.get('#target').then(($target) => {
+        expect($target.css('background-color')).to.equal('rgb(0, 128, 0)');
+      });
+
+      cy.get('#target').realHover().then(($target) => {
+        expect($target.css('background-color')).to.equal('rgb(255, 192, 203)');
+      });
+    });
+  });
+
+  it('hovers elements inside transformed iframes', () => {
+    cy.get('iframe').then(($firstIframe) => {
+      $firstIframe.css('transform', 'scale(.5)');
+      return cy.wrap($firstIframe.contents().find('iframe'));
+    }).then(($secondIframe) => {
+      $secondIframe.css('transform', 'scale(.75)');
+      return cy.wrap($secondIframe.contents().find('body'));
+    }).within(() => {
+      cy.get('#target').then(($target) => {
+        expect($target.css('background-color')).to.equal('rgb(0, 128, 0)');
+      });
+
+      cy.get('#target').realHover().then(($target) => {
+        expect($target.css('background-color')).to.equal('rgb(255, 192, 203)');
+      });
+    });
+  });
+});
