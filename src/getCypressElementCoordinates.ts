@@ -66,20 +66,11 @@ export function getCypressElementCoordinates(
     );
   }
 
-  const effectiveScrollBehavior = scrollBehavior ?? Cypress.config('scrollBehavior') ?? "center";
+  // @ts-expect-error 'scrollBehavior' is undefined in Cypress < 6.1 
+  const effectiveScrollBehavior = (scrollBehavior ?? Cypress.config('scrollBehavior') ?? "center") as ScrollBehaviorOptions;
   if (effectiveScrollBehavior && typeof effectiveScrollBehavior !== 'object') {
     scrollIntoView(htmlElement, effectiveScrollBehavior);
   }
-
-  const {
-    x: appFrameX,
-    y: appFrameY,
-    width: appWidth,
-  } = cypressAppFrame.getBoundingClientRect();
-
-  // When the window is too narrow in open mode the application iframe is getting transform: scale(0.x) style in order to fit window
-  // This breaks the coordinates system of the whole tab, so we need to compensate the scale value.
-  const appFrameScale = appWidth / cypressAppFrame.offsetWidth;
 
   const { x, y, width, height } = getElementPositionXY(htmlElement);
   const [posX, posY] = getPositionedCoordinates(
@@ -91,8 +82,8 @@ export function getCypressElementCoordinates(
   );
 
   return {
-    x: appFrameX + (window.pageXOffset + posX) * appFrameScale,
-    y: appFrameY + (window.pageYOffset + posY) * appFrameScale,
+    x: posX,
+    y: posY,
   };
 }
 
@@ -116,37 +107,56 @@ function scrollIntoView(htmlElement: HTMLElement, scrollBehavior: ScrollBehavior
 
 /**
  * Returns the coordinates and size of a given Element, relative to the Cypress app <iframe>.
+ * Accounts for any scaling on the iframes.
  */
 function getElementPositionXY(htmlElement: HTMLElement) {
   const {
-    x: startingX,
-    y: startingY,
+    x: elementX,
+    y: elementY,
     width,
     height,
   }= htmlElement.getBoundingClientRect();
 
-  let finalX = startingX;
-  let finalY = startingY;
+  const iframes = getContainingFrames(htmlElement) as HTMLElement[];
 
-  // If the app rendered within the Cypress frame has its own iframes,
-  // we navigate back up the tree of iframes to get the position relative to the Cypress window.
-  let currentWindow: Window | null = htmlElement.ownerDocument.defaultView;
-  while (currentWindow && currentWindow.frameElement && currentWindow !== window) {
-    const frame = currentWindow.frameElement;
+  let frameScale = 1;
+  let finalX = 0;
+  let finalY = 0;
+
+  for (const frame of iframes) {
     const { x, y, width } = frame.getBoundingClientRect();
-    // @ts-expect-error offsetWidth will either exist or be undefined
-    const frameScale = width / (frame.offsetWidth ?? frame.clientWidth);
 
     finalX += x * frameScale;
     finalY += y * frameScale;
 
-    currentWindow = currentWindow.parent;
+    frameScale = frameScale * (width / frame.offsetWidth);
   }
+
+  finalX += elementX * frameScale;
+  finalY += elementY * frameScale;
 
   return {
     x: finalX,
     y: finalY,
-    width,
-    height,
+    width: width * frameScale,
+    height: height * frameScale,
   };
+}
+
+function getContainingFrames(element: HTMLElement) {
+  const iframes = [];
+
+  let currentWindow: Window | null = element.ownerDocument.defaultView;
+  while (currentWindow && currentWindow.frameElement && currentWindow !== window) {
+    const frame = currentWindow.frameElement as HTMLElement;
+    iframes.unshift(frame);
+
+    currentWindow = currentWindow.parent;
+  }
+
+  if (currentWindow) {
+    iframes.unshift(window.parent.document.querySelector('iframe')); // The Cypress app frame
+  }
+
+  return iframes;
 }
