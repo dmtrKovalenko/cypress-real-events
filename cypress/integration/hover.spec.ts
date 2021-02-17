@@ -18,9 +18,9 @@ describe("cy.realHover", () => {
       const windowCenter = windowTopEdge + (cypressAppWindow.innerHeight / 2);
 
       return {
-        top: windowTopEdge,
-        bottom: windowBottomEdge,
-        center: windowCenter,
+        screenTop: windowTopEdge,
+        screenBottom: windowBottomEdge,
+        screenCenter: windowCenter,
       };
     }
 
@@ -28,8 +28,8 @@ describe("cy.realHover", () => {
       const $elTop = $el.offset().top;
 
       return {
-        top: $elTop,
-        bottom: $elTop + $el.outerHeight()
+        $elTop,
+        $elBottom: $elTop + $el.outerHeight()
       }
     }
 
@@ -39,8 +39,8 @@ describe("cy.realHover", () => {
 
     it('defaults to scrolling the element to the top of the viewport', () => {
       cy.get('#action-canvas').realHover().then(($canvas: JQuery) => {
-        const { top: $elTop } = getElementEdges($canvas);
-        const { top: screenTop } = getScreenEdges();
+        const { $elTop } = getElementEdges($canvas);
+        const { screenTop } = getScreenEdges();
 
         expect($elTop).to.equal(screenTop);
       });
@@ -48,8 +48,8 @@ describe("cy.realHover", () => {
 
     it('scrolls the element to center of viewport', () => {
       cy.get('#action-canvas').realHover({ scrollBehavior: 'center' }).then(($canvas: JQuery) => {
-        const { top: $elTop, bottom: $elBottom } = getElementEdges($canvas);
-        const { top: screenTop, bottom: screenBottom } = getScreenEdges();
+        const { $elTop, $elBottom } = getElementEdges($canvas);
+        const { screenTop, screenBottom } = getScreenEdges();
 
         const screenCenter = screenTop + (screenBottom - screenTop) / 2;
 
@@ -60,8 +60,8 @@ describe("cy.realHover", () => {
 
     it('scrolls the element to the top of the viewport', () => {
       cy.get('#action-canvas').realHover({ scrollBehavior: 'top' }).then(($canvas: JQuery) => {
-        const { top: $elTop } = getElementEdges($canvas);
-        const { top: screenTop } = getScreenEdges();
+        const { $elTop } = getElementEdges($canvas);
+        const { screenTop } = getScreenEdges();
 
         expect($elTop).to.equal(screenTop);
       });
@@ -69,8 +69,8 @@ describe("cy.realHover", () => {
 
     it('scrolls the element to the bottom of the viewport', () => {
       cy.get('#action-canvas').realHover({ scrollBehavior: 'bottom' }).then(($canvas: JQuery) => {
-        const { bottom: $elBottom } = getElementEdges($canvas);
-        const { bottom: screenBottom } = getScreenEdges();
+        const { $elBottom } = getElementEdges($canvas);
+        const { screenBottom } = getScreenEdges();
 
         expect($elBottom).to.equal(screenBottom);
       });
@@ -80,8 +80,8 @@ describe("cy.realHover", () => {
       cy.window().scrollTo('bottom');
 
       cy.get('#action-canvas').realHover({ scrollBehavior: 'nearest' }).then(($canvas: JQuery) => {
-        const { top: $elTop } = getElementEdges($canvas);
-        const { top: screenTop } = getScreenEdges();
+        const { $elTop } = getElementEdges($canvas);
+        const { screenTop } = getScreenEdges();
 
         expect($elTop).to.equal(screenTop);
       });
@@ -89,8 +89,8 @@ describe("cy.realHover", () => {
       cy.window().scrollTo('top');
 
       cy.get('#action-canvas').realHover({ scrollBehavior: 'nearest' }).then(($canvas: JQuery) => {
-        const { bottom: $elBottom } = getElementEdges($canvas);
-        const { bottom: screenBottom } = getScreenEdges();
+        const { $elBottom } = getElementEdges($canvas);
+        const {  screenBottom } = getScreenEdges();
 
         expect($elBottom).to.equal(screenBottom);
       });
