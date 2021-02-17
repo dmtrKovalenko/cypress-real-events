@@ -10,24 +10,28 @@ describe("cy.realSwipe", () => {
       swipe: "toLeft",
       length: 150,
       touchPosition: "right",
+      scrollBehavior: "center",
     },
     {
       button: "right",
       swipe: "toRight",
       length: 150,
       touchPosition: "left",
+      scrollBehavior: "center",
     },
     {
       button: "top",
       swipe: "toTop",
       length: 300,
       touchPosition: "center",
+      scrollBehavior: "center",
     },
     {
       button: "bottom",
       swipe: "toBottom",
       length: 300,
       touchPosition: "top",
+      scrollBehavior: "center",
     },
   ] as const).forEach(({ button, swipe, length, touchPosition }) => {
     it(`swipes ${button} drawer ${swipe}`, () => {
