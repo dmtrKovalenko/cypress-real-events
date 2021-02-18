@@ -66,7 +66,6 @@ export function getCypressElementCoordinates(
     );
   }
 
-  // @ts-expect-error 'scrollBehavior' is undefined in Cypress < 6.1 
   const effectiveScrollBehavior = (scrollBehavior ?? Cypress.config('scrollBehavior') ?? "center") as ScrollBehaviorOptions;
   if (effectiveScrollBehavior && typeof effectiveScrollBehavior !== 'object') {
     scrollIntoView(htmlElement, effectiveScrollBehavior);
