@@ -10,7 +10,9 @@ export type Position =
   | "bottomRight"
   | { x: number; y: number };
 
-  function getPositionedCoordinates(
+export type ScrollBehaviorOptions = 'center' | 'top' | 'bottom' | 'nearest';
+
+function getPositionedCoordinates(
   x0: number,
   y0: number,
   width: number,
@@ -52,7 +54,8 @@ export type Position =
  */
 export function getCypressElementCoordinates(
   jqueryEl: JQuery,
-  position: Position | undefined
+  position: Position | undefined,
+  scrollBehavior?: ScrollBehaviorOptions,
 ) {
   const htmlElement = jqueryEl.get(0);
   const cypressAppFrame = window.parent.document.querySelector("iframe");
@@ -61,6 +64,11 @@ export function getCypressElementCoordinates(
     throw new Error(
       "Can not find cypress application iframe, it looks like critical issue. Please rise an issue on GitHub."
     );
+  }
+
+  const effectiveScrollBehavior = scrollBehavior ?? Cypress.config('scrollBehavior') ?? "center";
+  if (effectiveScrollBehavior && typeof effectiveScrollBehavior !== 'object') {
+    scrollIntoView(htmlElement, effectiveScrollBehavior);
   }
 
   const {
@@ -73,7 +81,6 @@ export function getCypressElementCoordinates(
   // This breaks the coordinates system of the whole tab, so we need to compensate the scale value.
   const appFrameScale = appWidth / cypressAppFrame.offsetWidth;
 
-  htmlElement.scrollIntoView({ block: "center" });
   const { x, y, width, height } = htmlElement.getBoundingClientRect();
   const [posX, posY] = getPositionedCoordinates(
     x,
@@ -87,4 +94,22 @@ export function getCypressElementCoordinates(
     x: appFrameX + (window.pageXOffset + posX) * appFrameScale,
     y: appFrameY + (window.pageYOffset + posY) * appFrameScale,
   };
+}
+
+/**
+ * Scrolls the given htmlElement into view on the page.
+ * The position the element is scrolled to can be customized with scrollBehavior.
+ */
+function scrollIntoView(htmlElement: HTMLElement, scrollBehavior: ScrollBehaviorOptions = 'center') {
+    let block: ScrollLogicalPosition;
+
+    if (scrollBehavior === "top") {
+      block = "start";
+    } else if (scrollBehavior === "bottom") {
+      block = "end";
+    } else {
+      block = scrollBehavior;
+    }
+
+    htmlElement.scrollIntoView({ block });
 }

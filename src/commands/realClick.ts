@@ -1,6 +1,7 @@
 import { fireCdpCommand } from "../fireCdpCommand";
 import {
   getCypressElementCoordinates,
+  ScrollBehaviorOptions,
   Position,
 } from "../getCypressElementCoordinates";
 
@@ -26,6 +27,11 @@ export interface RealClickOptions {
    * cy.get("body").realClick({ x: 11, y: 12 }) // global click by coordinates
    */
   y?: number;
+  /**
+   * Controls how the page is scrolled to bring the subject into view, if needed.
+   * @example cy.realHover({ scrollBehavior: "top" });
+   */
+  scrollBehavior?: ScrollBehaviorOptions;
 }
 
 /** @ignore this, update documentation for this function at index.d.ts */
@@ -38,7 +44,7 @@ export async function realClick(
     ? { x: options.x, y: options.y } 
     : options.position;
 
-  const { x, y } = getCypressElementCoordinates(subject, position);
+  const { x, y } = getCypressElementCoordinates(subject, position, options.scrollBehavior);
 
   const log = Cypress.log({
     $el: subject,
