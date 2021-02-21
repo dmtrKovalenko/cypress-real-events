@@ -43,8 +43,8 @@ export async function realTouch(
   subject: JQuery,
   options: RealTouchOptions = {}
 ) {
-  const position = options.x && options.y
-    ? { x: options.x, y: options.y }
+  const position = typeof options.x === 'number' || typeof options.y === 'number'
+    ? { x: options.x || 0, y: options.y || 0 }
     : options.position;
   const radiusX = options.radiusX || options.radius || 1
   const radiusY = options.radiusY || options.radius || 1
