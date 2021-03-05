@@ -77,8 +77,8 @@ describe("cy.realTouch", () => {
       .then(($button) => {
         $button.get(0).addEventListener("pointerdown", (event) => {
           const rect = (event.currentTarget as HTMLElement).getBoundingClientRect()
-          expect(event.clientX).to.be.closeTo(rect.left - 5, 0.1);
-          expect(event.clientY).to.be.closeTo(rect.top, 0.1);
+          expect(event.clientX).to.be.closeTo(rect.left - 5, 5);
+          expect(event.clientY).to.be.closeTo(rect.top, 5);
           done();
         });
       })
