@@ -71,7 +71,7 @@ If you are using typescript, also add the following to `cypress/tsconfig.json`
 
 ## API
 
-The idea of the commands – they should be as similar as possible to cypress default commands (like `cy.type`), but starts with `real` – `cy.realType`. 
+The idea of the commands – they should be as similar as possible to cypress default commands (like `cy.type`), but starts with `real` – `cy.realType`.
 
 Here is an overview of the available **real** event commands:
 - [cy.realClick](#cyrealclick)
@@ -90,7 +90,7 @@ cy.get("button").realClick();
 cy.get("button").realClick(options);
 ```
 
-Example: 
+Example:
 
 ```js
 cy.get("button").realClick({ position: "topLeft" }) // click on the top left corner of button
@@ -101,11 +101,11 @@ Options:
 
 - `Optional` **button**: \"none\" \| \"left\" \| \"right\" \| \"middle\" \| \"back\" \| \"forward\"
 - `Optional` **pointer**: \"mouse\" \| \"pen\"
-- `Optional` x coordinate to click **x**: number 
+- `Optional` x coordinate to click **x**: number
 - `Optional` y coordinate to click **y**: number
 - `Optional`  **position**: "topLeft" | "top" | "topRight" | "left"  | "center" | "right" | "bottomLeft" | "bottom" | "bottomRight"
 
-> Make sure that `x` and `y` has a bigger priority than `position`. 
+> Make sure that `x` and `y` has a bigger priority than `position`.
 
 ## cy.realHover
 
@@ -124,7 +124,7 @@ Options:
 ## cy.realPress
 
 Fires native press event. It can fire one key event or the "shortcut" like Shift+Control+M.
-Make sure that event is global, it means that it is required to **firstly** focus any control before firing this event. 
+Make sure that event is global, it means that it is required to **firstly** focus any control before firing this event.
 
 ```jsx
 cy.realPress("Tab"); // switch the focus for a11y testing
@@ -154,7 +154,7 @@ cy.get("button").realTouch();
 cy.get("button").realTouch(options);
 ```
 
-##### Usage: 
+##### Usage:
 
 ```js
 cy.get("button").realTouch({ position: "topLeft" }) // touches the top left corner of button
@@ -166,6 +166,9 @@ Options:
 - `Optional` **x**: undefined \| number **`default`** 30
 - `Optional` **y**: undefined \| false \| true **`default`** true
 - `Optional` **position**: "topLeft" | "top" | "topRight" | "left"  | "center" | "right" | "bottomLeft" | "bottom" | "bottomRight"
+- `Optional` **radius**: undefined \| number **`default`** 1
+- `Optional` **radiusX**: undefined \| number **`default`** 1
+- `Optional` **radiusY**: undefined \| number **`default`** 1
 
 ### cy.realType
 
@@ -204,7 +207,7 @@ Options:
 
 Runs a native swipe events. It means that **touch events** will be fired. Actually a sequence of `touchStart` -> `touchMove` -> `touchEnd`. It can perfectly swipe drawers and other tools [like this one](https://csb-dhe0i-qj8xxmx8y.vercel.app/).
 
-> Make sure to enable mobile viewport :) 
+> Make sure to enable mobile viewport :)
 
 
 ```js
@@ -229,7 +232,7 @@ cy.realType(direction, options);
 Options:
 
 - `Optional` **length**: undefined \| number **`default`** 10
-- `Optional` x coordinate to touch **x**: number 
+- `Optional` x coordinate to touch **x**: number
 - `Optional` y coordinate to touch **y**: number
 - `Optional` **touchPosition**: "topLeft" | "top" | "topRight" | "left"  | "center" | "right" | "bottomLeft" | "bottom" | "bottomRight"
 
