@@ -10,7 +10,7 @@ export type Position =
   | "bottomRight"
   | { x: number; y: number };
 
-export type ScrollBehaviorOptions = 'center' | 'top' | 'bottom' | 'nearest';
+export type ScrollBehaviorOptions = "center" | "top" | "bottom" | "nearest";
 
 function getPositionedCoordinates(
   x0: number,
@@ -46,6 +46,88 @@ function getPositionedCoordinates(
       return [x0 + width / 2, y0 + height / 2];
   }
 }
+/**
+ * Scrolls the given htmlElement into view on the page.
+ * The position the element is scrolled to can be customized with scrollBehavior.
+ */
+function scrollIntoView(
+  htmlElement: HTMLElement,
+  scrollBehavior: ScrollBehaviorOptions = "center"
+) {
+  let block: ScrollLogicalPosition;
+
+  if (scrollBehavior === "top") {
+    block = "start";
+  } else if (scrollBehavior === "bottom") {
+    block = "end";
+  } else {
+    block = scrollBehavior;
+  }
+
+  htmlElement.scrollIntoView({ block });
+}
+
+function getIframesPositionShift(element: HTMLElement) {
+  let currentWindow: Window | null = element.ownerDocument.defaultView;
+  const noPositionShift = {
+    frameScale: 1,
+    frameX: 0,
+    frameY: 0,
+  };
+
+  if (!currentWindow) {
+    return noPositionShift;
+  }
+
+  // eslint-disable-next-line prefer-const
+  const iframes = []
+
+  while (
+    currentWindow &&
+    currentWindow !== window.top
+  ) {
+    iframes.push(
+      // for cross origin domains .frameElement returns null so query using parentWindow
+      // but when running using --disable-web-security it will return the frame element
+      (currentWindow.frameElement as HTMLElement) ??
+        currentWindow.parent.document.querySelector("iframe")
+    );
+
+    currentWindow = currentWindow.parent;
+  }
+
+  return iframes.reduceRight(({ frameX, frameY, frameScale }, frame) => { 
+    const { x, y, width } = frame.getBoundingClientRect();
+
+    return { 
+      frameX: frameX + x * frameScale,
+      frameY: frameY + y * frameScale,
+      frameScale: frameScale * (width / frame.offsetWidth),
+    }
+  }, noPositionShift)
+}
+
+/**
+ * Returns the coordinates and size of a given Element, relative to the Cypress app <iframe>.
+ * Accounts for any scaling on the iframes.
+ */
+function getElementPositionXY(htmlElement: HTMLElement) {
+  const {
+    x: elementX,
+    y: elementY,
+    width,
+    height,
+  } = htmlElement.getBoundingClientRect();
+
+  const { frameScale, frameX, frameY } = getIframesPositionShift(htmlElement);
+
+  return {
+    x: frameX + elementX * frameScale,
+    y: frameY + elementY * frameScale,
+    width: width * frameScale,
+    height: height * frameScale,
+  };
+}
 
 /**
  * Cypress Automation debugee is the whole tab.
@@ -55,7 +137,7 @@ function getPositionedCoordinates(
 export function getCypressElementCoordinates(
   jqueryEl: JQuery,
   position: Position | undefined,
-  scrollBehavior?: ScrollBehaviorOptions,
+  scrollBehavior?: ScrollBehaviorOptions
 ) {
   const htmlElement = jqueryEl.get(0);
   const cypressAppFrame = window.parent.document.querySelector("iframe");
@@ -66,22 +148,14 @@ export function getCypressElementCoordinates(
     );
   }
 
-  const effectiveScrollBehavior = scrollBehavior ?? Cypress.config('scrollBehavior') ?? "center";
-  if (effectiveScrollBehavior && typeof effectiveScrollBehavior !== 'object') {
+  const effectiveScrollBehavior = (scrollBehavior ??
+    Cypress.config("scrollBehavior") ??
+    "center") as ScrollBehaviorOptions;
+  if (effectiveScrollBehavior && typeof effectiveScrollBehavior !== "object") {
     scrollIntoView(htmlElement, effectiveScrollBehavior);
   }
 
-  const {
-    x: appFrameX,
-    y: appFrameY,
-    width: appWidth,
-  } = cypressAppFrame.getBoundingClientRect();
-
-  // When the window is too narrow in open mode the application iframe is getting transform: scale(0.x) style in order to fit window
-  // This breaks the coordinates system of the whole tab, so we need to compensate the scale value.
-  const appFrameScale = appWidth / cypressAppFrame.offsetWidth;
-
-  const { x, y, width, height } = htmlElement.getBoundingClientRect();
+  const { x, y, width, height } = getElementPositionXY(htmlElement);
   const [posX, posY] = getPositionedCoordinates(
     x,
     y,
@@ -91,25 +165,7 @@ export function getCypressElementCoordinates(
   );
 
   return {
-    x: appFrameX + (window.pageXOffset + posX) * appFrameScale,
-    y: appFrameY + (window.pageYOffset + posY) * appFrameScale,
+    x: posX,
+    y: posY,
   };
-}
-
-/**
- * Scrolls the given htmlElement into view on the page.
- * The position the element is scrolled to can be customized with scrollBehavior.
- */
-function scrollIntoView(htmlElement: HTMLElement, scrollBehavior: ScrollBehaviorOptions = 'center') {
-    let block: ScrollLogicalPosition;
-
-    if (scrollBehavior === "top") {
-      block = "start";
-    } else if (scrollBehavior === "bottom") {
-      block = "end";
-    } else {
-      block = scrollBehavior;
-    }
-
-    htmlElement.scrollIntoView({ block });
 }

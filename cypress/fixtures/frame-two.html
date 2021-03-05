@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+  <body>
+    <main style="background-color: blue; height: 100%; padding: 50px;">
+      <div id="target"></div>
+    </main>
+  </body>
+
+  <script type="text/javascript">
+    document.getElementById('target').onclick = function(e) { e.target.textContent = "clicked" };
+  </script>
+
+  <style>
+    #target { width: 100px; height: 100px; background: green; }
+    #target:hover { background: pink; }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body { margin: 0; }
+  </style>
+</html>
+
