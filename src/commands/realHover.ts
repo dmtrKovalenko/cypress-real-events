@@ -1,7 +1,6 @@
 import { fireCdpCommand } from "../fireCdpCommand";
 import {
   Position,
-  ScrollBehaviorOptions,
   getCypressElementCoordinates,
 } from "../getCypressElementCoordinates";
 
@@ -15,11 +14,6 @@ export interface RealHoverOptions {
    * @example cy.realHover({ position: "topLeft" })
    */
   position?: Position;
-  /**
-   * Controls how the page is scrolled to bring the subject into view, if needed.
-   * @example cy.realHover({ scrollBehavior: "top" });
-   */
-  scrollBehavior?: ScrollBehaviorOptions;
 }
 
 /** @ignore this, update documentation for this function at index.d.ts */
@@ -27,7 +21,7 @@ export async function realHover(
   subject: JQuery,
   options: RealHoverOptions = {}
 ) {
-  const { x, y } = getCypressElementCoordinates(subject, options.position, options.scrollBehavior);
+  const { x, y } = getCypressElementCoordinates(subject, options.position);
 
   const log = Cypress.log({
     $el: subject,

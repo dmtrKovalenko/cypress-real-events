@@ -19,67 +19,37 @@ export interface RealTouchOptions {
    * cy.get("body").realTouch({ x: 11, y: 12 }) // global touch by coordinates
    */
   y?: number;
-  /**  radius of the touch area.
-   * @example
-   * cy.get("canvas").realTouch({ x: 100, y: 115, radius: 10 })
-   * cy.get("body").realTouch({ x: 11, y: 12, radius: 10 }) // global touch by coordinates
-   */
-  radius?: number;
-  /**  specific radius of the X axis of the touch area
-   * @example
-   * cy.get("canvas").realTouch({ x: 100, y: 115, radiusX: 10, radiusY: 20 })
-   * cy.get("body").realTouch({ x: 11, y: 12, radiusX: 10, radiusY: 20 }) // global touch by coordinates
-   */
-  radiusX?: number;
-  /**  specific radius of the Y axis of the touch area
-   * @example
-   * cy.get("canvas").realTouch({ x: 100, y: 115, radiusX: 10, radiusY: 20 })
-   * cy.get("body").realTouch({ x: 11, y: 12, radiusX: 10, radiusY: 20 }) // global touch by coordinates
-   */
-  radiusY?: number;
 }
 
 export async function realTouch(
   subject: JQuery,
   options: RealTouchOptions = {}
 ) {
-  const position = typeof options.x === 'number' || typeof options.y === 'number'
-    ? { x: options.x || 0, y: options.y || 0 }
+  const position = options.x && options.y
+    ? { x: options.x, y: options.y }
     : options.position;
-  const radiusX = options.radiusX || options.radius || 1
-  const radiusY = options.radiusY || options.radius || 1
 
-  const elementPoint = getCypressElementCoordinates(subject, position);
+  const elementPoints = getCypressElementCoordinates(subject, position);
 
   const log = Cypress.log({
     $el: subject,
     name: "realTouch",
     consoleProps: () => ({
       "Applied To": subject.get(0),
-      "Absolute Coordinates": [elementPoint],
-      "Touched Area (Radius)": {
-        x: radiusX,
-        y: radiusY,
-      }
+      "Absolute Coordinates": [elementPoints],
     })
   })
 
   log.snapshot("before");
 
-  const touchPoint = {
-    ...elementPoint,
-    radiusX,
-    radiusY
-  }
-
   await fireCdpCommand("Input.dispatchTouchEvent", {
     type: "touchStart",
-    touchPoints: [touchPoint],
+    touchPoints: [elementPoints],
   });
 
   await fireCdpCommand("Input.dispatchTouchEvent", {
     type: "touchEnd",
-    touchPoints: [touchPoint],
+    touchPoints: [elementPoints],
   })
 
   log.snapshot("after").end();
