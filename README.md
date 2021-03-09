@@ -218,8 +218,8 @@ cy.get('.element').realSwipe("toRight"); // inverted
 #### Usage:
 
 ```js
-cy.realType(direction);
-cy.realType(direction, options);
+cy.realSwipe(direction);
+cy.realSwipe(direction, options);
 ```
 
 #### Parameters:
