@@ -112,8 +112,8 @@ Options:
 Fires a real native hover event. Yes, it can test `:hover` preprocessor.
 
 ```jsx
-cy.get("button").hover();
-cy.get("button").hover(options);
+cy.get("button").realHover();
+cy.get("button").realHover(options);
 ```
 
 Options:
@@ -218,8 +218,8 @@ cy.get('.element').realSwipe("toRight"); // inverted
 #### Usage:
 
 ```js
-cy.realType(direction);
-cy.realType(direction, options);
+cy.realSwipe(direction);
+cy.realSwipe(direction, options);
 ```
 
 #### Parameters:
