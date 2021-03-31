@@ -10,7 +10,8 @@ export type Position =
   | "bottomRight"
   | { x: number; y: number };
 
-export type ScrollBehaviorOptions = "center" | "top" | "bottom" | "nearest";
+type ScrollBehaviorPosition = "center" | "top" | "bottom" | "nearest";
+export type ScrollBehaviorOptions = ScrollBehaviorPosition | false;
 
 function getPositionedCoordinates(
   x0: number,
@@ -52,7 +53,7 @@ function getPositionedCoordinates(
  */
 function scrollIntoView(
   htmlElement: HTMLElement,
-  scrollBehavior: ScrollBehaviorOptions = "center"
+  scrollBehavior: ScrollBehaviorPosition = "center"
 ) {
   let block: ScrollLogicalPosition;
 
