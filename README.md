@@ -103,7 +103,8 @@ Options:
 - `Optional` **pointer**: \"mouse\" \| \"pen\"
 - `Optional` x coordinate to click **x**: number
 - `Optional` y coordinate to click **y**: number
-- `Optional`  **position**: "topLeft" | "top" | "topRight" | "left"  | "center" | "right" | "bottomLeft" | "bottom" | "bottomRight"
+- `Optional` **position**: "topLeft" | "top" | "topRight" | "left"  | "center" | "right" | "bottomLeft" | "bottom" | "bottomRight"
+- `Optional` **scrollBehavior**: "center" | "top" | "bottom" | "nearest" | false
 
 > Make sure that `x` and `y` has a bigger priority than `position`.
 
@@ -120,6 +121,7 @@ Options:
 
 - `Optional` **pointer**: \"mouse\" \| \"pen\"
 - `Optional` **position**: "topLeft" | "top" | "topRight" | "left"  | "center" | "right" | "bottomLeft" | "bottom" | "bottomRight"
+- `Optional` **scrollBehavior**: "center" | "top" | "bottom" | "nearest" | false
 
 ## cy.realPress
 
