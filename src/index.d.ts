@@ -9,6 +9,16 @@ type NormalizeCypressCommand<TFun> = TFun extends (
 declare namespace Cypress {
   interface Chainable {
     /**
+     * Fires native system mousePressed event.
+     * @see https://github.com/dmtrKovalenko/cypress-real-events#cyrealactive
+     * @example
+     * cy.get("button").realActive()
+     * @param options mousePressed options
+     */
+    realActive: NormalizeCypressCommand<
+      typeof import("./commands/realActive").realActive
+    >;
+    /**
      * Fires native system click event.
      * @see https://github.com/dmtrKovalenko/cypress-real-events#cyrealclick
      * @example
