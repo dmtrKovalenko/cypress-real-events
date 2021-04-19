@@ -82,6 +82,7 @@ Here is an overview of the available **real** event commands:
 - [cy.realType](#cyrealtype)
 - [cy.realSwipe](#cyrealswipe)
 - [cy.mouseDown](#cymouseDown)
+- [cy.mouseUp](#cymouseUp)
 
 ## cy.realClick
 
@@ -219,6 +220,29 @@ cy.get('.element').realSwipe("toLeft");  // swipes from right to left
 cy.get('.element').realSwipe("toRight"); // inverted
 ```
 
+
+#### Usage:
+
+```js
+cy.realSwipe(direction);
+cy.realSwipe(direction, options);
+```
+
+
+#### Parameters:
+
+| Name      | Type    | Default value | Description                                                                                                                           |
+| --------- | ------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| `direction`    | `"toLeft" | "toTop" | "toRight" | "toBottom";`  | -             | text to type. Should be around the same as cypress's type command argument (https://docs.cypress.io/api/commands/type.html#Arguments) |
+| `options` | Options | {}            |                                                                                                                                       |
+
+Options:
+
+- `Optional` **length**: undefined \| number **`default`** 10
+- `Optional` x coordinate to touch **x**: number
+- `Optional` y coordinate to touch **y**: number
+- `Optional` **touchPosition**: "topLeft" | "top" | "topRight" | "left"  | "center" | "right" | "bottomLeft" | "bottom" | "bottomRight"
+
 ## cy.mouseDown
 
 Fires native system mouse down event.
@@ -240,26 +264,26 @@ Options:
 - `Optional` **position**: "topLeft" | "top" | "topRight" | "left"  | "center" | "right" | "bottomLeft" | "bottom" | "bottomRight"
 - `Optional` **scrollBehavior**: "center" | "top" | "bottom" | "nearest" | false
 
-#### Usage:
+## cy.mouseUp
 
-```js
-cy.realSwipe(direction);
-cy.realSwipe(direction, options);
+Fires native system mouse down event.
+
+```jsx
+cy.get("button").mouseUp();
+cy.get("button").mouseUp(options);
 ```
 
-#### Parameters:
+Example:
 
-| Name      | Type    | Default value | Description                                                                                                                           |
-| --------- | ------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| `direction`    | `"toLeft" | "toTop" | "toRight" | "toBottom";`  | -             | text to type. Should be around the same as cypress's type command argument (https://docs.cypress.io/api/commands/type.html#Arguments) |
-| `options` | Options | {}            |                                                                                                                                       |
+```js
+cy.get("button").mouseUp({ position: "topLeft" }) // click on the top left corner of button
+```
 
 Options:
 
-- `Optional` **length**: undefined \| number **`default`** 10
-- `Optional` x coordinate to touch **x**: number
-- `Optional` y coordinate to touch **y**: number
-- `Optional` **touchPosition**: "topLeft" | "top" | "topRight" | "left"  | "center" | "right" | "bottomLeft" | "bottom" | "bottomRight"
+- `Optional` **pointer**: \"mouse\" \| \"pen\"
+- `Optional` **position**: "topLeft" | "top" | "topRight" | "left"  | "center" | "right" | "bottomLeft" | "bottom" | "bottomRight"
+- `Optional` **scrollBehavior**: "center" | "top" | "bottom" | "nearest" | false
 
 ## UX
 
