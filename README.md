@@ -35,7 +35,7 @@ Here is a simple test that can be written with native events:
 
 ```js
 it("tests real events", () => {
-  cy.get("input").realActive(); // perform a native mouse press on the field
+  cy.get("input").mouseDown(); // perform a native mouse press on the field
   cy.get("input").realClick(); // perform a native real click on the field
   cy.realType("cypress real event"); // fires native system keypress events and fills the field
   cy.realPress("Tab"); // native tab click switches the focus
@@ -75,34 +75,13 @@ If you are using typescript, also add the following to `cypress/tsconfig.json`
 The idea of the commands – they should be as similar as possible to cypress default commands (like `cy.type`), but starts with `real` – `cy.realType`.
 
 Here is an overview of the available **real** event commands:
-- [cy.realActive](#cyrealactive)
 - [cy.realClick](#cyrealclick)
 - [cy.realHover](#cyrealhover)
 - [cy.realPress](#cyrealpress)
 - [cy.realTouch](#cyrealtouch)
 - [cy.realType](#cyrealtype)
 - [cy.realSwipe](#cyrealswipe)
-
-## cy.realActive
-
-Fires native system mouse press event.
-
-```jsx
-cy.get("button").realActive();
-cy.get("button").realActive(options);
-```
-
-Example:
-
-```js
-cy.get("button").realActive({ position: "topLeft" }) // click on the top left corner of button
-```
-
-Options:
-
-- `Optional` **pointer**: \"mouse\" \| \"pen\"
-- `Optional` **position**: "topLeft" | "top" | "topRight" | "left"  | "center" | "right" | "bottomLeft" | "bottom" | "bottomRight"
-- `Optional` **scrollBehavior**: "center" | "top" | "bottom" | "nearest" | false
+- [cy.mouseDown](#cymouseDown)
 
 ## cy.realClick
 
@@ -239,6 +218,27 @@ Runs a native swipe events. It means that **touch events** will be fired. Actual
 cy.get('.element').realSwipe("toLeft");  // swipes from right to left
 cy.get('.element').realSwipe("toRight"); // inverted
 ```
+
+## cy.mouseDown
+
+Fires native system mouse down event.
+
+```jsx
+cy.get("button").mouseDown();
+cy.get("button").mouseDown(options);
+```
+
+Example:
+
+```js
+cy.get("button").mouseDown({ position: "topLeft" }) // click on the top left corner of button
+```
+
+Options:
+
+- `Optional` **pointer**: \"mouse\" \| \"pen\"
+- `Optional` **position**: "topLeft" | "top" | "topRight" | "left"  | "center" | "right" | "bottomLeft" | "bottom" | "bottomRight"
+- `Optional` **scrollBehavior**: "center" | "top" | "bottom" | "nearest" | false
 
 #### Usage:
 

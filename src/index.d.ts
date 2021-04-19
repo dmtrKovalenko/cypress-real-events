@@ -10,13 +10,13 @@ declare namespace Cypress {
   interface Chainable {
     /**
      * Fires native system mousePressed event.
-     * @see https://github.com/dmtrKovalenko/cypress-real-events#cyrealactive
+     * @see https://github.com/dmtrKovalenko/cypress-real-events#cymouseDown
      * @example
-     * cy.get("button").realActive()
+     * cy.get("button").mouseDown()
      * @param options mousePressed options
      */
-    realActive: NormalizeCypressCommand<
-      typeof import("./commands/realActive").realActive
+    mouseDown: NormalizeCypressCommand<
+      typeof import("./commands/mouseDown").mouseDown
     >;
     /**
      * Fires native system click event.

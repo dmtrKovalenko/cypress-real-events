@@ -5,31 +5,31 @@ import {
   Position,
 } from "../getCypressElementCoordinates";
 
-export interface RealActiveOptions {
-  /** Pointer type for realClick, if "pen" touch simulated */
+export interface MouseDownOptions {
+  /** Pointer type for mouseDown, if "pen" touch simulated */
   pointer?: "mouse" | "pen";
   /**
-   * Position of the click event relative to the element
-   * @example cy.realClick({ position: "topLeft" })
+   * Position of the mousedown event relative to the element
+   * @example cy.mouseDown({ position: "topLeft" })
    */
   position?: Position;
   /**
    * Controls how the page is scrolled to bring the subject into view, if needed.
-   * @example cy.realHover({ scrollBehavior: "top" });
+   * @example cy.mouseDown({ scrollBehavior: "top" });
    */
   scrollBehavior?: ScrollBehaviorOptions;
 }
 
 /** @ignore this, update documentation for this function at index.d.ts */
-export async function realActive(
+export async function mouseDown(
   subject: JQuery,
-  options: RealActiveOptions = {}
+  options: MouseDownOptions = {}
 ) {
   const { x, y } = getCypressElementCoordinates(subject, options.position, options.scrollBehavior);
 
   const log = Cypress.log({
     $el: subject,
-    name: "realActive",
+    name: "mouseDown",
     consoleProps: () => ({
       "Applied To": subject.get(0),
       "Absolute Coordinates": { x, y },

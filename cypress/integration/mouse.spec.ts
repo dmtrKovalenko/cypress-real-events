@@ -1,29 +1,29 @@
-describe("cy.realActive", () => {
+describe("cy.mouseDown", () => {
     beforeEach(() => {
       cy.visit("https://example.cypress.io/commands/actions");
     });
   
     it("active state on the button", () => {
       cy.get(".action-btn").should("have.css", "background-color", "rgb(217, 83, 79)");
-      cy.get(".action-btn").realActive();
+      cy.get(".action-btn").mouseDown();
       cy.get(".action-btn").should("have.css", "background-color", "rgb(172, 41, 37)");
     });
   
     it("active/focused state on the text field", () => {
-      cy.get("#email1").realActive().should("be.focused");
+      cy.get("#email1").mouseDown().should("be.focused");
     });
   
     it("active state on different positions", () => {
       cy.get(".action-btn")
-        .realActive({ position: "topLeft" })
-        .realActive({ position: "top" })
-        .realActive({ position: "topRight" })
-        .realActive({ position: "left" })
-        .realActive({ position: "center" })
-        .realActive({ position: "right" })
-        .realActive({ position: "bottomLeft" })
-        .realActive({ position: "bottom" })
-        .realActive({ position: "bottomRight" });
+        .mouseDown({ position: "topLeft" })
+        .mouseDown({ position: "top" })
+        .mouseDown({ position: "topRight" })
+        .mouseDown({ position: "left" })
+        .mouseDown({ position: "center" })
+        .mouseDown({ position: "right" })
+        .mouseDown({ position: "bottomLeft" })
+        .mouseDown({ position: "bottom" })
+        .mouseDown({ position: "bottomRight" });
     });
   
     describe("scroll behavior", () => {
@@ -56,7 +56,7 @@ describe("cy.realActive", () => {
   
       it("defaults to scrolling the element to the top of the viewport", () => {
         cy.get("#action-canvas")
-          .realActive()
+          .mouseDown()
           .then(($canvas: JQuery) => {
             const { top: $elTop } = getElementEdges($canvas);
             const { top: screenTop } = getScreenEdges();
@@ -67,7 +67,7 @@ describe("cy.realActive", () => {
   
       it("scrolls the element to center of viewport", () => {
         cy.get("#action-canvas")
-          .realActive({ scrollBehavior: "center" })
+          .mouseDown({ scrollBehavior: "center" })
           .then(($canvas: JQuery) => {
             const { top: $elTop, bottom: $elBottom } = getElementEdges($canvas);
             const { top: screenTop, bottom: screenBottom } = getScreenEdges();
@@ -81,7 +81,7 @@ describe("cy.realActive", () => {
   
       it("scrolls the element to the top of the viewport", () => {
         cy.get("#action-canvas")
-          .realActive({ scrollBehavior: "top" })
+          .mouseDown({ scrollBehavior: "top" })
           .then(($canvas: JQuery) => {
             const { top: $elTop } = getElementEdges($canvas);
             const { top: screenTop } = getScreenEdges();
@@ -92,7 +92,7 @@ describe("cy.realActive", () => {
   
       it("scrolls the element to the bottom of the viewport", () => {
         cy.get("#action-canvas")
-          .realActive({ scrollBehavior: "bottom" })
+          .mouseDown({ scrollBehavior: "bottom" })
           .then(($canvas: JQuery) => {
             const { bottom: $elBottom } = getElementEdges($canvas);
             const { bottom: screenBottom } = getScreenEdges();
@@ -105,7 +105,7 @@ describe("cy.realActive", () => {
         cy.window().scrollTo("bottom");
   
         cy.get("#action-canvas")
-          .realActive({ scrollBehavior: "nearest" })
+          .mouseDown({ scrollBehavior: "nearest" })
           .then(($canvas: JQuery) => {
             const { top: $elTop } = getElementEdges($canvas);
             const { top: screenTop } = getScreenEdges();
@@ -116,7 +116,7 @@ describe("cy.realActive", () => {
         cy.window().scrollTo("top");
   
         cy.get("#action-canvas")
-          .realActive({ scrollBehavior: "nearest" })
+          .mouseDown({ scrollBehavior: "nearest" })
           .then(($canvas: JQuery) => {
             const { bottom: $elBottom } = getElementEdges($canvas);
             const { bottom: screenBottom } = getScreenEdges();
@@ -142,7 +142,7 @@ describe('iframe behavior', () => {
           expect($target.css('background-color')).to.equal('rgb(0, 128, 0)');
         });
   
-        cy.get('#target').realActive().then(($target) => {
+        cy.get('#target').mouseDown().then(($target) => {
           expect($target.css('background-color')).to.equal('rgb(0, 0, 255)');
         });
       });
@@ -160,7 +160,7 @@ describe('iframe behavior', () => {
           expect($target.css('background-color')).to.equal('rgb(0, 128, 0)');
         });
   
-        cy.get('#target').realActive().then(($target) => {
+        cy.get('#target').mouseDown().then(($target) => {
           expect($target.css('background-color')).to.equal('rgb(0, 0, 255)');
         });
       });
