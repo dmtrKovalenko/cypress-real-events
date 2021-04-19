@@ -35,10 +35,11 @@ Here is a simple test that can be written with native events:
 
 ```js
 it("tests real events", () => {
-  cy.get("input").mouseDown(); // perform a native mouse press on the field
   cy.get("input").realClick(); // perform a native real click on the field
   cy.realType("cypress real event"); // fires native system keypress events and fills the field
   cy.realPress("Tab"); // native tab click switches the focus
+  cy.get("input").mouseDown(); // perform a native mouse press on the field
+  cy.get("input").mouseUp(); // perform a native mouse release on the field
   cy.focused().realHover(); // hovers over the new focused element
   cy.contains("some text in the hovered popover");
 });
@@ -220,14 +221,12 @@ cy.get('.element').realSwipe("toLeft");  // swipes from right to left
 cy.get('.element').realSwipe("toRight"); // inverted
 ```
 
-
 #### Usage:
 
 ```js
 cy.realSwipe(direction);
 cy.realSwipe(direction, options);
 ```
-
 
 #### Parameters:
 
