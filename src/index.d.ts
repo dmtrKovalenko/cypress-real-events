@@ -75,7 +75,6 @@ declare namespace Cypress {
      * @see https://github.com/dmtrKovalenko/cypress-real-events#cymouseDown
      * @example
      * cy.get("button").mouseDown()
-     * @param options mousePressed options
      */
     mouseDown: NormalizeCypressCommand<
       typeof import("./commands/mouseDown").mouseDown
@@ -85,7 +84,6 @@ declare namespace Cypress {
      * @see https://github.com/dmtrKovalenko/cypress-real-events#cymouseUp
      * @example
      * cy.get("button").mouseUp()
-     * @param options mouseReleased options
      */
     mouseUp: NormalizeCypressCommand<
       typeof import("./commands/mouseUp").mouseUp
