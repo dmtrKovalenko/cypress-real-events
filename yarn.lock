@@ -1647,9 +1647,9 @@ eslint-plugin-cypress@^2.11.2:
     globals "^11.12.0"
 
 eslint-plugin-no-only-tests@^2.4.0:
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-no-only-tests/-/eslint-plugin-no-only-tests-2.4.0.tgz#7d565434aa7d16ccc7eea957c391d98f827332ca"
-  integrity sha512-azP9PwQYfGtXJjW273nIxQH9Ygr+5/UyeW2wEjYoDtVYPI+WPKwbj0+qcAKYUXFZLRumq4HKkFaoDBAwBoXImQ==
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-no-only-tests/-/eslint-plugin-no-only-tests-2.5.0.tgz#df949256f366b3111b69d65ffa590d136b5ecb17"
+  integrity sha512-kwETpAyBrWpB75UdncTCXFRLFVMNWvdIC0xCNReW5A1W3r2T/RYopxc3aA22ZPq5el1mAo6BmP3/8jiwhSSjnw==
 
 eslint-scope@^5.0.0, eslint-scope@^5.1.1:
   version "5.1.1"
