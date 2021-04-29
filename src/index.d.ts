@@ -72,12 +72,12 @@ declare namespace Cypress {
     realType: typeof import("./commands/realType").realType;
     /**
      * Fires native system mousePressed event.
-     * @see https://github.com/dmtrKovalenko/cypress-real-events#cymouseDown
+     * @see https://github.com/dmtrKovalenko/cypress-real-events#cyrealMouseDown
      * @example
-     * cy.get("button").mouseDown()
+     * cy.get("button").realMouseDown()
      */
-    mouseDown: NormalizeCypressCommand<
-      typeof import("./commands/mouseDown").mouseDown
+    realMouseDown: NormalizeCypressCommand<
+      typeof import("./commands/mouseDown").realMouseDown
     >;
     /**
      * Fires native system mouseReleased event.

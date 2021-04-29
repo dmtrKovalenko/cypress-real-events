@@ -1,43 +1,43 @@
-describe("cy.mouseDown and cy.mouseUp", () => {
+describe("cy.realMouseDown and cy.mouseUp", () => {
     beforeEach(() => {
       cy.visit("https://example.cypress.io/commands/actions");
     });
   
     it("active state on the button", () => {
       cy.get(".action-btn").should("have.css", "background-color", "rgb(217, 83, 79)");
-      cy.get(".action-btn").mouseDown();
+      cy.get(".action-btn").realMouseDown();
       cy.get(".action-btn").should("have.css", "background-color", "rgb(172, 41, 37)");
       cy.get(".action-btn").mouseUp(); // will go in hover state
       cy.get(".action-btn").should("have.css", "background-color", "rgb(201, 48, 44)");
     });
   
     it("active/focused state on the text field", () => {
-      cy.get("#email1").mouseDown().should("be.focused");
+      cy.get("#email1").realMouseDown().should("be.focused");
     });
   
     it("active state on different positions", () => {
       cy.get(".action-btn")
-        .mouseDown({ position: "topLeft" })
+        .realMouseDown({ position: "topLeft" })
         .mouseUp({ position: "topLeft" })
-        .mouseDown({ position: "top" })
+        .realMouseDown({ position: "top" })
         .mouseUp({ position: "top" })
-        .mouseDown({ position: "topRight" })
+        .realMouseDown({ position: "topRight" })
         .mouseUp({ position: "topRight" })
-        .mouseDown({ position: "left" })
+        .realMouseDown({ position: "left" })
         .mouseUp({ position: "left" })
-        .mouseDown({ position: "center" })
+        .realMouseDown({ position: "center" })
         .mouseUp({ position: "center" })
-        .mouseDown({ position: "right" })
+        .realMouseDown({ position: "right" })
         .mouseUp({ position: "right" })
-        .mouseDown({ position: "bottomLeft" })
+        .realMouseDown({ position: "bottomLeft" })
         .mouseUp({ position: "bottomLeft" })
-        .mouseDown({ position: "bottom" })
+        .realMouseDown({ position: "bottom" })
         .mouseUp({ position: "bottom" })
-        .mouseDown({ position: "bottomRight" })
+        .realMouseDown({ position: "bottomRight" })
         .mouseUp({ position: "bottomRight" });
     });
   
-    describe("mouseDown scroll behavior", () => {
+    describe("realMouseDown scroll behavior", () => {
       function getScreenEdges() {
         const cypressAppWindow = window.parent.document.querySelector("iframe")
           .contentWindow;
@@ -67,7 +67,7 @@ describe("cy.mouseDown and cy.mouseUp", () => {
   
       it("defaults to scrolling the element to the top of the viewport", () => {
         cy.get("#action-canvas")
-          .mouseDown()
+          .realMouseDown()
           .then(($canvas: JQuery) => {
             const { top: $elTop } = getElementEdges($canvas);
             const { top: screenTop } = getScreenEdges();
@@ -78,7 +78,7 @@ describe("cy.mouseDown and cy.mouseUp", () => {
   
       it("scrolls the element to center of viewport", () => {
         cy.get("#action-canvas")
-          .mouseDown({ scrollBehavior: "center" })
+          .realMouseDown({ scrollBehavior: "center" })
           .then(($canvas: JQuery) => {
             const { top: $elTop, bottom: $elBottom } = getElementEdges($canvas);
             const { top: screenTop, bottom: screenBottom } = getScreenEdges();
@@ -92,7 +92,7 @@ describe("cy.mouseDown and cy.mouseUp", () => {
   
       it("scrolls the element to the top of the viewport", () => {
         cy.get("#action-canvas")
-          .mouseDown({ scrollBehavior: "top" })
+          .realMouseDown({ scrollBehavior: "top" })
           .then(($canvas: JQuery) => {
             const { top: $elTop } = getElementEdges($canvas);
             const { top: screenTop } = getScreenEdges();
@@ -103,7 +103,7 @@ describe("cy.mouseDown and cy.mouseUp", () => {
   
       it("scrolls the element to the bottom of the viewport", () => {
         cy.get("#action-canvas")
-          .mouseDown({ scrollBehavior: "bottom" })
+          .realMouseDown({ scrollBehavior: "bottom" })
           .then(($canvas: JQuery) => {
             const { bottom: $elBottom } = getElementEdges($canvas);
             const { bottom: screenBottom } = getScreenEdges();
@@ -116,7 +116,7 @@ describe("cy.mouseDown and cy.mouseUp", () => {
         cy.window().scrollTo("bottom");
   
         cy.get("#action-canvas")
-          .mouseDown({ scrollBehavior: "nearest" })
+          .realMouseDown({ scrollBehavior: "nearest" })
           .then(($canvas: JQuery) => {
             const { top: $elTop } = getElementEdges($canvas);
             const { top: screenTop } = getScreenEdges();
@@ -127,7 +127,7 @@ describe("cy.mouseDown and cy.mouseUp", () => {
         cy.window().scrollTo("top");
   
         cy.get("#action-canvas")
-          .mouseDown({ scrollBehavior: "nearest" })
+          .realMouseDown({ scrollBehavior: "nearest" })
           .then(($canvas: JQuery) => {
             const { bottom: $elBottom } = getElementEdges($canvas);
             const { bottom: screenBottom } = getScreenEdges();
@@ -238,7 +238,7 @@ describe("cy.mouseDown and cy.mouseUp", () => {
     });
 });
 
-describe('mouseDown and mouseUp iframe behavior', () => {
+describe('realMouseDown and mouseUp iframe behavior', () => {
     beforeEach(() => {
       cy.visit('./cypress/fixtures/iframe-page.html');
     });
@@ -253,7 +253,7 @@ describe('mouseDown and mouseUp iframe behavior', () => {
           expect($target.css('background-color')).to.equal('rgb(0, 128, 0)');
         });
   
-        cy.get('#target').mouseDown().then(($target) => {
+        cy.get('#target').realMouseDown().then(($target) => {
           expect($target.css('background-color')).to.equal('rgb(0, 0, 255)');
         });
 
@@ -276,7 +276,7 @@ describe('mouseDown and mouseUp iframe behavior', () => {
           expect($target.css('background-color')).to.equal('rgb(0, 128, 0)');
         });
   
-        cy.get('#target').mouseDown().then(($target) => {
+        cy.get('#target').realMouseDown().then(($target) => {
           expect($target.css('background-color')).to.equal('rgb(0, 0, 255)');
         });
 

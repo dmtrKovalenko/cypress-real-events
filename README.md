@@ -38,7 +38,7 @@ it("tests real events", () => {
   cy.get("input").realClick(); // perform a native real click on the field
   cy.realType("cypress real event"); // fires native system keypress events and fills the field
   cy.realPress("Tab"); // native tab click switches the focus
-  cy.get("input").mouseDown(); // perform a native mouse press on the field
+  cy.get("input").realMouseDown(); // perform a native mouse press on the field
   cy.get("input").mouseUp(); // perform a native mouse release on the field
   cy.focused().realHover(); // hovers over the new focused element
   cy.contains("some text in the hovered popover");
@@ -82,7 +82,7 @@ Here is an overview of the available **real** event commands:
 - [cy.realTouch](#cyrealtouch)
 - [cy.realType](#cyrealtype)
 - [cy.realSwipe](#cyrealswipe)
-- [cy.mouseDown](#cymouseDown)
+- [cy.realMouseDown](#cyrealMouseDown)
 - [cy.mouseUp](#cymouseUp)
 
 ## cy.realClick
@@ -242,19 +242,19 @@ Options:
 - `Optional` y coordinate to touch **y**: number
 - `Optional` **touchPosition**: "topLeft" | "top" | "topRight" | "left"  | "center" | "right" | "bottomLeft" | "bottom" | "bottomRight"
 
-## cy.mouseDown
+## cy.realMouseDown
 
 Fires native system mouse down event.
 
 ```jsx
-cy.get("button").mouseDown();
-cy.get("button").mouseDown(options);
+cy.get("button").realMouseDown();
+cy.get("button").realMouseDown(options);
 ```
 
 Example:
 
 ```js
-cy.get("button").mouseDown({ position: "topLeft" }) // click on the top left corner of button
+cy.get("button").realMouseDown({ position: "topLeft" }) // click on the top left corner of button
 ```
 
 Options:
