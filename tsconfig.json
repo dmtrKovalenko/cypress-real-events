@@ -3,7 +3,7 @@
     "types": ["cypress"],
     "target": "es6",
     "module": "commonjs",
-    "lib": ["DOM","ES2016"],
+    "lib": ["DOM", "DOM.Iterable", "ES2016"],
     "outDir": "dist",
     "declaration": true,
     "strict": true,

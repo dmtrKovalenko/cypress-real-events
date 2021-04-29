@@ -10,7 +10,8 @@ export type Position =
   | "bottomRight"
   | { x: number; y: number };
 
-export type ScrollBehaviorOptions = "center" | "top" | "bottom" | "nearest";
+type ScrollBehaviorPosition = "center" | "top" | "bottom" | "nearest";
+export type ScrollBehaviorOptions = ScrollBehaviorPosition | false;
 
 function getPositionedCoordinates(
   x0: number,
@@ -52,7 +53,7 @@ function getPositionedCoordinates(
  */
 function scrollIntoView(
   htmlElement: HTMLElement,
-  scrollBehavior: ScrollBehaviorOptions = "center"
+  scrollBehavior: ScrollBehaviorPosition = "center"
 ) {
   let block: ScrollLogicalPosition;
 
@@ -65,6 +66,22 @@ function scrollIntoView(
   }
 
   htmlElement.scrollIntoView({ block });
+}
+
+// for cross origin domains .frameElement returns null so query using parentWindow
+// but when running using --disable-web-security it will return the frame element
+function getFrameElement(currentWindow: Window): HTMLElement {
+  if (currentWindow.frameElement) {
+    // accessible for same-origin iframes
+    // or when running with --disable-web-security
+    return currentWindow.frameElement as HTMLElement;
+  }
+
+  // fallback to querying using the parent window, mainly to grab the AUT iframe
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  return [...currentWindow.parent.document.querySelectorAll("iframe")].find(
+    (iframe) => iframe.contentWindow === currentWindow
+  )!;
 }
 
 function getIframesPositionShift(element: HTMLElement) {
@@ -80,26 +97,17 @@ function getIframesPositionShift(element: HTMLElement) {
   }
 
   // eslint-disable-next-line prefer-const
-  const iframes = []
+  const iframes = [];
 
-  while (
-    currentWindow &&
-    currentWindow !== window.top
-  ) {
-    iframes.push(
-      // for cross origin domains .frameElement returns null so query using parentWindow
-      // but when running using --disable-web-security it will return the frame element
-      (currentWindow.frameElement as HTMLElement) ??
-        currentWindow.parent.document.querySelector("iframe")
-    );
-
+  while (currentWindow !== window.top) {
+    iframes.push(getFrameElement(currentWindow));
     currentWindow = currentWindow.parent;
   }
 
-  return iframes.reduceRight(({ frameX, frameY, frameScale }, frame) => { 
+  return iframes.reduceRight(({ frameX, frameY, frameScale }, frame) => {
     const { x, y, width } = frame.getBoundingClientRect();
 
-    return { 
+    return {
       frameX: frameX + x * frameScale,
       frameY: frameY + y * frameScale,
       frameScale: frameScale * (width / frame.offsetWidth),

@@ -38,6 +38,8 @@ it("tests real events", () => {
   cy.get("input").realClick(); // perform a native real click on the field
   cy.realType("cypress real event"); // fires native system keypress events and fills the field
   cy.realPress("Tab"); // native tab click switches the focus
+  cy.get("input").realMouseDown(); // perform a native mouse press on the field
+  cy.get("input").mouseUp(); // perform a native mouse release on the field
   cy.focused().realHover(); // hovers over the new focused element
   cy.contains("some text in the hovered popover");
 });
@@ -80,6 +82,8 @@ Here is an overview of the available **real** event commands:
 - [cy.realTouch](#cyrealtouch)
 - [cy.realType](#cyrealtype)
 - [cy.realSwipe](#cyrealswipe)
+- [cy.realMouseDown](#cyrealMouseDown)
+- [cy.mouseUp](#cymouseUp)
 
 ## cy.realClick
 
@@ -103,7 +107,8 @@ Options:
 - `Optional` **pointer**: \"mouse\" \| \"pen\"
 - `Optional` x coordinate to click **x**: number
 - `Optional` y coordinate to click **y**: number
-- `Optional`  **position**: "topLeft" | "top" | "topRight" | "left"  | "center" | "right" | "bottomLeft" | "bottom" | "bottomRight"
+- `Optional` **position**: "topLeft" | "top" | "topRight" | "left"  | "center" | "right" | "bottomLeft" | "bottom" | "bottomRight"
+- `Optional` **scrollBehavior**: "center" | "top" | "bottom" | "nearest" | false
 
 > Make sure that `x` and `y` has a bigger priority than `position`.
 
@@ -112,14 +117,15 @@ Options:
 Fires a real native hover event. Yes, it can test `:hover` preprocessor.
 
 ```jsx
-cy.get("button").hover();
-cy.get("button").hover(options);
+cy.get("button").realHover();
+cy.get("button").realHover(options);
 ```
 
 Options:
 
 - `Optional` **pointer**: \"mouse\" \| \"pen\"
 - `Optional` **position**: "topLeft" | "top" | "topRight" | "left"  | "center" | "right" | "bottomLeft" | "bottom" | "bottomRight"
+- `Optional` **scrollBehavior**: "center" | "top" | "bottom" | "nearest" | false
 
 ## cy.realPress
 
@@ -218,8 +224,8 @@ cy.get('.element').realSwipe("toRight"); // inverted
 #### Usage:
 
 ```js
-cy.realType(direction);
-cy.realType(direction, options);
+cy.realSwipe(direction);
+cy.realSwipe(direction, options);
 ```
 
 #### Parameters:
@@ -235,6 +241,48 @@ Options:
 - `Optional` x coordinate to touch **x**: number
 - `Optional` y coordinate to touch **y**: number
 - `Optional` **touchPosition**: "topLeft" | "top" | "topRight" | "left"  | "center" | "right" | "bottomLeft" | "bottom" | "bottomRight"
+
+## cy.realMouseDown
+
+Fires native system mouse down event.
+
+```jsx
+cy.get("button").realMouseDown();
+cy.get("button").realMouseDown(options);
+```
+
+Example:
+
+```js
+cy.get("button").realMouseDown({ position: "topLeft" }) // click on the top left corner of button
+```
+
+Options:
+
+- `Optional` **pointer**: \"mouse\" \| \"pen\"
+- `Optional` **position**: "topLeft" | "top" | "topRight" | "left"  | "center" | "right" | "bottomLeft" | "bottom" | "bottomRight"
+- `Optional` **scrollBehavior**: "center" | "top" | "bottom" | "nearest" | false
+
+## cy.mouseUp
+
+Fires native system mouse down event.
+
+```jsx
+cy.get("button").mouseUp();
+cy.get("button").mouseUp(options);
+```
+
+Example:
+
+```js
+cy.get("button").mouseUp({ position: "topLeft" }) // click on the top left corner of button
+```
+
+Options:
+
+- `Optional` **pointer**: \"mouse\" \| \"pen\"
+- `Optional` **position**: "topLeft" | "top" | "topRight" | "left"  | "center" | "right" | "bottomLeft" | "bottom" | "bottomRight"
+- `Optional` **scrollBehavior**: "center" | "top" | "bottom" | "nearest" | false
 
 ## UX
 
