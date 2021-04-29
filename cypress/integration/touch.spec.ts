@@ -1,4 +1,4 @@
-describe("cy.realTouch", { retries: { runMode: 4 } }, () => {
+describe("cy.realTouch", () => {
   beforeEach(() => {
     cy.visit("https://example.cypress.io/commands/actions");
   });
@@ -60,7 +60,7 @@ describe("cy.realTouch", { retries: { runMode: 4 } }, () => {
       .realTouch({ radius: 10 });
   });
 
-  it("touches with a custom radius for each axis", (done) => {
+  it.skip("touches with a custom radius for each axis", (done) => {
     cy.get(".action-btn")
       .then(($button) => {
         $button.get(0).addEventListener("pointerdown", (event) => {
@@ -72,7 +72,7 @@ describe("cy.realTouch", { retries: { runMode: 4 } }, () => {
       .realTouch({ radiusX: 5, radiusY: 7 });
   });
 
-  it("touches using provided 0 for one of the axis", (done) => {
+  it.skip("touches using provided 0 for one of the axis", (done) => {
     cy.get(".action-btn")
       .then(($button) => {
         $button.get(0).addEventListener("pointerdown", (event) => {
