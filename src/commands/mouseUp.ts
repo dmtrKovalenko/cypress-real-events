@@ -5,31 +5,31 @@ import {
   Position,
 } from "../getCypressElementCoordinates";
 
-export interface MouseUpOptions {
-  /** Pointer type for mouseUp, if "pen" touch simulated */
+export interface realMouseUpOptions {
+  /** Pointer type for realMouseUp, if "pen" touch simulated */
   pointer?: "mouse" | "pen";
   /**
-   * Position of the mouseUp event relative to the element
-   * @example cy.mouseUp({ position: "topLeft" })
+   * Position of the realMouseUp event relative to the element
+   * @example cy.realMouseUp({ position: "topLeft" })
    */
   position?: Position;
   /**
    * Controls how the page is scrolled to bring the subject into view, if needed.
-   * @example cy.mouseUp({ scrollBehavior: "top" });
+   * @example cy.realMouseUp({ scrollBehavior: "top" });
    */
   scrollBehavior?: ScrollBehaviorOptions;
 }
 
 /** @ignore this, update documentation for this function at index.d.ts */
-export async function mouseUp(
+export async function realMouseUp(
   subject: JQuery,
-  options: MouseUpOptions = {}
+  options: realMouseUpOptions = {}
 ) {
   const { x, y } = getCypressElementCoordinates(subject, options.position, options.scrollBehavior);
 
   const log = Cypress.log({
     $el: subject,
-    name: "mouseUp",
+    name: "realMouseUp",
     consoleProps: () => ({
       "Applied To": subject.get(0),
       "Absolute Coordinates": { x, y },

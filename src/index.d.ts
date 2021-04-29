@@ -81,12 +81,12 @@ declare namespace Cypress {
     >;
     /**
      * Fires native system mouseReleased event.
-     * @see https://github.com/dmtrKovalenko/cypress-real-events#cymouseUp
+     * @see https://github.com/dmtrKovalenko/cypress-real-events#cyrealMouseUp
      * @example
-     * cy.get("button").mouseUp()
+     * cy.get("button").realMouseUp()
      */
-    mouseUp: NormalizeCypressCommand<
-      typeof import("./commands/mouseUp").mouseUp
+    realMouseUp: NormalizeCypressCommand<
+      typeof import("./commands/mouseUp").realMouseUp
     >;
   }
 }
