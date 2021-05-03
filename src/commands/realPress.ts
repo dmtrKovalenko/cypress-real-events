@@ -69,10 +69,15 @@ export async function realPress(
 
   for (const key of keyDefinitions) {
     modifiers |= keyToModifierBitMap[key.key] ?? 0;
-
+    let enter = key.code != 'Enter' ? {} : {
+      type: 'char',
+      unmodifiedText: '\r',
+      text: '\r'
+    }
     await fireCdpCommand("Input.dispatchKeyEvent", {
       type: key.text ? "keyDown" : "rawKeyDown",
       modifiers,
+      enter,
       ...key,
     });
 
