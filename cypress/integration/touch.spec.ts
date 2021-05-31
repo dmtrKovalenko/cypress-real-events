@@ -3,7 +3,7 @@ describe("cy.realTouch", () => {
     cy.visit("https://example.cypress.io/commands/actions");
   });
 
-  it('touches the button', () => {
+  it("touches the button", () => {
     cy.get(".action-btn").realTouch();
     cy.contains("This popover shows up on click");
   });
@@ -33,10 +33,10 @@ describe("cy.realTouch", () => {
       .realTouch({ x: 100, y: 185 })
       .realTouch({ x: 125, y: 190 })
       .realTouch({ x: 150, y: 185 })
-      .realTouch({ x: 170, y: 165 } )
+      .realTouch({ x: 170, y: 165 });
   });
 
-  it("touches with a default radius of 1", (done) => {
+  it("touches with a default radius of 1",  { retries: 4 }, (done) => {
     cy.get(".action-btn")
       .then(($button) => {
         $button.get(0).addEventListener("pointerdown", (event) => {
@@ -48,7 +48,7 @@ describe("cy.realTouch", () => {
       .realTouch();
   });
 
-  it("touches with a custom radius", (done) => {
+  it("touches with a custom radius",  { retries: 4 }, (done) => {
     cy.get(".action-btn")
       .then(($button) => {
         $button.get(0).addEventListener("pointerdown", (event) => {
@@ -60,7 +60,7 @@ describe("cy.realTouch", () => {
       .realTouch({ radius: 10 });
   });
 
-  it("touches with a custom radius for each axis", (done) => {
+  it("touches with a custom radius for each axis", { retries: 4 }, (done) => {
     cy.get(".action-btn")
       .then(($button) => {
         $button.get(0).addEventListener("pointerdown", (event) => {
@@ -72,11 +72,13 @@ describe("cy.realTouch", () => {
       .realTouch({ radiusX: 5, radiusY: 7 });
   });
 
-  it("touches using provided 0 for one of the axis", (done) => {
+  it("touches using provided 0 for one of the axis", { retries: 4 }, (done) => {
     cy.get(".action-btn")
       .then(($button) => {
         $button.get(0).addEventListener("pointerdown", (event) => {
-          const rect = (event.currentTarget as HTMLElement).getBoundingClientRect()
+          const rect = (
+            event.currentTarget as HTMLElement
+          ).getBoundingClientRect();
           expect(event.clientX).to.be.closeTo(rect.left - 5, 5);
           expect(event.clientY).to.be.closeTo(rect.top, 5);
           done();

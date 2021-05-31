@@ -1,4 +1,4 @@
-describe("cy.realMouseDown and cy.mouseUp", () => {
+describe("cy.realMouseDown and cy.realMouseUp", () => {
     beforeEach(() => {
       cy.visit("https://example.cypress.io/commands/actions");
     });
@@ -7,7 +7,7 @@ describe("cy.realMouseDown and cy.mouseUp", () => {
       cy.get(".action-btn").should("have.css", "background-color", "rgb(217, 83, 79)");
       cy.get(".action-btn").realMouseDown();
       cy.get(".action-btn").should("have.css", "background-color", "rgb(172, 41, 37)");
-      cy.get(".action-btn").mouseUp(); // will go in hover state
+      cy.get(".action-btn").realMouseUp(); // will go in hover state
       cy.get(".action-btn").should("have.css", "background-color", "rgb(201, 48, 44)");
     });
   
@@ -18,23 +18,23 @@ describe("cy.realMouseDown and cy.mouseUp", () => {
     it("active state on different positions", () => {
       cy.get(".action-btn")
         .realMouseDown({ position: "topLeft" })
-        .mouseUp({ position: "topLeft" })
+        .realMouseUp({ position: "topLeft" })
         .realMouseDown({ position: "top" })
-        .mouseUp({ position: "top" })
+        .realMouseUp({ position: "top" })
         .realMouseDown({ position: "topRight" })
-        .mouseUp({ position: "topRight" })
+        .realMouseUp({ position: "topRight" })
         .realMouseDown({ position: "left" })
-        .mouseUp({ position: "left" })
+        .realMouseUp({ position: "left" })
         .realMouseDown({ position: "center" })
-        .mouseUp({ position: "center" })
+        .realMouseUp({ position: "center" })
         .realMouseDown({ position: "right" })
-        .mouseUp({ position: "right" })
+        .realMouseUp({ position: "right" })
         .realMouseDown({ position: "bottomLeft" })
-        .mouseUp({ position: "bottomLeft" })
+        .realMouseUp({ position: "bottomLeft" })
         .realMouseDown({ position: "bottom" })
-        .mouseUp({ position: "bottom" })
+        .realMouseUp({ position: "bottom" })
         .realMouseDown({ position: "bottomRight" })
-        .mouseUp({ position: "bottomRight" });
+        .realMouseUp({ position: "bottomRight" });
     });
   
     describe("realMouseDown scroll behavior", () => {
@@ -137,7 +137,7 @@ describe("cy.realMouseDown and cy.mouseUp", () => {
       });
     });
 
-    describe("mouseUp scroll behavior", () => {
+    describe("realMouseUp scroll behavior", () => {
       function getScreenEdges() {
         const cypressAppWindow = window.parent.document.querySelector("iframe")
           .contentWindow;
@@ -167,7 +167,7 @@ describe("cy.realMouseDown and cy.mouseUp", () => {
   
       it("defaults to scrolling the element to the top of the viewport", () => {
         cy.get("#action-canvas")
-          .mouseUp()
+          .realMouseUp()
           .then(($canvas: JQuery) => {
             const { top: $elTop } = getElementEdges($canvas);
             const { top: screenTop } = getScreenEdges();
@@ -178,7 +178,7 @@ describe("cy.realMouseDown and cy.mouseUp", () => {
   
       it("scrolls the element to center of viewport", () => {
         cy.get("#action-canvas")
-          .mouseUp({ scrollBehavior: "center" })
+          .realMouseUp({ scrollBehavior: "center" })
           .then(($canvas: JQuery) => {
             const { top: $elTop, bottom: $elBottom } = getElementEdges($canvas);
             const { top: screenTop, bottom: screenBottom } = getScreenEdges();
@@ -192,7 +192,7 @@ describe("cy.realMouseDown and cy.mouseUp", () => {
   
       it("scrolls the element to the top of the viewport", () => {
         cy.get("#action-canvas")
-          .mouseUp({ scrollBehavior: "top" })
+          .realMouseUp({ scrollBehavior: "top" })
           .then(($canvas: JQuery) => {
             const { top: $elTop } = getElementEdges($canvas);
             const { top: screenTop } = getScreenEdges();
@@ -203,7 +203,7 @@ describe("cy.realMouseDown and cy.mouseUp", () => {
   
       it("scrolls the element to the bottom of the viewport", () => {
         cy.get("#action-canvas")
-          .mouseUp({ scrollBehavior: "bottom" })
+          .realMouseUp({ scrollBehavior: "bottom" })
           .then(($canvas: JQuery) => {
             const { bottom: $elBottom } = getElementEdges($canvas);
             const { bottom: screenBottom } = getScreenEdges();
@@ -216,7 +216,7 @@ describe("cy.realMouseDown and cy.mouseUp", () => {
         cy.window().scrollTo("bottom");
   
         cy.get("#action-canvas")
-          .mouseUp({ scrollBehavior: "nearest" })
+          .realMouseUp({ scrollBehavior: "nearest" })
           .then(($canvas: JQuery) => {
             const { top: $elTop } = getElementEdges($canvas);
             const { top: screenTop } = getScreenEdges();
@@ -227,7 +227,7 @@ describe("cy.realMouseDown and cy.mouseUp", () => {
         cy.window().scrollTo("top");
   
         cy.get("#action-canvas")
-          .mouseUp({ scrollBehavior: "nearest" })
+          .realMouseUp({ scrollBehavior: "nearest" })
           .then(($canvas: JQuery) => {
             const { bottom: $elBottom } = getElementEdges($canvas);
             const { bottom: screenBottom } = getScreenEdges();
@@ -238,7 +238,7 @@ describe("cy.realMouseDown and cy.mouseUp", () => {
     });
 });
 
-describe('realMouseDown and mouseUp iframe behavior', () => {
+describe('realMouseDown and realMouseUp iframe behavior', () => {
     beforeEach(() => {
       cy.visit('./cypress/fixtures/iframe-page.html');
     });
@@ -258,7 +258,7 @@ describe('realMouseDown and mouseUp iframe behavior', () => {
         });
 
         // will go in hover state
-        cy.get('#target').mouseUp().then(($target) => {
+        cy.get('#target').realMouseUp().then(($target) => {
           expect($target.css('background-color')).to.equal('rgb(255, 192, 203)');
         });
       });
@@ -281,7 +281,7 @@ describe('realMouseDown and mouseUp iframe behavior', () => {
         });
 
         // will go in hover state
-        cy.get('#target').mouseUp().then(($target) => {
+        cy.get('#target').realMouseUp().then(($target) => {
           expect($target.css('background-color')).to.equal('rgb(255, 192, 203)');
         });
       });
