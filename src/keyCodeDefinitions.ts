@@ -21,6 +21,7 @@ export const keyCodeDefinitions =  {
   'Numpad5': {'keyCode': 12, 'shiftKeyCode': 101, 'key': 'Clear', 'code': 'Numpad5', 'shiftKey': '5', 'location': 3},
   'NumpadEnter': {'keyCode': 13, 'code': 'NumpadEnter', 'key': 'Enter', 'text': '\r', 'location': 3},
   '{enter}': {'keyCode': 13, 'code': 'Enter', 'key': 'Enter', 'text': '\r'},
+  'Enter': {'keyCode': 13, 'code': 'Enter', 'key': 'Enter', 'text': '\r'},
   '\r': {'keyCode': 13, 'code': 'Enter', 'key': 'Enter', 'text': '\r'},
   '\n': {'keyCode': 13, 'code': 'Enter', 'key': 'Enter', 'text': '\r'},
   'ShiftLeft': {'keyCode': 16, 'code': 'ShiftLeft', 'key': 'Shift', 'location': 1},
