@@ -22,7 +22,7 @@ describe("cy.realPress", () => {
       cy.get("[aria-label='Search by voice']").should("be.focused");
     });
 
-    it.only("Can use Enter for a11y navigation", () => {
+    it("Can use Enter for a11y navigation", () => {
       cy.get("input[name=q]").focus();
       cy.realType("something");
       cy.realPress("Tab");
