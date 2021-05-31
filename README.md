@@ -8,6 +8,9 @@
  <a href="https://www.npmjs.com/package/cypress-real-events">
    <img src="https://img.shields.io/npm/v/cypress-real-events?style=for-the-badge" alt="npm version">
  <a/>
+ <a href="https://www.npmjs.com/package/cypress-real-events">
+   <img src="https://img.shields.io/npm/dm/cypress-real-events?style=for-the-badge" alt="npm version">
+ <a/>
  <a href="https://app.circleci.com/pipelines/github/dmtrKovalenko/cypress-real-events">
    <img src="https://img.shields.io/circleci/build/github/dmtrKovalenko/cypress-real-events/main?style=for-the-badge" alt="npm version">
  <a/>
@@ -265,7 +268,7 @@ Options:
 
 ## cy.realMouseUp
 
-Fires native system mouse down event.
+Fires native system mouse up event.
 
 ```jsx
 cy.get("button").realMouseUp();
