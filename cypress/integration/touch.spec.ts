@@ -36,7 +36,7 @@ describe("cy.realTouch", () => {
       .realTouch({ x: 170, y: 165 });
   });
 
-  it("touches with a default radius of 1", (done) => {
+  it("touches with a default radius of 1",  { retries: 4 }, (done) => {
     cy.get(".action-btn")
       .then(($button) => {
         $button.get(0).addEventListener("pointerdown", (event) => {
@@ -48,7 +48,7 @@ describe("cy.realTouch", () => {
       .realTouch();
   });
 
-  it("touches with a custom radius", (done) => {
+  it("touches with a custom radius",  { retries: 4 }, (done) => {
     cy.get(".action-btn")
       .then(($button) => {
         $button.get(0).addEventListener("pointerdown", (event) => {
