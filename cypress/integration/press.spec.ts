@@ -72,28 +72,4 @@ describe("cy.realPress", () => {
       cy.realPress(["Alt", "Shift", "F5"]);
     });
   });
-
-  context.only("Keyboard a11y testing", () => {
-    it("Dispatches beforeinput and keypress event for Enter", () => {
-      cy.visit("https://w3c.github.io/uievents/tools/key-event-viewer");
-      cy.realPress("Enter");
-
-      cy.contains(".keycell.etype", "beforeinput");
-      cy.contains(".keycell.etype", "keypress");
-    });
-
-    it("Fires trusted click on Enter", () => {
-      cy.visit("./cypress/fixtures/keyboard-accessibility-test.html");
-      cy.get("#click-enter").focus().realPress("Enter");
-
-      cy.get("ul").contains(JSON.stringify({ isTrusted: true, type: "click" }));
-    });
-
-    it("Fires trusted click on Space", () => {
-      cy.visit("./cypress/fixtures/keyboard-accessibility-test.html");
-      cy.get("#click-enter").focus().realPress("Space");
-
-      cy.get("ul").contains(JSON.stringify({ isTrusted: true, type: "click" }));
-    });
-  });
 });

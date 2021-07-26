@@ -139,7 +139,7 @@ function getElementPositionXY(htmlElement: HTMLElement) {
 
 /**
  * Cypress Automation debugee is the whole tab.
- * This function returns the element coordinates relative to the whole tab root that can be used in CDP request.
+ * This function returns the element coordinates relative to the whole tab rot.
  * @param jqueryEl the element to introspect
  */
 export function getCypressElementCoordinates(
@@ -150,7 +150,7 @@ export function getCypressElementCoordinates(
   const htmlElement = jqueryEl.get(0);
   const cypressAppFrame = window.parent.document.querySelector("iframe");
 
-  if (!cypressAppFrame) {
+  if (!cypressAppFrame || !cypressAppFrame.id.includes("Your App")) {
     throw new Error(
       "Can not find cypress application iframe, it looks like critical issue. Please rise an issue on GitHub."
     );
