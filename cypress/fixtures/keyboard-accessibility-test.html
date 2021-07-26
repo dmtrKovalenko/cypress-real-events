@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <main>
+      <h1>Test enter accessibility</h1>
+
+      <button id="click-enter">Test</button>
+
+      <ul id="events"></ul>
+    </main>
+  </body>
+
+  <script>
+    document.getElementById("click-enter").addEventListener("click", (e) => {
+      let li = document.createElement("li");
+      li.appendChild(
+        document.createTextNode(
+          JSON.stringify({
+            isTrusted: e.isTrusted,
+            type: e.type,
+          })
+        )
+      );
+
+      window.events.appendChild(li);
+    });
+  </script>
+</html>
