@@ -124,6 +124,12 @@ cy.get("button").realHover();
 cy.get("button").realHover(options);
 ```
 
+Example:
+   
+```js
+cy.get("button").realHover({ position: "bottomLeft" }) // hovers over the bottom left corner of button
+```
+
 Options:
 
 - `Optional` **pointer**: \"mouse\" \| \"pen\"
