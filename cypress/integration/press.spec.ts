@@ -2,7 +2,6 @@ describe("cy.realPress", () => {
   context("key pressing for google", () => {
     beforeEach(() => {
       cy.visit("https://google.com?hl=en");
-      cy.get("button").contains("agree").click();
     });
 
     it("registers keypress events using", () => {
