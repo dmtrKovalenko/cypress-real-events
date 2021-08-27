@@ -1,6 +1,8 @@
 describe("cy.realType", () => {
   beforeEach(() => {
     cy.visit("https://google.com?hl=en");
+    cy.get("button").contains("agree").click();
+    cy.get("input[name=q]").focus();
   });
 
   it("hovers and applies styles from :hover pseudo-class", () => {
