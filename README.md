@@ -293,6 +293,14 @@ Options:
 - `Optional` **position**: "topLeft" | "top" | "topRight" | "left"  | "center" | "right" | "bottomLeft" | "bottom" | "bottomRight"
 - `Optional` **scrollBehavior**: "center" | "top" | "bottom" | "nearest" | false
 
+## FAQ
+   
+1. Why `.realHover` hovering state does not show in the visual regression services?
+
+Unforunately, visual regression services like Happo and Percy does not solve this issue. Thier architecture is based on saving dom snapshot, not the screenshot and then rendering the snapshot on thier machines. It means that hover and focus state will be lost if it won't be serialized manually. 
+
+In fact it means that if you will use plain `cy.screenshot` it will render screenshot with hovering state because using browser itself to make a screenshot. Testing hovering state is possible with, for example, [Visual Regression Tracker](https://github.com/Visual-Regression-Tracker/Visual-Regression-Tracker) and [cypress-image-snapshot](https://github.com/jaredpalmer/cypress-image-snapshot).
+   
 ## UX
 
 One problem of the real native system events I need to mention – you will not get an error message if the event wasn't produced. Similar to selenium or playwright – if a javascript event was not fired you will not get a comprehensive error message.
