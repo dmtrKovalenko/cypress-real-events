@@ -26,7 +26,7 @@ Cypress default events are simulated. That means that all events like `cy.click`
 
 <img src="https://forthebadge.com/images/badges/it-works-why.svg">
 
-Thanks to [Chrome Devtools Protocol](https://chromedevtools.github.io/devtools-protocol/). Cypress is connecting to CDP for tasks like screenshots, this project is using the same connection to fire system events. Event firing system works literally like in puppeteer. And as a result unlocks such features like **hovering** and **native focus management via Tab**.
+Thanks to [Chrome Devtools Protocol](https://chromedevtools.github.io/devtools-protocol/). Cypress is connecting to CDP for tasks like screenshots, setting viewport and others. This project utilises the same connection to fire system events. Event firing system works literally like in puppeteer. And as a result unlocks such features like **hovering** and **native focus management via Tab**.
 
 ## Requirements
 
