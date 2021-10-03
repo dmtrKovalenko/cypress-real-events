@@ -87,6 +87,7 @@ Here is an overview of the available **real** event commands:
 - [cy.realSwipe](#cyrealswipe)
 - [cy.realMouseDown](#cyrealMouseDown)
 - [cy.realMouseUp](#cyrealMouseUp)
+- [cy.realMouseWheel](#cyrealMouseWheel)
 
 ## cy.realClick
 
@@ -292,6 +293,30 @@ Options:
 - `Optional` **pointer**: \"mouse\" \| \"pen\"
 - `Optional` **position**: "topLeft" | "top" | "topRight" | "left"  | "center" | "right" | "bottomLeft" | "bottom" | "bottomRight"
 - `Optional` **scrollBehavior**: "center" | "top" | "bottom" | "nearest" | false
+
+## cy.realMouseWheel
+
+Fires native system mouse up event.
+
+```jsx
+cy.get("div").realMouseWheel(options);
+```
+
+Example:
+
+```js
+cy.get("div").realMouseUp({ position: "center", deltaY: 500 }) // scroll on the center of div 500 pixel vertically
+cy.get("div").realMouseUp({ position: "center", deltaY: -500 }) // scroll on the center of div -500 pixel vertically
+cy.get("div").realMouseUp({ position: "center", deltaX: -500 }) // scroll on the center of div -500 pixel horizontally
+cy.get("div").realMouseUp({ position: "center", deltaX: 500 }) // scroll on the center of div 500 pixel horizontally
+```
+
+Options:
+
+- `Optional` **position**: "topLeft" | "top" | "topRight" | "left"  | "center" | "right" | "bottomLeft" | "bottom" | "bottomRight"
+- `Optional` **scrollBehavior**: "center" | "top" | "bottom" | "nearest" | false
+- `Optional` **deltaX**: number
+- `Optional` **deltaY**: number
 
 ## FAQ
    
