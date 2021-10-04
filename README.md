@@ -296,7 +296,7 @@ Options:
 
 ## cy.realMouseWheel
 
-Fires native system mouse up event.
+Fires native system mouse wheel event, scrolls the page.
 
 ```jsx
 cy.get("div").realMouseWheel(options);

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <style>
+    .main {
+      border: 1px solid #f09;
+      width: 300px;
+      height: 300px;
+    }
+    .smallbox {
+      border: 1px solid #f09;
+      width: 20px;
+      height: 20px;
+      float: right;
+    }
+  </style>
+  <body>
+    <div class="main">
+      <div class="smallbox"></div>
+    </div>
+    <div>
+      <span>DeltaX:</span>
+      <span class="deltax"></span>
+    </div>
+    <div>
+      <span>DeltaY:</span>
+      <span class="deltay"></span>
+    </div>
+    <div>
+      <span>isTrusted:</span>
+      <span class="isTrusted"></span>
+    </div>
+    <div>
+      <span>Target:</span>
+      <span class="target"></span>
+    </div>
+  </body>
+
+  <script>
+    const scrollContainer = document.querySelector('.main');
+    scrollContainer.addEventListener('wheel', (evt) => {
+      document.querySelector(".deltax").textContent = evt.deltaX;
+      document.querySelector(".deltay").textContent = evt.deltaY;
+      document.querySelector(".isTrusted").textContent = evt.isTrusted ? "true" : "false";
+      document.querySelector(".target").textContent = evt.target.className;
+    });
+  </script>
+</html>
