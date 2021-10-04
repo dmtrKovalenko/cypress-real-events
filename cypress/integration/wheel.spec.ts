@@ -8,7 +8,6 @@ describe("cy.realMouseWheel", () => {
 
   it("scroll box", () => {
     cy.visit("./cypress/fixtures/scroll-test.html");
-
     cy.get(".main").realMouseWheel({ position: "center", deltaY: 500 });
     assertWheel("0", "500", "true", "main");
 
