@@ -5,15 +5,26 @@
       border: 1px solid #f09;
       width: 300px;
       height: 300px;
+      display: block;
     }
     .smallbox {
-      border: 1px solid #f09;
-      width: 20px;
-      height: 20px;
+      margin: 0px;
+      padding: 0px;
+      border: 1px solid #000;
+      width: 70px;
+      height: 300px;
       float: right;
+      top: 0px;
+      right: 0px;
+      position: relative;
+      background-color: crimson;
+    }
+    body {
+      margin: 0px;
+      padding: 0px;
     }
   </style>
-  <body>
+  <body class="body">
     <div class="main">
       <div class="smallbox"></div>
     </div>
@@ -36,8 +47,7 @@
   </body>
 
   <script>
-    const scrollContainer = document.querySelector('.main');
-    scrollContainer.addEventListener('wheel', (evt) => {
+    document.addEventListener('wheel', (evt) => {
       document.querySelector(".deltax").textContent = evt.deltaX;
       document.querySelector(".deltay").textContent = evt.deltaY;
       document.querySelector(".isTrusted").textContent = evt.isTrusted ? "true" : "false";
