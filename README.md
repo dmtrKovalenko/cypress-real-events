@@ -157,10 +157,14 @@ cy.realPress(key, options);
 
 ### Parameters:
 
-| Name      | Type                                           | Default value | Description |
-| --------- | ---------------------------------------------- | ------------- | ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `key`     | string                                         | string[]      | -           | key or keys to press. Should be the same as cypress's [type command argument](https://docs.cypress.io/api/commands/type.html#Arguments). All the keys available [here](https://github.com/dmtrKovalenko/cypress-real-events/blob/main/src/keyCodeDefinitions.ts). |
-| `options` | - `Optional` **pointer**: \"mouse\" \| \"pen\" | {}            |             |
+| Name      | Type                 | Default value | Description                                                                                                                                                                                                                                                      |
+| --------- | -------------------- | ------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `key`     | `string \| string[]` | -             | key or keys to press. Should be the same as cypress's [type command argument](https://docs.cypress.io/api/commands/type.html#Arguments). All the keys available [here](https://github.com/dmtrKovalenko/cypress-real-events/blob/main/src/keyCodeDefinitions.ts) |
+| `options` | Options              | {}            |                                                                                                                                                                                                                                                                  |
+
+Options:
+
+- `Optional` **pointer**: \"mouse\" \| \"pen\"
 
 ### cy.realTouch
 
