@@ -22,11 +22,11 @@
 
 ## Why?
 
-Cypress default events are simulated. That means that all events like `cy.click` or `cy.type` are fired from javascript. That's why these events will be untrusted (`event.isTrusted` will be `false`) and they can behave a little different from real native events. But for some cases it can be impossible to use simulated events, for example to fill a native alert or copy to the clipboard. This plugin solves this problem.
+Cypress default events are simulated. That means that all events like `cy.click` or `cy.type` are fired from javascript. That's why these events will be untrusted (`event.isTrusted` will be `false`) and they can behave a little different from real native events. But for some cases, it can be impossible to use simulated events, for example, to fill a native alert or copy to the clipboard. This plugin solves this problem.
 
 <img src="https://forthebadge.com/images/badges/it-works-why.svg">
 
-Thanks to [Chrome Devtools Protocol](https://chromedevtools.github.io/devtools-protocol/). Cypress is connecting to CDP for tasks like screenshots, setting viewport and others. This project utilises the same connection to fire system events. Event firing system works literally like in puppeteer. And as a result unlocks such features like **hovering** and **native focus management via Tab**.
+Thanks to [Chrome Devtools Protocol](https://chromedevtools.github.io/devtools-protocol/). Cypress is connecting to CDP for tasks like screenshots, setting viewport, and others. This project utilizes the same connection to fire system events. The event firing system works literally like in puppeteer. And as a result, unlocks such features like **hovering** and **native focus management via Tab**.
 
 ## Requirements
 
@@ -86,8 +86,8 @@ Here is an overview of the available **real** event commands:
 - [cy.realTouch](#cyrealtouch)
 - [cy.realType](#cyrealtype)
 - [cy.realSwipe](#cyrealswipe)
-- [cy.realMouseDown](#cyrealMouseDown)
-- [cy.realMouseUp](#cyrealMouseUp)
+- [cy.realMouseDown](#cyrealmousedown)
+- [cy.realMouseUp](#cyrealmouseup)
 
 ## cy.realClick
 
@@ -115,7 +115,7 @@ Options:
 - `Optional` **scrollBehavior**: "center" | "top" | "bottom" | "nearest" | false
 - `Optional` **clickCount**: number
 
-> Make sure that `x` and `y` has a bigger priority than `position`.
+> Make sure that `x` and `y` have a bigger priority than `position`.
 
 ## cy.realHover
 
@@ -190,7 +190,7 @@ Options:
 ### cy.realType
 
 Runs a sequence of native press events (via `cy.realPress`). This can be used to simulate real typing.
-Make sure that type event is global. This means that it is not attached to any field.
+Make sure that type of event is global. This means that it is not attached to any field.
 
 ```js
 cy.realType("type any text"); // type any text on the page
@@ -221,7 +221,7 @@ Options:
 
 ### cy.realSwipe
 
-Runs a native swipe events. It means that **touch events** will be fired. Actually a sequence of `touchStart` -> `touchMove` -> `touchEnd`. It can perfectly swipe drawers and other tools [like this one](https://csb-dhe0i-qj8xxmx8y.vercel.app/).
+Runs native swipe events. It means that **touch events** will be fired. Actually a sequence of `touchStart` -> `touchMove` -> `touchEnd`. It can perfectly swipe drawers and other tools [like this one](https://csb-dhe0i-qj8xxmx8y.vercel.app/).
 
 > Make sure to enable mobile viewport :)
 
@@ -239,10 +239,10 @@ cy.realSwipe(direction, options);
 
 #### Parameters:
 
-| Name        | Type      | Default value | Description |
-| ----------- | --------- | ------------- | ----------- | ------------ | --- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| `direction` | `"toLeft" | "toTop"       | "toRight"   | "toBottom";` | -   | text to type. Should be around the same as cypress's type command argument (https://docs.cypress.io/api/commands/type.html#Arguments) |
-| `options`   | Options   | {}            |             |
+| Name        | Type                                              | Default value | Description        |
+| ----------- | ------------------------------------------------- | ------------- | ------------------ |
+| `direction` | `"toLeft" \| "toTop" \| "toRight" \| "toBottom";` | -             | Direction of swipe |
+| `options`   | Options                                           | {}            |                    |
 
 Options:
 
@@ -295,7 +295,7 @@ Options:
 
 ## Coordinates
 
-Several commands from this plugin accept `{ x: number, y: number }` coordinates. There is an important note that these coordinates are relative to the whole tab in order to pass it right to the CDP. For regular elements we calculate them automatically, but if you need to pass absolute coordinates you will need to provide them yourself.
+Several commands from this plugin accept `{ x: number, y: number }` coordinates. There is an important note that these coordinates are relative to the whole tab to pass it right to the CDP. For regular elements, we calculate them automatically, but if you need to pass absolute coordinates you will need to provide them yourself.
 
 The easiest way to debug coordinates is to run any real events command and check the logged coordinates by clicking on the command.
 
@@ -305,19 +305,19 @@ The easiest way to debug coordinates is to run any real events command and check
 
 ### 1. Why `cy.realHover` hovering state does not show in the visual regression services?
 
-Unfortunately, visual regression services like Happo and Percy does not solve this issue. Their architecture is based on saving dom snapshot, not the screenshot and then rendering the snapshot on their machines. It means that hover and focus state will be lost if it won't be serialized manually.
+Unfortunately, visual regression services like Happo and Percy do not solve this issue. Their architecture is based on saving dom snapshot, not the screenshot, and then rendering the snapshot on their machines. It means that the hover and focus state will be lost if it won't be serialized manually.
 
-In fact it means that if you will use plain `cy.screenshot` it will render screenshot with hovering state because using browser itself to make a screenshot. Testing hovering state is possible with, for example, [Visual Regression Tracker](https://github.com/Visual-Regression-Tracker/Visual-Regression-Tracker) and [cypress-image-snapshot](https://github.com/jaredpalmer/cypress-image-snapshot).
+It means that if you will use plain `cy.screenshot` it will take a screenshot with a hovering state because using the browser itself to make a screenshot. Testing hovering state is possible with, for example, [Visual Regression Tracker](https://github.com/Visual-Regression-Tracker/Visual-Regression-Tracker) and [cypress-image-snapshot](https://github.com/jaredpalmer/cypress-image-snapshot).
 
-### 2. When I am doing `cy.realHover` hovering state does not resetting after my checks
+### 2. When I am doing `cy.realHover` hovering state is not resetting after my checks
 
-Let's take an example. If the real user need to open menu popover then do check content of popover content and close it the algorithm will be:
+Let's take an example. If the real user needs to open menu popover then do check content of popover content and close it the algorithm will be:
 
 1. Hover menu
-2. Check content
+2. Check the content
 3. Put mouse away from the popover
 
-In order to automate this with cypress you can do the following
+To automate this with cypress, you can do the following
 
 ```tsx
 cy.get("[aria-label='Test Button']")
@@ -339,7 +339,7 @@ cy.get("[aria-label='Test Button']").should(
 
 One problem of the real native system events I need to mention – you will not get an error message if the event wasn't produced. Similar to selenium or playwright – if a javascript event was not fired you will not get a comprehensive error message.
 
-So probably this package should not be used as a replacement of the cypress events, at least for the writing tests experience 🐨
+So probably this package should not be used as a replacement for the cypress events, at least for the writing tests experience 🐨
 
 ## License
 
