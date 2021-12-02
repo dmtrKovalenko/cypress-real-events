@@ -2,7 +2,7 @@
   "compilerOptions": {
     "types": ["cypress"],
     "target": "es6",
-    "module": "commonjs",
+    "module": "ES6",
     "lib": ["DOM", "DOM.Iterable", "ES2016"],
     "outDir": "dist",
     "declaration": true,
