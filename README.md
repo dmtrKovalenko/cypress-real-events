@@ -15,7 +15,7 @@
    <img src="https://img.shields.io/circleci/build/github/dmtrKovalenko/cypress-real-events/main?style=for-the-badge" alt="npm version">
  <a/>
  <img src="https://img.shields.io/badge/made-with%20love-orange?style=for-the-badge"/>
- <a href="https://twitter.com/dmtrKovalenko">
+ <a href="https://twitter.com/goose_plus_plus">
    <img src="https://img.shields.io/twitter/follow/dmtrKovalenko?color=blue&style=for-the-badge">
  <a/>
 <p />
@@ -327,7 +327,7 @@ cy.get("[aria-label='Test Button']")
 
 // reset hovering by putting mouse away (e.g. here top left corner of body)
 cy.get("body").realHover({ position: "topLeft" });
-// hover state rests 🎉
+// hover state reset 🎉
 cy.get("[aria-label='Test Button']").should(
   "have.css",
   "background-color",

@@ -3,15 +3,48 @@ import { realHover } from "./commands/realHover";
 import { realSwipe } from "./commands/realSwipe";
 import { realPress } from "./commands/realPress";
 import { realType } from "./commands/realType";
-import { realTouch } from './commands/realTouch';
+import { realTouch } from "./commands/realTouch";
 import { realMouseDown } from "./commands/mouseDown";
 import { realMouseUp } from "./commands/mouseUp";
 
-Cypress.Commands.add("realClick", { prevSubject: true }, realClick);
-Cypress.Commands.add("realHover", { prevSubject: true }, realHover);
-Cypress.Commands.add("realTouch", { prevSubject: true }, realTouch);
-Cypress.Commands.add("realSwipe", { prevSubject: true }, realSwipe);
-Cypress.Commands.add("realPress", realPress);
-Cypress.Commands.add("realType", realType);
-Cypress.Commands.add("realMouseDown", { prevSubject: true }, realMouseDown);
-Cypress.Commands.add("realMouseUp", { prevSubject: true }, realMouseUp);
+
+// TODO fix this unsafe convertions. This happens because cypress does not allow anymore to return Promise for types, but allows for command which is pretty useful for current implementation.
+Cypress.Commands.add(
+  "realClick",
+  { prevSubject: true },
+  realClick as unknown as NormalizeCypressCommand<typeof realClick>
+);
+
+Cypress.Commands.add(
+  "realHover",
+  { prevSubject: true },
+  realHover as unknown as NormalizeCypressCommand<typeof realHover>
+);
+Cypress.Commands.add(
+  "realTouch",
+  { prevSubject: true },
+  realTouch as unknown as NormalizeCypressCommand<typeof realTouch>
+);
+Cypress.Commands.add(
+  "realSwipe",
+  { prevSubject: true },
+  realSwipe as unknown as NormalizeCypressCommand<typeof realSwipe>
+);
+Cypress.Commands.add(
+  "realPress",
+  realPress as unknown as NormalizeNonSubjectCypressCommand<typeof realPress>
+);
+Cypress.Commands.add(
+  "realType",
+  realType as unknown as NormalizeNonSubjectCypressCommand<typeof realType>
+);
+Cypress.Commands.add(
+  "realMouseDown",
+  { prevSubject: true },
+  realMouseDown as unknown as NormalizeCypressCommand<typeof realMouseDown>
+);
+Cypress.Commands.add(
+  "realMouseUp",
+  { prevSubject: true },
+  realMouseUp as unknown as NormalizeCypressCommand<typeof realMouseUp>
+);

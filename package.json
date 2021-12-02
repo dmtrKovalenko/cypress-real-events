@@ -6,16 +6,17 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc",
+    "lint": "yarn eslint './{src,cypress}/**/*.ts'",
     "release": "yarn build && yarn version && node scripts/release.js && yarn publish dist",
     "semantic-release": "semantic-release"
   },
   "peerDependencies": {
-    "cypress": "^4.x || ^5.x || ^6.x || ^7.x || ^8.x"
+    "cypress": "^4.x || ^5.x || ^6.x || ^7.x || ^8.x || ^9.x"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.8.2",
     "@typescript-eslint/parser": "^4.8.2",
-    "cypress": "^8.0.0",
+    "cypress": "^9.0.0",
     "eslint": "^7.14.0",
     "eslint-plugin-cypress": "^2.11.2",
     "eslint-plugin-no-only-tests": "^2.4.0",

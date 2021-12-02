@@ -36,7 +36,7 @@ export interface RealClickOptions {
    * Controls how many times pointer gets clicked. It can be used to simulate double clicks.
    * @example cy.realClick({ clickCount: 2 });
    */
-  clickCount?: number
+  clickCount?: number;
 }
 
 /** @ignore this, update documentation for this function at index.d.ts */
@@ -49,7 +49,11 @@ export async function realClick(
     ? { x: options.x, y: options.y }
     : options.position;
 
-  const { x, y } = getCypressElementCoordinates(subject, position, options.scrollBehavior);
+  const { x, y } = getCypressElementCoordinates(
+    subject,
+    position,
+    options.scrollBehavior
+  );
 
   const log = Cypress.log({
     $el: subject,
