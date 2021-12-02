@@ -108,8 +108,8 @@ Options:
 
 - `Optional` **button**: \"none\" \| \"left\" \| \"right\" \| \"middle\" \| \"back\" \| \"forward\"
 - `Optional` **pointer**: \"mouse\" \| \"pen\"
-- `Optional` x coordinate to click **x**: number
-- `Optional` y coordinate to click **y**: number
+- `Optional` **x**: undefined \| number ([more about coordinates](#coordinates))
+- `Optional` **y**: undefined \| number ([more about coordinates](#coordinates))
 - `Optional` **position**: "topLeft" | "top" | "topRight" | "left"  | "center" | "right" | "bottomLeft" | "bottom" | "bottomRight"
 - `Optional` **scrollBehavior**: "center" | "top" | "bottom" | "nearest" | false
 - `Optional` **clickCount**: number
@@ -179,8 +179,8 @@ cy.get("body").realTouch({ x: 100, y: 1240 }) // touches the x & y coordinates r
 
 Options:
 
-- `Optional` **x**: undefined \| number **`default`** 30
-- `Optional` **y**: undefined \| false \| true **`default`** true
+- `Optional` **x**: undefined \| number ([more about coordinates](#coordinates))
+- `Optional` **y**: undefined \| number ([more about coordinates](#coordinates))
 - `Optional` **position**: "topLeft" | "top" | "topRight" | "left"  | "center" | "right" | "bottomLeft" | "bottom" | "bottomRight"
 - `Optional` **radius**: undefined \| number **`default`** 1
 - `Optional` **radiusX**: undefined \| number **`default`** 1
@@ -215,8 +215,7 @@ cy.realType(text, options);
 Options:
 
 - `Optional` **delay**: undefined \| number **`default`** 30
-- `Optional` **log**: undefined \| false \| true
-  **`default`** true
+- `Optional` **log**: undefined \| false \| true **`default`** true
 - `Optional` **pressDelay**: undefined \| number **`default`** 10
 
 ### cy.realSwipe
@@ -248,8 +247,8 @@ cy.realSwipe(direction, options);
 Options:
 
 - `Optional` **length**: undefined \| number **`default`** 10
-- `Optional` x coordinate to touch **x**: number
-- `Optional` y coordinate to touch **y**: number
+- `Optional` **x**: undefined \| number ([more about coordinates](#coordinates))
+- `Optional` **y**: undefined \| number ([more about coordinates](#coordinates))
 - `Optional` **touchPosition**: "topLeft" | "top" | "topRight" | "left"  | "center" | "right" | "bottomLeft" | "bottom" | "bottomRight"
 
 ## cy.realMouseDown
@@ -293,6 +292,14 @@ Options:
 - `Optional` **pointer**: \"mouse\" \| \"pen\"
 - `Optional` **position**: "topLeft" | "top" | "topRight" | "left"  | "center" | "right" | "bottomLeft" | "bottom" | "bottomRight"
 - `Optional` **scrollBehavior**: "center" | "top" | "bottom" | "nearest" | false
+
+## Coordinates 
+
+Several commands from this plugin accept `{ x: number, y: number }` coordinates. There is an important note that these coordinates are relative to the whole tab in order to pass it right to the CDP. For regular elements we calculate them automatically, but if you need to pass absolute coordinates you will need to provide them yourself. 
+
+The easiest way to debug coordinates is to run any real events command and check the logged coordinates by clicking on the command.
+
+![checking coordinates example](./coordinates-log-screenshot.png)
 
 ## FAQ
 
