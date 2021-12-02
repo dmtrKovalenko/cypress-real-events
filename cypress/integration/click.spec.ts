@@ -40,6 +40,16 @@ describe("cy.realClick", () => {
     cy.get(".action-btn").realClick({ button: "right" });
   });
 
+  it("allow for double clicks", (done) => {
+    cy.get(".action-btn")
+      .then(($button) => {
+        $button.get(0).addEventListener("dblclick", () => {
+          done()
+        });
+      })
+      .realClick({ clickCount: 2 });
+  });
+
   describe("scroll behavior", () => {
     function getScreenEdges() {
       const cypressAppWindow = window.parent.document.querySelector("iframe")

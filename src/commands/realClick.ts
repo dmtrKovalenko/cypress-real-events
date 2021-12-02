@@ -29,9 +29,14 @@ export interface RealClickOptions {
   y?: number;
   /**
    * Controls how the page is scrolled to bring the subject into view, if needed.
-   * @example cy.realHover({ scrollBehavior: "top" });
+   * @example cy.realClick({ scrollBehavior: "top" });
    */
   scrollBehavior?: ScrollBehaviorOptions;
+  /**
+   * Controls how many times pointer gets clicked. It can be used to simulate double clicks.
+   * @example cy.realClick({ clickCount: 2 });
+   */
+  clickCount?: number;
 }
 
 /** @ignore this, update documentation for this function at index.d.ts */
@@ -40,11 +45,15 @@ export async function realClick(
   options: RealClickOptions = {}
 ) {
   // prettier-ignore
-  const position = options.x && options.y 
-    ? { x: options.x, y: options.y } 
+  const position = options.x && options.y
+    ? { x: options.x, y: options.y }
     : options.position;
 
-  const { x, y } = getCypressElementCoordinates(subject, position, options.scrollBehavior);
+  const { x, y } = getCypressElementCoordinates(
+    subject,
+    position,
+    options.scrollBehavior
+  );
 
   const log = Cypress.log({
     $el: subject,
@@ -60,7 +69,7 @@ export async function realClick(
     type: "mousePressed",
     x,
     y,
-    clickCount: 1,
+    clickCount: options.clickCount ?? 1,
     buttons: 1,
     pointerType: options.pointer ?? "mouse",
     button: options.button ?? "left",
@@ -70,7 +79,7 @@ export async function realClick(
     type: "mouseReleased",
     x,
     y,
-    clickCount: 1,
+    clickCount: options.clickCount ?? 1,
     buttons: 1,
     pointerType: options.pointer ?? "mouse",
     button: options.button ?? "left",

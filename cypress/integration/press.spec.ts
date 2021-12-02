@@ -5,6 +5,8 @@ describe("cy.realPress", () => {
     });
 
     it("registers keypress events using", () => {
+      cy.get("input[name=q]").focus();
+
       cy.realPress("c");
       cy.realPress("y");
       cy.realPress("p");
@@ -73,7 +75,7 @@ describe("cy.realPress", () => {
     });
   });
 
-  context.only("Keyboard a11y testing", () => {
+  context("Keyboard a11y testing", () => {
     it("Dispatches beforeinput and keypress event for Enter", () => {
       cy.visit("https://w3c.github.io/uievents/tools/key-event-viewer");
       cy.realPress("Enter");

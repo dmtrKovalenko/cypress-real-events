@@ -36,7 +36,7 @@ describe("cy.realTouch", () => {
       .realTouch({ x: 170, y: 165 });
   });
 
-  it("touches with a default radius of 1",  { retries: 4 }, (done) => {
+  it("touches with a default radius of 1", { retries: 4 }, (done) => {
     cy.get(".action-btn")
       .then(($button) => {
         $button.get(0).addEventListener("pointerdown", (event) => {
@@ -48,7 +48,7 @@ describe("cy.realTouch", () => {
       .realTouch();
   });
 
-  it("touches with a custom radius",  { retries: 4 }, (done) => {
+  it("touches with a custom radius", { retries: 4 }, (done) => {
     cy.get(".action-btn")
       .then(($button) => {
         $button.get(0).addEventListener("pointerdown", (event) => {
@@ -70,20 +70,5 @@ describe("cy.realTouch", () => {
         });
       })
       .realTouch({ radiusX: 5, radiusY: 7 });
-  });
-
-  it("touches using provided 0 for one of the axis", { retries: 4 }, (done) => {
-    cy.get(".action-btn")
-      .then(($button) => {
-        $button.get(0).addEventListener("pointerdown", (event) => {
-          const rect = (
-            event.currentTarget as HTMLElement
-          ).getBoundingClientRect();
-          expect(event.clientX).to.be.closeTo(rect.left - 5, 5);
-          expect(event.clientY).to.be.closeTo(rect.top, 5);
-          done();
-        });
-      })
-      .realTouch({ x: -5, y: 0, radius: 10 });
   });
 });

@@ -3,7 +3,7 @@ describe("cy.realType", () => {
     cy.visit("https://google.com?hl=en");
   });
 
-  it("hovers and applies styles from :hover pseudo-class", () => {
+  it("types text into googles main search inptu", () => {
     cy.realType("cypress can produce real events");
     cy.get("input[name=q]").should(
       "have.value",
@@ -18,6 +18,7 @@ describe("cy.realType", () => {
   });
 
   it("supports cypress's keys shortcuts", () => {
+    cy.get("input[name=q]").focus()
     cy.realType("Something{backspace}{backspace}")
     cy.get("input[name=q]").should("have.value", "Somethi");
   })
