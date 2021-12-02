@@ -88,5 +88,15 @@ declare namespace Cypress {
     realMouseUp: NormalizeCypressCommand<
       typeof import("./commands/mouseUp").realMouseUp
     >;
+    /**
+     * Fires native system wheel event.
+     * @see https://github.com/dmtrKovalenko/cypress-real-events#cyrealMouseWheel
+     * @example
+     * cy.get("button").realMouseWheel({ scrollBehavior: false, deltaY: 500 })
+     * cy.get("button").realMouseWheel({ scrollBehavior: false, deltaX: 500 })
+     */
+    realMouseWheel: NormalizeCypressCommand<
+      typeof import("./commands/mouseWheel").realMouseWheel
+    >;
   }
 }

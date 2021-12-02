@@ -6,6 +6,7 @@ import { realType } from "./commands/realType";
 import { realTouch } from './commands/realTouch';
 import { realMouseDown } from "./commands/mouseDown";
 import { realMouseUp } from "./commands/mouseUp";
+import { realMouseWheel } from "./commands/mouseWheel";
 
 Cypress.Commands.add("realClick", { prevSubject: true }, realClick);
 Cypress.Commands.add("realHover", { prevSubject: true }, realHover);
@@ -15,3 +16,4 @@ Cypress.Commands.add("realPress", realPress);
 Cypress.Commands.add("realType", realType);
 Cypress.Commands.add("realMouseDown", { prevSubject: true }, realMouseDown);
 Cypress.Commands.add("realMouseUp", { prevSubject: true }, realMouseUp);
+Cypress.Commands.add("realMouseWheel", { prevSubject: true }, realMouseWheel);
