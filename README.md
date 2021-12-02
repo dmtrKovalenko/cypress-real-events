@@ -303,13 +303,13 @@ The easiest way to debug coordinates is to run any real events command and check
 
 ## FAQ
 
-1. Why `cy.realHover` hovering state does not show in the visual regression services?
+### 1. Why `cy.realHover` hovering state does not show in the visual regression services?
 
 Unfortunately, visual regression services like Happo and Percy does not solve this issue. Their architecture is based on saving dom snapshot, not the screenshot and then rendering the snapshot on their machines. It means that hover and focus state will be lost if it won't be serialized manually.
 
 In fact it means that if you will use plain `cy.screenshot` it will render screenshot with hovering state because using browser itself to make a screenshot. Testing hovering state is possible with, for example, [Visual Regression Tracker](https://github.com/Visual-Regression-Tracker/Visual-Regression-Tracker) and [cypress-image-snapshot](https://github.com/jaredpalmer/cypress-image-snapshot).
 
-2. When I am doing `cy.realHover` hovering state does not resetting after my checks
+### 2. When I am doing `cy.realHover` hovering state does not resetting after my checks
 
 Let's take an example. If the real user need to open menu popover then do check content of popover content and close it the algorithm will be:
 
