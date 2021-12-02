@@ -16,7 +16,7 @@
  <a/>
  <img src="https://img.shields.io/badge/made-with%20love-orange?style=for-the-badge"/>
  <a href="https://twitter.com/goose_plus_plus">
-   <img src="https://img.shields.io/twitter/follow/dmtrKovalenko?color=blue&style=for-the-badge">
+   <img src="https://img.shields.io/twitter/follow/goose_plus_plus?color=blue&style=for-the-badge">
  <a/>
 <p />
 
@@ -157,10 +157,14 @@ cy.realPress(key, options);
 
 ### Parameters:
 
-| Name      | Type                                           | Default value | Description |
-| --------- | ---------------------------------------------- | ------------- | ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `key`     | string                                         | string[]      | -           | key or keys to press. Should be the same as cypress's [type command argument](https://docs.cypress.io/api/commands/type.html#Arguments). All the keys available [here](https://github.com/dmtrKovalenko/cypress-real-events/blob/main/src/keyCodeDefinitions.ts). |
-| `options` | - `Optional` **pointer**: \"mouse\" \| \"pen\" | {}            |             |
+| Name      | Type                 | Default value | Description                                                                                                                                                                                                                                                      |
+| --------- | -------------------- | ------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `key`     | `string \| string[]` | -             | key or keys to press. Should be the same as cypress's [type command argument](https://docs.cypress.io/api/commands/type.html#Arguments). All the keys available [here](https://github.com/dmtrKovalenko/cypress-real-events/blob/main/src/keyCodeDefinitions.ts) |
+| `options` | Options              | {}            |                                                                                                                                                                                                                                                                  |
+
+Options:
+
+- `Optional` **pointer**: \"mouse\" \| \"pen\"
 
 ### cy.realTouch
 
