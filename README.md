@@ -271,6 +271,7 @@ Options:
 - `Optional` **pointer**: \"mouse\" \| \"pen\"
 - `Optional` **position**: "topLeft" | "top" | "topRight" | "left" | "center" | "right" | "bottomLeft" | "bottom" | "bottomRight"
 - `Optional` **scrollBehavior**: "center" | "top" | "bottom" | "nearest" | false
+- `Optional` **button**: "left" | "middle" | "right" | "back" | "forward" | "none"
 
 ## cy.realMouseUp
 
@@ -292,6 +293,7 @@ Options:
 - `Optional` **pointer**: \"mouse\" \| \"pen\"
 - `Optional` **position**: "topLeft" | "top" | "topRight" | "left" | "center" | "right" | "bottomLeft" | "bottom" | "bottomRight"
 - `Optional` **scrollBehavior**: "center" | "top" | "bottom" | "nearest" | false
+- `Optional` **button**: "left" | "middle" | "right" | "back" | "forward" | "none"
 
 ## Coordinates
 
