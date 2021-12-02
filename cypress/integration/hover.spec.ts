@@ -3,7 +3,7 @@ describe("cy.realHover", () => {
     cy.visit("https://example.cypress.io/commands/actions");
   });
 
-  it.only("hovers and applies styles from :hover pseudo-class", () => {
+  it("hovers and applies styles from :hover pseudo-class", () => {
     cy.get(".action-btn")
       .should("have.css", "background-color", "rgb(217, 83, 79)")
       .realHover()

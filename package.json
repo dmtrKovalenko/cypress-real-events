@@ -6,6 +6,7 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc",
+    "lint": "yarn eslint './{src,cypress}/**/*.ts'",
     "release": "yarn build && yarn version && node scripts/release.js && yarn publish dist",
     "semantic-release": "semantic-release"
   },

@@ -1,6 +1,11 @@
 type NormalizeCypressCommand<TFun> = TFun extends (
-  // eslint-disable-next-line
-  subject: any,
+  subject: infer TSubject,
+  ...args: infer TArgs
+) => Promise<infer TReturn>
+  ? (...args: TArgs) => Cypress.Chainable<TReturn>
+  : TFun;
+
+type NormalizeNonSubjectCypressCommand<TFun> = TFun extends (
   ...args: infer TArgs
 ) => Promise<infer TReturn>
   ? (...args: TArgs) => Cypress.Chainable<TReturn>
@@ -59,7 +64,7 @@ declare namespace Cypress {
      * @param key key to type. Should be the same as cypress's default type command argument (https://docs.cypress.io/api/commands/type.html#Arguments)
      * @param options press options
      */
-    realPress: typeof import("./commands/realPress").realPress;
+    realPress: NormalizeNonSubjectCypressCommand<typeof import("./commands/realPress").realPress>;
     /**
      * Runs a sequence of native press event (via cy.press)
      * Type event is global. Make sure that it is not attached to any field.
@@ -69,7 +74,7 @@ declare namespace Cypress {
      * cy.realType("some text {enter}")
      * @param text text to type. Should be the same as cypress's default type command argument (https://docs.cypress.io/api/commands/type.html#Arguments)
      */
-    realType: typeof import("./commands/realType").realType;
+    realType: NormalizeNonSubjectCypressCommand<typeof import("./commands/realType").realType>;
     /**
      * Fires native system mousePressed event.
      * @see https://github.com/dmtrKovalenko/cypress-real-events#cyrealMouseDown
