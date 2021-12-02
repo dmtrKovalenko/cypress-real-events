@@ -79,6 +79,7 @@ If you are using typescript, also add the following to `cypress/tsconfig.json`
 The idea of the commands – they should be as similar as possible to cypress default commands (like `cy.type`), but starts with `real` – `cy.realType`.
 
 Here is an overview of the available **real** event commands:
+
 - [cy.realClick](#cyrealclick)
 - [cy.realHover](#cyrealhover)
 - [cy.realPress](#cyrealpress)
@@ -100,8 +101,8 @@ cy.get("button").realClick(options);
 Example:
 
 ```js
-cy.get("button").realClick({ position: "topLeft" }) // click on the top left corner of button
-cy.get("body").realClick({ x: 100, y: 1240 }) // click by the x & y coordinates relative to the whole window
+cy.get("button").realClick({ position: "topLeft" }); // click on the top left corner of button
+cy.get("body").realClick({ x: 100, y: 1240 }); // click by the x & y coordinates relative to the whole window
 ```
 
 Options:
@@ -110,7 +111,7 @@ Options:
 - `Optional` **pointer**: \"mouse\" \| \"pen\"
 - `Optional` **x**: undefined \| number ([more about coordinates](#coordinates))
 - `Optional` **y**: undefined \| number ([more about coordinates](#coordinates))
-- `Optional` **position**: "topLeft" | "top" | "topRight" | "left"  | "center" | "right" | "bottomLeft" | "bottom" | "bottomRight"
+- `Optional` **position**: "topLeft" | "top" | "topRight" | "left" | "center" | "right" | "bottomLeft" | "bottom" | "bottomRight"
 - `Optional` **scrollBehavior**: "center" | "top" | "bottom" | "nearest" | false
 - `Optional` **clickCount**: number
 
@@ -128,13 +129,13 @@ cy.get("button").realHover(options);
 Example:
 
 ```js
-cy.get("button").realHover({ position: "bottomLeft" }) // hovers over the bottom left corner of button
+cy.get("button").realHover({ position: "bottomLeft" }); // hovers over the bottom left corner of button
 ```
 
 Options:
 
 - `Optional` **pointer**: \"mouse\" \| \"pen\"
-- `Optional` **position**: "topLeft" | "top" | "topRight" | "left"  | "center" | "right" | "bottomLeft" | "bottom" | "bottomRight"
+- `Optional` **position**: "topLeft" | "top" | "topRight" | "left" | "center" | "right" | "bottomLeft" | "bottom" | "bottomRight"
 - `Optional` **scrollBehavior**: "center" | "top" | "bottom" | "nearest" | false
 
 ## cy.realPress
@@ -144,7 +145,7 @@ Make sure that event is global, it means that it is required to **firstly** focu
 
 ```jsx
 cy.realPress("Tab"); // switch the focus for a11y testing
-cy.realPress(["Alt", "Meta", "P"]) // Alt+(Command or Control)+P
+cy.realPress(["Alt", "Meta", "P"]); // Alt+(Command or Control)+P
 ```
 
 ### Usage
@@ -156,10 +157,10 @@ cy.realPress(key, options);
 
 ### Parameters:
 
-| Name      | Type                                           | Default value | Description                                                                                                                          |
-| --------- | ---------------------------------------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
-| `key`     | string | string[]                                        | -             | key or keys to press. Should be the same as cypress's [type command argument](https://docs.cypress.io/api/commands/type.html#Arguments). All the keys available [here](https://github.com/dmtrKovalenko/cypress-real-events/blob/main/src/keyCodeDefinitions.ts). |
-| `options` | - `Optional` **pointer**: \"mouse\" \| \"pen\" | {}            |                                                                                                                                      |
+| Name      | Type                                           | Default value | Description |
+| --------- | ---------------------------------------------- | ------------- | ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `key`     | string                                         | string[]      | -           | key or keys to press. Should be the same as cypress's [type command argument](https://docs.cypress.io/api/commands/type.html#Arguments). All the keys available [here](https://github.com/dmtrKovalenko/cypress-real-events/blob/main/src/keyCodeDefinitions.ts). |
+| `options` | - `Optional` **pointer**: \"mouse\" \| \"pen\" | {}            |             |
 
 ### cy.realTouch
 
@@ -173,15 +174,15 @@ cy.get("button").realTouch(options);
 ##### Usage:
 
 ```js
-cy.get("button").realTouch({ position: "topLeft" }) // touches the top left corner of button
-cy.get("body").realTouch({ x: 100, y: 1240 }) // touches the x & y coordinates relative to the whole window
+cy.get("button").realTouch({ position: "topLeft" }); // touches the top left corner of button
+cy.get("body").realTouch({ x: 100, y: 1240 }); // touches the x & y coordinates relative to the whole window
 ```
 
 Options:
 
 - `Optional` **x**: undefined \| number ([more about coordinates](#coordinates))
 - `Optional` **y**: undefined \| number ([more about coordinates](#coordinates))
-- `Optional` **position**: "topLeft" | "top" | "topRight" | "left"  | "center" | "right" | "bottomLeft" | "bottom" | "bottomRight"
+- `Optional` **position**: "topLeft" | "top" | "topRight" | "left" | "center" | "right" | "bottomLeft" | "bottom" | "bottomRight"
 - `Optional` **radius**: undefined \| number **`default`** 1
 - `Optional` **radiusX**: undefined \| number **`default`** 1
 - `Optional` **radiusY**: undefined \| number **`default`** 1
@@ -224,10 +225,9 @@ Runs a native swipe events. It means that **touch events** will be fired. Actual
 
 > Make sure to enable mobile viewport :)
 
-
 ```js
-cy.get('.element').realSwipe("toLeft");  // swipes from right to left
-cy.get('.element').realSwipe("toRight"); // inverted
+cy.get(".element").realSwipe("toLeft"); // swipes from right to left
+cy.get(".element").realSwipe("toRight"); // inverted
 ```
 
 #### Usage:
@@ -239,17 +239,17 @@ cy.realSwipe(direction, options);
 
 #### Parameters:
 
-| Name      | Type    | Default value | Description                                                                                                                           |
-| --------- | ------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| `direction`    | `"toLeft" | "toTop" | "toRight" | "toBottom";`  | -             | text to type. Should be around the same as cypress's type command argument (https://docs.cypress.io/api/commands/type.html#Arguments) |
-| `options` | Options | {}            |                                                                                                                                       |
+| Name        | Type      | Default value | Description |
+| ----------- | --------- | ------------- | ----------- | ------------ | --- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| `direction` | `"toLeft" | "toTop"       | "toRight"   | "toBottom";` | -   | text to type. Should be around the same as cypress's type command argument (https://docs.cypress.io/api/commands/type.html#Arguments) |
+| `options`   | Options   | {}            |             |
 
 Options:
 
 - `Optional` **length**: undefined \| number **`default`** 10
 - `Optional` **x**: undefined \| number ([more about coordinates](#coordinates))
 - `Optional` **y**: undefined \| number ([more about coordinates](#coordinates))
-- `Optional` **touchPosition**: "topLeft" | "top" | "topRight" | "left"  | "center" | "right" | "bottomLeft" | "bottom" | "bottomRight"
+- `Optional` **touchPosition**: "topLeft" | "top" | "topRight" | "left" | "center" | "right" | "bottomLeft" | "bottom" | "bottomRight"
 
 ## cy.realMouseDown
 
@@ -263,13 +263,13 @@ cy.get("button").realMouseDown(options);
 Example:
 
 ```js
-cy.get("button").realMouseDown({ position: "topLeft" }) // click on the top left corner of button
+cy.get("button").realMouseDown({ position: "topLeft" }); // click on the top left corner of button
 ```
 
 Options:
 
 - `Optional` **pointer**: \"mouse\" \| \"pen\"
-- `Optional` **position**: "topLeft" | "top" | "topRight" | "left"  | "center" | "right" | "bottomLeft" | "bottom" | "bottomRight"
+- `Optional` **position**: "topLeft" | "top" | "topRight" | "left" | "center" | "right" | "bottomLeft" | "bottom" | "bottomRight"
 - `Optional` **scrollBehavior**: "center" | "top" | "bottom" | "nearest" | false
 
 ## cy.realMouseUp
@@ -284,18 +284,18 @@ cy.get("button").realMouseUp(options);
 Example:
 
 ```js
-cy.get("button").realMouseUp({ position: "topLeft" }) // click on the top left corner of button
+cy.get("button").realMouseUp({ position: "topLeft" }); // click on the top left corner of button
 ```
 
 Options:
 
 - `Optional` **pointer**: \"mouse\" \| \"pen\"
-- `Optional` **position**: "topLeft" | "top" | "topRight" | "left"  | "center" | "right" | "bottomLeft" | "bottom" | "bottomRight"
+- `Optional` **position**: "topLeft" | "top" | "topRight" | "left" | "center" | "right" | "bottomLeft" | "bottom" | "bottomRight"
 - `Optional` **scrollBehavior**: "center" | "top" | "bottom" | "nearest" | false
 
-## Coordinates 
+## Coordinates
 
-Several commands from this plugin accept `{ x: number, y: number }` coordinates. There is an important note that these coordinates are relative to the whole tab in order to pass it right to the CDP. For regular elements we calculate them automatically, but if you need to pass absolute coordinates you will need to provide them yourself. 
+Several commands from this plugin accept `{ x: number, y: number }` coordinates. There is an important note that these coordinates are relative to the whole tab in order to pass it right to the CDP. For regular elements we calculate them automatically, but if you need to pass absolute coordinates you will need to provide them yourself.
 
 The easiest way to debug coordinates is to run any real events command and check the logged coordinates by clicking on the command.
 
@@ -303,11 +303,37 @@ The easiest way to debug coordinates is to run any real events command and check
 
 ## FAQ
 
-1. Why `.realHover` hovering state does not show in the visual regression services?
+1. Why `cy.realHover` hovering state does not show in the visual regression services?
 
-Unforunately, visual regression services like Happo and Percy does not solve this issue. Thier architecture is based on saving dom snapshot, not the screenshot and then rendering the snapshot on thier machines. It means that hover and focus state will be lost if it won't be serialized manually.
+Unfortunately, visual regression services like Happo and Percy does not solve this issue. Their architecture is based on saving dom snapshot, not the screenshot and then rendering the snapshot on their machines. It means that hover and focus state will be lost if it won't be serialized manually.
 
 In fact it means that if you will use plain `cy.screenshot` it will render screenshot with hovering state because using browser itself to make a screenshot. Testing hovering state is possible with, for example, [Visual Regression Tracker](https://github.com/Visual-Regression-Tracker/Visual-Regression-Tracker) and [cypress-image-snapshot](https://github.com/jaredpalmer/cypress-image-snapshot).
+
+2. When I am doing `cy.realHover` hovering state does not resetting after my checks
+
+Let's take an example. If the real user need to open menu popover then do check content of popover content and close it the algorithm will be:
+
+1. Hover menu
+2. Check content
+3. Put mouse away from the popover
+
+In order to automate this with cypress you can do the following
+
+```tsx
+cy.get("[aria-label='Test Button']")
+  .should("have.css", "background-color", "rgb(217, 83, 79)") // check the state before hover
+  .realHover()
+  .should("have.css", "background-color", "rgb(201, 48, 44"); // test hovering state
+
+// reset hovering by putting mouse away (e.g. here top left corner of body)
+cy.get("body").realHover({ position: "topLeft" });
+// hover state rests 🎉
+cy.get("[aria-label='Test Button']").should(
+  "have.css",
+  "background-color",
+  "rgb(217, 83, 79)"
+);
+```
 
 ## UX
 
