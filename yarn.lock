@@ -39,7 +39,7 @@
     chalk "^2.0.0"
     js-tokens "^4.0.0"
 
-"@cypress/request@^2.88.7":
+"@cypress/request@^2.88.10":
   version "2.88.10"
   resolved "https://registry.yarnpkg.com/@cypress/request/-/request-2.88.10.tgz#b66d76b07f860d3a4b8d7a0604d020c662752cce"
   integrity sha512-Zp7F+R93N0yZyG34GutyTNr+okam7s/Fzc1+i3kcqOP8vk6OuajuE9qZJ6Rs+10/1JFtXFYMdyarnU1rZuJesg==
@@ -1219,11 +1219,11 @@ crypto-random-string@^2.0.0:
   integrity sha512-v1plID3y9r/lPhviJ1wrXpLeyUIGAZ2SHNYTEapm7/8A9nLPoyvVp3RK/EPFqn5kEznyWgYZNsRtYYIWbuG8KA==
 
 cypress@^9.0.0:
-  version "9.1.0"
-  resolved "https://registry.yarnpkg.com/cypress/-/cypress-9.1.0.tgz#5d23c1b363b7d4853009c74a422a083a8ad2601c"
-  integrity sha512-fyXcCN51vixkPrz/vO/Qy6WL3hKYJzCQFeWofOpGOFewVVXrGfmfSOGFntXpzWBXsIwPn3wzW0HOFw51jZajNQ==
+  version "9.2.0"
+  resolved "https://registry.yarnpkg.com/cypress/-/cypress-9.2.0.tgz#727c20b4662167890db81d5f6ba615231835b17d"
+  integrity sha512-Jn26Tprhfzh/a66Sdj9SoaYlnNX6Mjfmj5PHu2a7l3YHXhrgmavM368wjCmgrxC6KHTOv9SpMQGhAJn+upDViA==
   dependencies:
-    "@cypress/request" "^2.88.7"
+    "@cypress/request" "^2.88.10"
     "@cypress/xvfb" "^1.2.4"
     "@types/node" "^14.14.31"
     "@types/sinonjs__fake-timers" "^6.0.2"
@@ -1282,7 +1282,7 @@ dayjs@^1.10.4:
   resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.10.7.tgz#2cf5f91add28116748440866a0a1d26f3a6ce468"
   integrity sha512-P6twpd70BcPK34K26uJ1KT3wlhpuOAPoMwJzpsIWUxHZ7wpmbdZL/hQqBDfz7hGurYSa5PhzdhDHtt319hL3ig==
 
-debug@4, debug@^4.0.0, debug@^4.1.0, debug@^4.1.1, debug@^4.3.1, debug@^4.3.2:
+debug@4, debug@^4.0.0, debug@^4.0.1, debug@^4.1.0, debug@^4.1.1, debug@^4.3.1, debug@^4.3.2:
   version "4.3.3"
   resolved "https://registry.yarnpkg.com/debug/-/debug-4.3.3.tgz#04266e0b70a98d4462e6e288e38259213332b664"
   integrity sha512-/zxw5+vh1Tfv+4Qn7a5nsbcJKPaSvCDhojn6FEl9vupwK2VCSDtEiEtqr8DFtzYFOdz63LBkxec7DYuc2jon6Q==
@@ -1295,13 +1295,6 @@ debug@^3.1.0:
   integrity sha512-CFjzYYAi4ThfiQvizrFQevTTXHtnCqWfe7x1AhgEscTz6ZbLbfoLRLPugTQyBth6f8ZERVUSyWHFD/7Wu4t1XQ==
   dependencies:
     ms "^2.1.1"
-
-debug@^4.0.1:
-  version "4.3.2"
-  resolved "https://registry.yarnpkg.com/debug/-/debug-4.3.2.tgz#f0a49c18ac8779e31d4a0c6029dfb76873c7428b"
-  integrity sha512-mOp8wKcvj7XxC78zLgw/ZA+6TSgkoE2C/ienthhRD298T7UNwAg9diBpLRxC0mOezLl4B0xV7M0cCO6P/O0Xhw==
-  dependencies:
-    ms "2.1.2"
 
 debuglog@^1.0.1:
   version "1.0.1"
