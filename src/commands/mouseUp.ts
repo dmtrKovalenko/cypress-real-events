@@ -4,6 +4,7 @@ import {
   ScrollBehaviorOptions,
   Position,
 } from "../getCypressElementCoordinates";
+import { mouseButtonNumbers } from "../mouseButtonNumbers";
 
 export interface realMouseUpOptions {
   /** Pointer type for realMouseUp, if "pen" touch simulated */
@@ -18,6 +19,10 @@ export interface realMouseUpOptions {
    * @example cy.realMouseUp({ scrollBehavior: "top" });
    */
   scrollBehavior?: ScrollBehaviorOptions;
+  /**
+   * @default "left"
+   */
+  button?: keyof typeof mouseButtonNumbers;
 }
 
 /** @ignore this, update documentation for this function at index.d.ts */
@@ -42,9 +47,9 @@ export async function realMouseUp(
     x,
     y,
     clickCount: 1,
-    buttons: 1,
+    buttons: mouseButtonNumbers[options.button ?? "left"],
     pointerType: options.pointer ?? "mouse",
-    button: "left",
+    button: options.button ?? "left",
   });
 
   log.snapshot("after").end();
