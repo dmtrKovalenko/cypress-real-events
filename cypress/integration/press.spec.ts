@@ -1,38 +1,37 @@
 describe("cy.realPress", () => {
-  context("key pressing for google", () => {
-    beforeEach(() => {
-      cy.visit("https://google.com?hl=en");
-    });
+  it("Can type into an input", () => {
+    cy.intercept('http://presstest.com/', (req) => {
+      const html = document.implementation.createHTMLDocument()
+      html.body.innerHTML = `<input type="text">`
+      req.reply(html.documentElement.innerHTML)
+    })
+    cy.visit('http://presstest.com/')
+    cy.get("input").focus();
 
-    it("registers keypress events using", () => {
-      cy.get("input[name=q]").focus();
+    cy.realPress("c");
+    cy.realPress("y");
+    cy.realPress("p");
+    cy.realPress("r");
+    cy.realPress("e");
+    cy.realPress("s");
+    cy.realPress("s");
 
-      cy.realPress("c");
-      cy.realPress("y");
-      cy.realPress("p");
-      cy.realPress("r");
-      cy.realPress("e");
-      cy.realPress("s");
-      cy.realPress("s");
+    cy.get("input").should("have.value", "cypress");
+  });
 
-      cy.get("input[name=q]").should("have.value", "cypress");
-    });
-
-    it("Can fire native Tab focus switch", () => {
-      cy.get("input[name=q]").click();
-      cy.realPress("Tab");
-      cy.get("[aria-label='Search by voice']").should("be.focused");
-    });
-
-    it("Can use Enter for a11y navigation", () => {
-      cy.get("input[name=q]").focus();
-      cy.realType("something");
-      cy.realPress("Tab");
-
-      cy.get("input[name=q]").should("have.value", "something");
-      cy.realPress("Enter");
-      cy.get("input[name=q]").should("have.value", "");
-    });
+  it("Can fire native Tab focus switch", () => {
+    cy.intercept('http://presstest.com/', (req) => {
+      const html = document.implementation.createHTMLDocument()
+      html.body.innerHTML = [
+        `<input type="text">`,
+        `<button type="button">Click me</button>`
+      ].join('')
+      req.reply(html.documentElement.innerHTML)
+    })
+    cy.visit('http://presstest.com/')
+    cy.get("input").click();
+    cy.realPress("Tab");
+    cy.get("button").should("be.focused");
   });
 
   context("shortcuts", () => {
