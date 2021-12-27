@@ -50,6 +50,20 @@ describe("cy.realClick", () => {
       .realClick({ clickCount: 2 });
   });
 
+  it("should dispatch multiple clicks with clickCount greater than 1", (done) => {
+    let count = 0
+    cy.get(".action-btn")
+      .then(($button) => {
+        $button.get(0).addEventListener("click", () => {
+          count++
+          if (count === 2) {
+            done()
+          }
+        });
+      })
+      .realClick({ clickCount: 2 });
+  });
+
   describe("scroll behavior", () => {
     function getScreenEdges() {
       const cypressAppWindow = window.parent.document.querySelector("iframe")
