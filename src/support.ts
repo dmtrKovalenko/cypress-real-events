@@ -4,9 +4,11 @@ import { realSwipe } from "./commands/realSwipe";
 import { realPress } from "./commands/realPress";
 import { realType } from "./commands/realType";
 import { realTouch } from "./commands/realTouch";
-import { realMouseDown } from "./commands/mouseDown";
-import { realMouseUp } from "./commands/mouseUp";
+import { realMouseDown } from "./commands/realMouseDown";
+import { realMouseUp } from "./commands/realMouseUp";
+import { InternalState } from './_internalState'
 
+Cypress.on('window:before:load', InternalState.clear)
 
 // TODO fix this unsafe convertions. This happens because cypress does not allow anymore to return Promise for types, but allows for command which is pretty useful for current implementation.
 Cypress.Commands.add(

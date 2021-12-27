@@ -5,6 +5,7 @@ import {
   Position,
 } from "../getCypressElementCoordinates";
 import { mouseButtonNumbers } from "../mouseButtonNumbers";
+import { InternalState } from "../_internalState";
 
 export interface realMouseDownOptions {
   /** Pointer type for realMouseDown, if "pen" touch simulated */
@@ -26,6 +27,32 @@ export interface realMouseDownOptions {
   button?: keyof typeof mouseButtonNumbers;
 }
 
+export async function rawMouseDown({
+  x,
+  y,
+  button = "left",
+  pointer = "mouse",
+  clickCount = 1,
+}: {
+  x: number,
+  y: number,
+  button?: keyof typeof mouseButtonNumbers,
+  pointer?: "mouse" | "pen",
+  clickCount?: number
+}) {
+  InternalState.mouseButtonUp(button)
+
+  await fireCdpCommand("Input.dispatchMouseEvent", {
+    type: "mousePressed",
+    clickCount,
+    buttons: InternalState.getButtonsMask(),
+    pointerType: pointer,
+    button,
+    x,
+    y,
+  });
+}
+
 /** @ignore this, update documentation for this function at index.d.ts */
 export async function realMouseDown(
   subject: JQuery,
@@ -43,15 +70,12 @@ export async function realMouseDown(
   });
 
   log.snapshot("before");
-  await fireCdpCommand("Input.dispatchMouseEvent", {
-    type: "mousePressed",
+
+  await rawMouseDown({
+    ...options,
     x,
-    y,
-    clickCount: 1,
-    buttons: mouseButtonNumbers[options.button ?? "left"],
-    pointerType: options.pointer ?? "mouse",
-    button: options.button ?? "left",
-  });
+    y
+  })
 
   log.snapshot("after").end();
 

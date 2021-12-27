@@ -1,15 +1,18 @@
-import { fireCdpCommand } from "../fireCdpCommand";
 import {
   getCypressElementCoordinates,
   ScrollBehaviorOptions,
   Position,
 } from "../getCypressElementCoordinates";
+import { rawMouseDown } from './realMouseDown'
+import { rawMouseUp } from './realMouseUp'
+import { rawMouseMove } from './realHover'
+import { mouseButtonNumbers } from "../mouseButtonNumbers";
 
 export interface RealClickOptions {
   /** Pointer type for realClick, if "pen" touch simulated */
   pointer?: "mouse" | "pen";
   /** The button on mouse that clicked. Simulates real browser behavior. */
-  button?: "none" | "left" | "right" | "middle" | "back" | "forward";
+  button?: keyof typeof mouseButtonNumbers;
   /**
    * Position of the click event relative to the element
    * @example cy.realClick({ position: "topLeft" })
@@ -65,25 +68,30 @@ export async function realClick(
   });
 
   log.snapshot("before");
-  await fireCdpCommand("Input.dispatchMouseEvent", {
-    type: "mousePressed",
-    x,
-    y,
-    clickCount: options.clickCount ?? 1,
-    buttons: 1,
-    pointerType: options.pointer ?? "mouse",
-    button: options.button ?? "left",
-  });
 
-  await fireCdpCommand("Input.dispatchMouseEvent", {
-    type: "mouseReleased",
+  await rawMouseMove({
+    ...options,
     x,
-    y,
-    clickCount: options.clickCount ?? 1,
-    buttons: 1,
-    pointerType: options.pointer ?? "mouse",
-    button: options.button ?? "left",
-  });
+    y
+  })
+
+  const { clickCount = 1 } = options
+
+  for (let currentClick = 1; currentClick <= clickCount; currentClick++) {
+    await rawMouseDown({
+      ...options,
+      x,
+      y,
+      clickCount: currentClick
+    })
+
+    await rawMouseUp({
+      ...options,
+      x,
+      y,
+      clickCount: currentClick
+    })
+  }
 
   log.snapshot("after").end();
 

@@ -82,7 +82,7 @@ declare namespace Cypress {
      * cy.get("button").realMouseDown()
      */
     realMouseDown: NormalizeCypressCommand<
-      typeof import("./commands/mouseDown").realMouseDown
+      typeof import("./commands/realMouseDown").realMouseDown
     >;
     /**
      * Fires native system mouseReleased event.
@@ -91,7 +91,7 @@ declare namespace Cypress {
      * cy.get("button").realMouseUp()
      */
     realMouseUp: NormalizeCypressCommand<
-      typeof import("./commands/mouseUp").realMouseUp
+      typeof import("./commands/realMouseUp").realMouseUp
     >;
   }
 }
