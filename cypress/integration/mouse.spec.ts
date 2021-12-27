@@ -36,6 +36,32 @@ describe("cy.realMouseDown and cy.realMouseUp", () => {
         .realMouseDown({ position: "bottomRight" })
         .realMouseUp({ position: "bottomRight" });
     });
+
+    describe("options.button", () => {
+      it("should allow to press down mouse using middle button", (done) => {
+        cy.get(".action-btn")
+          .then(($button) => {
+            $button.get(0).addEventListener("mousedown", (ev) => {
+              if (ev.button === 1) {
+                done();
+              }
+            });
+          })
+          .realMouseDown({ button: "middle" });
+      });
+
+      it("should allow to release mouse using middle button", (done) => {
+        cy.get(".action-btn")
+          .then(($button) => {
+            $button.get(0).addEventListener("mouseup", (ev) => {
+              if (ev.button === 1) {
+                done();
+              }
+            });
+          })
+          .realMouseUp({ button: "middle" });
+      });
+    });
   
     describe("realMouseDown scroll behavior", () => {
       function getScreenEdges() {
