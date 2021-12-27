@@ -4,13 +4,14 @@ import {
   ScrollBehaviorOptions,
   getCypressElementCoordinates,
 } from "../getCypressElementCoordinates";
+import { InternalState } from "../_internalState";
 
 export interface RealHoverOptions {
   /**
    * If set to `pen`, simulates touch based hover (via long press)
    */
   pointer?: "mouse" | "pen";
-  /** 
+  /**
    * Position relative to the element where to hover the element.
    * @example cy.realHover({ position: "topLeft" })
    */
@@ -20,6 +21,25 @@ export interface RealHoverOptions {
    * @example cy.realHover({ scrollBehavior: "top" });
    */
   scrollBehavior?: ScrollBehaviorOptions;
+}
+
+export async function rawMouseMove({
+  x,
+  y,
+  pointer = "mouse",
+}: {
+  x: number,
+  y: number,
+  pointer?: "mouse" | "pen",
+}) {
+  await fireCdpCommand("Input.dispatchMouseEvent", {
+    type: "mouseMoved",
+    pointerType: pointer,
+    button: "none",
+    buttons: InternalState.getButtonsMask(),
+    x,
+    y,
+  });
 }
 
 /** @ignore this, update documentation for this function at index.d.ts */
@@ -38,13 +58,11 @@ export async function realHover(
     }),
   });
 
-  await fireCdpCommand("Input.dispatchMouseEvent", {
+  await rawMouseMove({
+    ...options,
     x,
     y,
-    type: "mouseMoved",
-    button: "none",
-    pointerType: options.pointer ?? "mouse",
-  });
+  })
 
   log.snapshot().end();
 

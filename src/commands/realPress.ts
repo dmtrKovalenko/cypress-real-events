@@ -1,5 +1,5 @@
 import { fireCdpCommand } from "../fireCdpCommand";
-import { keyCodeDefinitions } from "../keyCodeDefinitions";
+import { getKeyCodeDefinitions, KeyDefinition, KeyOrShortcut } from "../getKeyCodeDefinitions";
 
 export interface RealPressOptions {
   /**
@@ -14,26 +14,6 @@ export interface RealPressOptions {
   log?: boolean;
 }
 
-function getKeyDefinition(key: keyof typeof keyCodeDefinitions) {
-  const keyDefinition = keyCodeDefinitions[key];
-
-  if (!keyDefinition) {
-    throw new Error(`Unsupported key '${key}'.`);
-  }
-
-  const keyCode = keyDefinition.keyCode ?? 0;
-  return {
-    keyCode: keyCode,
-    key: keyDefinition?.key ?? "",
-    text: keyDefinition.key.length === 1 ? keyDefinition.key : undefined,
-    // @ts-expect-error code exists anyway
-    code: keyDefinition.code ?? "",
-    // @ts-expect-error location exists anyway
-    location: keyDefinition.location ?? 0,
-    windowsVirtualKeyCode: keyCode,
-  };
-}
-
 const keyToModifierBitMap: Record<string, number> = {
   Alt: 1,
   Control: 2,
@@ -41,31 +21,8 @@ const keyToModifierBitMap: Record<string, number> = {
   Shift: 8,
 };
 
-type Key = keyof typeof keyCodeDefinitions;
-// unfortunately passing a string like Shift+P is not possible cause typescript template literals can not handle such giant union
-type KeyOrShortcut = Key | Array<Key>;
-
-/** @ignore this, update documentation for this function at index.d.ts */
-export async function realPress(
-  keyOrShortcut: KeyOrShortcut,
-  options: RealPressOptions = {}
-) {
-  let log;
-
+export async function rawRealPress(keyDefinitions: KeyDefinition[], options: RealPressOptions = {}) {
   let modifiers = 0;
-  const keys = Array.isArray(keyOrShortcut) ? keyOrShortcut : [keyOrShortcut];
-  const keyDefinitions = keys.map(getKeyDefinition);
-
-  if (options.log ?? true) {
-    log = Cypress.log({
-      name: "realPress",
-      consoleProps: () => ({
-        "System Key Definition": keyDefinitions,
-      }),
-    });
-  }
-
-  log?.snapshot("before").end();
 
   for (const key of keyDefinitions) {
     modifiers |= keyToModifierBitMap[key.key] ?? 0;
@@ -75,14 +32,6 @@ export async function realPress(
       modifiers,
       ...key,
     });
-
-    if (key.code === "Enter") {
-      await fireCdpCommand("Input.dispatchKeyEvent", {
-        type: "char",
-        unmodifiedText: "\r",
-        text: "\r",
-      });
-    }
 
     await new Promise((res) => setTimeout(res, options.pressDelay ?? 25));
   }
@@ -96,6 +45,29 @@ export async function realPress(
       });
     })
   );
+}
+
+/** @ignore this, update documentation for this function at index.d.ts */
+export async function realPress(
+  keyOrShortcut: KeyOrShortcut,
+  options: RealPressOptions = {}
+) {
+  let log;
+
+  const keyDefinitions = getKeyCodeDefinitions(keyOrShortcut)
+
+  if (options.log ?? true) {
+    log = Cypress.log({
+      name: "realPress",
+      consoleProps: () => ({
+        "System Key Definition": keyDefinitions,
+      }),
+    });
+  }
+
+  log?.snapshot("before").end();
+
+  await rawRealPress(keyDefinitions, options)
 
   log?.snapshot("after").end();
 }

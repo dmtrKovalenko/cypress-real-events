@@ -4,9 +4,9 @@ describe("cy.realType", () => {
     cy.get("input[name=q]").focus()
   });
 
-  it("types text into googles main search inptu", () => {
+  it("types text into an input", () => {
     cy.realType("cypress can produce real events");
-    
+
     cy.get("input[name=q]").should(
       "have.value",
       "cypress can produce real events"
