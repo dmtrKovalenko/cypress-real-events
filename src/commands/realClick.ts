@@ -65,25 +65,30 @@ export async function realClick(
   });
 
   log.snapshot("before");
-  await fireCdpCommand("Input.dispatchMouseEvent", {
-    type: "mousePressed",
-    x,
-    y,
-    clickCount: options.clickCount ?? 1,
-    buttons: 1,
-    pointerType: options.pointer ?? "mouse",
-    button: options.button ?? "left",
-  });
 
-  await fireCdpCommand("Input.dispatchMouseEvent", {
-    type: "mouseReleased",
-    x,
-    y,
-    clickCount: options.clickCount ?? 1,
-    buttons: 1,
-    pointerType: options.pointer ?? "mouse",
-    button: options.button ?? "left",
-  });
+  const { clickCount = 1 } = options
+
+  for (let currentClick = 1; currentClick <= clickCount; currentClick++) {
+    await fireCdpCommand("Input.dispatchMouseEvent", {
+      type: "mousePressed",
+      x,
+      y,
+      clickCount: currentClick,
+      buttons: 1,
+      pointerType: options.pointer ?? "mouse",
+      button: options.button ?? "left",
+    });
+
+    await fireCdpCommand("Input.dispatchMouseEvent", {
+      type: "mouseReleased",
+      x,
+      y,
+      clickCount: currentClick,
+      buttons: 1,
+      pointerType: options.pointer ?? "mouse",
+      button: options.button ?? "left",
+    });
+  }
 
   log.snapshot("after").end();
 
