@@ -4431,9 +4431,9 @@ typedarray-to-buffer@^3.1.5:
     is-typedarray "^1.0.0"
 
 typedoc-plugin-markdown@^3.0.11:
-  version "3.11.7"
-  resolved "https://registry.yarnpkg.com/typedoc-plugin-markdown/-/typedoc-plugin-markdown-3.11.7.tgz#9ba24e2cf55992ce4664a2630b2e510aaec43468"
-  integrity sha512-Wm3HP5gcBOGOOTeDA8GLgw+BY+GAI31RP9Lyog21BvTaSeWUcdXls5TG1MK+XDatS2/0dup9gFO+emoyoQJm9Q==
+  version "3.11.9"
+  resolved "https://registry.yarnpkg.com/typedoc-plugin-markdown/-/typedoc-plugin-markdown-3.11.9.tgz#fd1fe609458b6ed04bb9fc40035248d9da68f0b8"
+  integrity sha512-wgJWPfq2wXMktfeBBx1ZObQw2a02Qz0F67juYt6urCY9PYpAX38XcB2d2Nb4grymn95X/ThwtU5PaK2eWyq7AQ==
   dependencies:
     handlebars "^4.7.7"
 
