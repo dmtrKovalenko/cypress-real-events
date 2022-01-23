@@ -18,6 +18,11 @@ export interface realMouseMoveOptions {
   */
   y?: number;
   /**
+  * Controls how the page is scrolled to bring the subject into view, if needed.
+  * @example cy.realClick({ scrollBehavior: "top" });
+  */
+  scrollBehavior?: ScrollBehaviorOptions;
+  /**
    * Position of the realMouseUp event relative to the element
    * @example cy.realMouseUp({ position: "topLeft" })
    */
