@@ -7,6 +7,8 @@ import {
 import { mouseButtonNumbers } from "../mouseButtonNumbers";
 
 export interface realMouseMoveOptions {
+  /** Pointer type for realMouseUp, if "pen" touch simulated */
+  pointer?: "mouse" | "pen";
   /**
    * Pixels to move the element on the X axis.
    * @example cy.realMouseMove({ x: 55 });
@@ -51,10 +53,11 @@ export async function realMouseMove(
 
   log.snapshot("before");
   await fireCdpCommand("Input.dispatchMouseEvent", {
-    type: "mousemoved",
+    type: "mouseMoved",
     x: x + (options.x ?? 0),
     y: y + (options.y ?? 0),
     buttons: mouseButtonNumbers[options.button ?? "left"],
+    pointerType: options.pointer ?? "mouse",
     button: options.button ?? "left",
   });
 
