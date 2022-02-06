@@ -17,6 +17,7 @@ export const keyCodeDefinitions =  {
   'Abort': {'keyCode': 3, 'code': 'Abort', 'key': 'Cancel'},
   'Help': {'keyCode': 6, 'code': 'Help', 'key': 'Help'},
   '{backspace}': {'keyCode': 8, 'code': 'Backspace', 'key': 'Backspace'},
+  'Backspace': {'keyCode': 8, 'code': 'Backspace', 'key': 'Backspace'},
   'Tab': {'keyCode': 9, 'code': 'Tab', 'key': 'Tab'},
   'Numpad5': {'keyCode': 12, 'shiftKeyCode': 101, 'key': 'Clear', 'code': 'Numpad5', 'shiftKey': '5', 'location': 3},
   'NumpadEnter': {'keyCode': 13, 'code': 'NumpadEnter', 'key': 'Enter', 'location': 3},
