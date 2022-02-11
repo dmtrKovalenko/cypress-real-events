@@ -60,7 +60,7 @@ describe("cy.realTouch", () => {
       .realTouch({ radius: 10 });
   });
 
-  it("touches with a custom radius for each axis", { retries: 4 }, (done) => {
+  it.skip("touches with a custom radius for each axis", { retries: 4 }, (done) => {
     cy.get(".action-btn")
       .then(($button) => {
         $button.get(0).addEventListener("pointerdown", (event) => {
