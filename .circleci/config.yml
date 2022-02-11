@@ -38,22 +38,12 @@ workflows:
       - build:
           requires: 
             - cypress/install
-      - cypress/run:
-          # make sure app has been installed and built
-          # before running tests across multiple machines
-          # this avoids installing same dependencies 10 times
-          requires:
-            - cypress/install
-          browser: chrome
-          # notice a trick to avoid re-installing dependencies
-          # in this job - a do-nothing "install-command" parameter
-          install-command: echo 'Nothing to install in this job'
-          yarn: true
-          no-workspace: true
-          # we are not going to use results from this job anywhere else
-          record: false
-          store_artifacts: true
-      - release:
+      - run: 
+        | TESTFILES=$(circleci tests glob "cypress/integration/**/*spec.{js,jsx,ts,tsx}" | circleci tests split --total=2)
+          echo "Test files for this machine are $TESTFILES"
+          npx cypress run --spec $TESTFILES --browser chrome 
+           
+      - release: 
           name: NPM release
           filters:
             branches:
