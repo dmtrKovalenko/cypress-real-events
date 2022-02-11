@@ -299,6 +299,26 @@ Options:
 - `Optional` **scrollBehavior**: "center" | "top" | "bottom" | "nearest" | false
 - `Optional` **button**: "left" | "middle" | "right" | "back" | "forward" | "none"
 
+## cy.realMouseMove
+
+Fires native system mouseMoved event. Moves mouse inside a subject to the provided amount of coordinates from top left corner (adjustable with position option.)
+
+```jsx
+cy.get("sector").realMouseMove(x, y);
+cy.get("sector").realMouseMove(x, y, options);
+```
+
+Example:
+
+```js
+cy.get("sector").realMouseUp(50, 50, { position: "center" }); // moves by 50px x and y from center of sector
+```
+
+Options:
+
+- `Optional` **position**: "topLeft" | "top" | "topRight" | "left" | "center" | "right" | "bottomLeft" | "bottom" | "bottomRight"
+- `Optional` **scrollBehavior**: "center" | "top" | "bottom" | "nearest" | false
+
 ## Coordinates
 
 Several commands from this plugin accept `{ x: number, y: number }` coordinates. There is an important note that these coordinates are relative to the whole tab to pass it right to the CDP. For regular elements, we calculate them automatically, but if you need to pass absolute coordinates you will need to provide them yourself.

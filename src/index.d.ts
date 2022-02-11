@@ -94,8 +94,9 @@ declare namespace Cypress {
       typeof import("./commands/mouseUp").realMouseUp
     >;
     /**
-    * Fires native system mouseReleased event.
-    * @see https://github.com/dmtrKovalenko/cypress-real-events#cyrealMouseUp
+    * Fires native system mouseMoved event.
+    * Moves mouse inside a subject to the provided amount of coordinates from top left corner (adjustable with position option.)
+    * @see https://github.com/dmtrKovalenko/cypress-real-events#cyrealMouseMove
     * @example
     * cy.get("button").realMouseUp()
     */
