@@ -39,7 +39,6 @@ workflows:
           requires: 
             - cypress/install
       - cypress/run:
-          parallelism: 2
           # make sure app has been installed and built
           # before running tests across multiple machines
           # this avoids installing same dependencies 10 times
@@ -54,12 +53,6 @@ workflows:
           # we are not going to use results from this job anywhere else
           record: false
           store_artifacts: true
-          # following examples from
-          # https://circleci.com/docs/2.0/parallelism-faster-jobs/
-          command: |
-            TESTFILES=$(circleci tests glob "cypress/integration/**/*spec.{js,jsx,ts,tsx}" | circleci tests split --total=2)
-            echo "Test files for this machine are $TESTFILES"
-            npx cypress run --spec $TESTFILES
       - release:
           name: NPM release
           filters:
