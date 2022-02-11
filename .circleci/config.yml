@@ -45,7 +45,6 @@ workflows:
           # this avoids installing same dependencies 10 times
           requires:
             - cypress/install
-          browser: chrome
           # notice a trick to avoid re-installing dependencies
           # in this job - a do-nothing "install-command" parameter
           install-command: echo 'Nothing to install in this job'
@@ -59,8 +58,8 @@ workflows:
           command: |
             TESTFILES=$(circleci tests glob "cypress/integration/**/*spec.{js,jsx,ts,tsx}" | circleci tests split --total=2)
             echo "Test files for this machine are $TESTFILES"
-            npx cypress run --spec $TESTFILES
-      - release:
+            npx cypress run --spec $TESTFILES --browser chrome 
+      - release: 
           name: NPM release
           filters:
             branches:
