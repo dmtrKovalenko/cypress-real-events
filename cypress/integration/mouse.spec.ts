@@ -346,14 +346,16 @@ describe("realMouseDown and realMouseUp iframe behavior", () => {
 
 describe("realMouseMove", () => {
   beforeEach(() => {
+    cy.viewport("macbook-13");
     cy.visit("./cypress/fixtures/mouse-move.html");
   });
+
   it("moves mouse", () => {
     cy.get("main").realClick().realMouseMove(100, 100);
     cy.get(".background").should(
       "have.css",
       "transform",
-      "matrix(1.8, 0, 0, 1.8, 382, -50)"
+      "matrix(1.8, 0, 0, 1.8, 489, -83)"
     );
   });
 });
