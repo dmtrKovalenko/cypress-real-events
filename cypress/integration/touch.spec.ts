@@ -1,4 +1,4 @@
-describe("cy.realTouch", () => {
+describe.skip("cy.realTouch", () => {
   beforeEach(() => {
     cy.visit("https://example.cypress.io/commands/actions");
   });
