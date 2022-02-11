@@ -21,7 +21,7 @@ declare namespace Cypress {
      * @param options click options
      */
     realClick: NormalizeCypressCommand<
-    typeof import("./commands/realClick").realClick
+      typeof import("./commands/realClick").realClick
     >;
     /**
      * Fires native touch event. It mimics the native touch gesture and can fire html5 touch events.
@@ -32,7 +32,7 @@ declare namespace Cypress {
      * @param options touch options
      */
     realTouch: NormalizeCypressCommand<
-    typeof import("./commands/realTouch").realTouch
+      typeof import("./commands/realTouch").realTouch
     >;
     /**
      * Fires native hover event. Yes, it can test `:hover` preprocessor.
@@ -42,7 +42,7 @@ declare namespace Cypress {
      * @param options hover options
      */
     realHover: NormalizeCypressCommand<
-    typeof import("./commands/realHover").realHover
+      typeof import("./commands/realHover").realHover
     >;
     /**
      * Fires native touch swipe event. Actually fires sequence of native events: touchStart -> touchMove[] -> touchEnd
@@ -53,7 +53,7 @@ declare namespace Cypress {
      * @param options hover options
      */
     realSwipe: NormalizeCypressCommand<
-    typeof import("./commands/realSwipe").realSwipe
+      typeof import("./commands/realSwipe").realSwipe
     >;
     /**
      * Fires native press event. It can fire one key event or the "shortcut" like Shift+Control+M
@@ -92,6 +92,16 @@ declare namespace Cypress {
      */
     realMouseUp: NormalizeCypressCommand<
       typeof import("./commands/mouseUp").realMouseUp
+    >;
+    /**
+    * Fires native system mouseMoved event.
+    * Moves mouse inside a subject to the provided amount of coordinates from top left corner (adjustable with position option.)
+    * @see https://github.com/dmtrKovalenko/cypress-real-events#cyrealMouseMove
+    * @example
+    * cy.get("button").realMouseUp()
+    */
+    realMouseMove: NormalizeCypressCommand<
+      typeof import("./commands/mouseMove").realMouseMove
     >;
   }
 }
