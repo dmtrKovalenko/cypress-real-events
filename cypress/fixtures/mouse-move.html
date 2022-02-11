@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <main>
+      <div class="background" id="item">
+        <h1 id="text1">Press click active zoom</h1>
+        <h1 id="text2">Press double click desactive zoom</h1>
+      </div>
+    </main>
+  </body>
+
+  <script>
+    let x = 0;
+    let y = 0;
+    const image = document.getElementById("item");
+    const base = document.getElementById("base");
+    const dimension = image.getBoundingClientRect();
+    const text1 = document.getElementById("text1");
+    const text2 = document.getElementById("text2");
+    text2.style.setProperty("opacity", 0);
+    text1.style.setProperty("opacity", 0.2);
+
+    function MouseMove(e) {
+      x = e.clientX - (dimension.left + Math.floor(dimension.width / 2));
+      y = e.clientY - (dimension.top + Math.floor(dimension.height / 2));
+
+      // inverte o translate
+      x = x - x * 3;
+      y = y - y * 3;
+
+      console.log(x, "x");
+      console.log(y, "y");
+
+      image.style.setProperty("--scale", 1.8);
+      image.style.setProperty("--x", Math.floor(x / 2) + "px");
+      image.style.setProperty("--y", Math.floor(y / 2) + "px");
+    }
+
+    image.addEventListener("click", function (e) {
+      image.style.setProperty("--scale", 1.6);
+      image.addEventListener("mousemove", MouseMove);
+      text1.style.setProperty("opacity", 0);
+      text2.style.setProperty("opacity", 0.2);
+    });
+
+    image.addEventListener("dblclick", function (e) {
+      image.style.setProperty("--scale", 1);
+      image.style.setProperty("--x", 0 + "px");
+      image.style.setProperty("--y", 0 + "px");
+      text1.style.setProperty("opacity", 0.2);
+      text2.style.setProperty("opacity", 0);
+      image.removeEventListener("mousemove", MouseMove, false);
+    });
+  </script>
+
+  <style>
+       @import url("https://fonts.googleapis.com/css2?family=Jost:wght@200;600;900&display=swap");
+
+    :root {
+      --scale: 1.2
+      --y: 0;
+    	--x: 0;
+    	--light: #fff;
+    }
+
+    * {
+    	box-sizing: border-box;
+    	outline: none;
+    	-webkit-tap-highlight-color: transparent;
+    	user-select: none;
+    	-webkit-user-drag: none;
+    	font-family: "Jost", sans-serif;
+    }
+
+    body {
+    	padding: 0;
+    	margin: 0;
+    	overflow: hidden;
+    	display: flex;
+    	align-items: center;
+    	justify-content: center;
+    	min-height: 100vh;
+    	cursor: url("https://cdn-icons-png.flaticon.com/24/3603/3603748.png") 4 12,
+    		auto;
+    	font-family: "Jost", sans-serif;
+    	background: #000;
+
+    }
+    .background {
+    	z-index: 500;
+    	width: 100vw;
+    	height: 100vh;
+    	background: black;
+    	background-image: url('https://wallpapercave.com/wp/wp4676582.jpg');
+    	background-size: cover;
+    	transform: translateX(var(--x)) translateY(var(--y)) scale(var(--scale));
+      transition: ease-out 0.5s;
+    	position: relative;
+    	overflow: hidden;
+    	display: flex;
+    	justify-content: center;
+    	align-items: center;
+    }
+
+     h1 {
+    		font-size: 4em;
+    		position: absolute;
+    		color: var(--light);
+    		font-weight: 600;
+    	}
+  </style>
+</html>
