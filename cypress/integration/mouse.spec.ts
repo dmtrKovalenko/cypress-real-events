@@ -352,10 +352,8 @@ describe("realMouseMove", () => {
 
   it("moves mouse", () => {
     cy.get("main").realClick().realMouseMove(100, 100);
-    cy.get(".background").should(
-      "have.css",
-      "transform",
-      "matrix(1.8, 0, 0, 1.8, 489, -83)"
-    );
+    cy.get(".background")
+      .then((el) => window.getComputedStyle(el[0]).getPropertyValue("--scale"))
+      .should("eq", "1.8");
   });
 });
