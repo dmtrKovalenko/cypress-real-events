@@ -311,7 +311,7 @@ cy.get("sector").realMouseMove(x, y, options);
 Example:
 
 ```js
-cy.get("sector").realMouseUp(50, 50, { position: "center" }); // moves by 50px x and y from center of sector
+cy.get("sector").realMouseMove(50, 50, { position: "center" }); // moves by 50px x and y from center of sector
 ```
 
 Options:
