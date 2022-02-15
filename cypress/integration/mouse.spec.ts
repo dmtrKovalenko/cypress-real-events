@@ -110,7 +110,7 @@ describe("cy.realMouseDown and cy.realMouseUp", () => {
           const { top: $elTop } = getElementEdges($canvas);
           const { top: screenTop } = getScreenEdges();
 
-          expect($elTop).to.equal(screenTop);
+          expect($elTop).to.be.closeTo(screenTop, 1);
         });
     });
 
@@ -123,8 +123,8 @@ describe("cy.realMouseDown and cy.realMouseUp", () => {
 
           const screenCenter = screenTop + (screenBottom - screenTop) / 2;
 
-          expect($elTop).to.equal(screenCenter - $canvas.outerHeight() / 2);
-          expect($elBottom).to.equal(screenCenter + $canvas.outerHeight() / 2);
+          expect($elTop).to.be.closeTo(screenCenter - $canvas.outerHeight() / 2, 1);
+          expect($elBottom).to.be.closeTo(screenCenter + $canvas.outerHeight() / 2, 1);
         });
     });
 
@@ -135,7 +135,7 @@ describe("cy.realMouseDown and cy.realMouseUp", () => {
           const { top: $elTop } = getElementEdges($canvas);
           const { top: screenTop } = getScreenEdges();
 
-          expect($elTop).to.equal(screenTop);
+          expect($elTop).to.be.closeTo(screenTop, 1);
         });
     });
 
@@ -146,7 +146,7 @@ describe("cy.realMouseDown and cy.realMouseUp", () => {
           const { bottom: $elBottom } = getElementEdges($canvas);
           const { bottom: screenBottom } = getScreenEdges();
 
-          expect($elBottom).to.equal(screenBottom);
+          expect($elBottom).to.be.closeTo(screenBottom, 1);
         });
     });
 
@@ -159,7 +159,7 @@ describe("cy.realMouseDown and cy.realMouseUp", () => {
           const { top: $elTop } = getElementEdges($canvas);
           const { top: screenTop } = getScreenEdges();
 
-          expect($elTop).to.equal(screenTop);
+          expect($elTop).to.be.closeTo(screenTop, 1);
         });
 
       cy.window().scrollTo("top");
@@ -170,7 +170,7 @@ describe("cy.realMouseDown and cy.realMouseUp", () => {
           const { bottom: $elBottom } = getElementEdges($canvas);
           const { bottom: screenBottom } = getScreenEdges();
 
-          expect($elBottom).to.equal(screenBottom);
+          expect($elBottom).to.be.closeTo(screenBottom, 1);
         });
     });
   });
@@ -210,7 +210,7 @@ describe("cy.realMouseDown and cy.realMouseUp", () => {
           const { top: $elTop } = getElementEdges($canvas);
           const { top: screenTop } = getScreenEdges();
 
-          expect($elTop).to.equal(screenTop);
+          expect($elTop).to.be.closeTo(screenTop, 1);
         });
     });
 
@@ -223,8 +223,8 @@ describe("cy.realMouseDown and cy.realMouseUp", () => {
 
           const screenCenter = screenTop + (screenBottom - screenTop) / 2;
 
-          expect($elTop).to.equal(screenCenter - $canvas.outerHeight() / 2);
-          expect($elBottom).to.equal(screenCenter + $canvas.outerHeight() / 2);
+          expect($elTop).to.be.closeTo(screenCenter - $canvas.outerHeight() / 2, 1);
+          expect($elBottom).to.be.closeTo(screenCenter + $canvas.outerHeight() / 2, 1);
         });
     });
 
@@ -235,7 +235,7 @@ describe("cy.realMouseDown and cy.realMouseUp", () => {
           const { top: $elTop } = getElementEdges($canvas);
           const { top: screenTop } = getScreenEdges();
 
-          expect($elTop).to.equal(screenTop);
+          expect($elTop).to.be.closeTo(screenTop, 1);
         });
     });
 
@@ -246,7 +246,7 @@ describe("cy.realMouseDown and cy.realMouseUp", () => {
           const { bottom: $elBottom } = getElementEdges($canvas);
           const { bottom: screenBottom } = getScreenEdges();
 
-          expect($elBottom).to.equal(screenBottom);
+          expect($elBottom).to.be.closeTo(screenBottom, 1);
         });
     });
 
@@ -259,7 +259,7 @@ describe("cy.realMouseDown and cy.realMouseUp", () => {
           const { top: $elTop } = getElementEdges($canvas);
           const { top: screenTop } = getScreenEdges();
 
-          expect($elTop).to.equal(screenTop);
+          expect($elTop).to.be.closeTo(screenTop, 1);
         });
 
       cy.window().scrollTo("top");
@@ -270,7 +270,7 @@ describe("cy.realMouseDown and cy.realMouseUp", () => {
           const { bottom: $elBottom } = getElementEdges($canvas);
           const { bottom: screenBottom } = getScreenEdges();
 
-          expect($elBottom).to.equal(screenBottom);
+          expect($elBottom).to.be.closeTo(screenBottom, 1);
         });
     });
   });
