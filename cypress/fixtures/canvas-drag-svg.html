@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <body style="margin: 0px; overflow: hidden; width: 100vw; height: 100vh">
+    <svg id="svg" height="100%" width="100%">
+    </svg>
+    <script>
+      const svg = document.getElementById('svg');
+      let mouseDown = false;
+      let count = 0;
+      let line
+      let coords = []
+      const colors = ["black", "gray", "lightgray", "red", "orange", "yellow", "green", "blue", "purple"]
+      
+      svg.addEventListener('mousedown', () => {
+        if (count < colors.length) {
+          mouseDown = true}
+        });
+
+      svg.addEventListener('mousemove', (e) => mouseDown && coords.push([`${e.clientX}, ${e.clientY}`]));
+      
+      svg.addEventListener('mouseup', () => {
+        if (count < colors.length) {
+          line = document.createElementNS('http://www.w3.org/2000/svg', 'polyline')
+          line.setAttribute("points", coords.join(" "))
+          line.setAttribute("stroke", colors[count] || "#000")
+          line.setAttribute("stroke-width", 10)
+          line.setAttribute("fill", "none")
+          line.setAttribute("id", colors[count])
+          svg.appendChild(line)
+          line = null
+          coords = []
+          count++
+          mouseDown = false
+        }
+      });  
+    </script>
+  </body>
+</html>
