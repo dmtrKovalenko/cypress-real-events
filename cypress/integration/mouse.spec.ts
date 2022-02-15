@@ -365,8 +365,13 @@ describe("canvas drag with realMouseMove", () => {
   it("drags with realMouseMove in every position option", () => {
     cy.get("body")
       .realMouseDown()
-      .realMouseMove(20, 10, { position: "topLeft" })
-      .realMouseMove(30, 20, { position: "topLeft" })
+      .realMouseMove(20, 10)
+      .realMouseMove(30, 20)
+      .realMouseUp();
+    cy.get("body")
+      .realMouseDown()
+      .realMouseMove(40, 10, { position: "topLeft" })
+      .realMouseMove(50, 20, { position: "topLeft" })
       .realMouseUp();
     cy.get("body")
       .realMouseDown()
