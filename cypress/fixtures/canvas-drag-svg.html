@@ -11,27 +11,23 @@
       let coords = []
       const colors = ["black", "gray", "lightgray", "red", "orange", "gold", "green", "blue", "purple", "violet"]
       
-      svg.addEventListener('mousedown', () => {
-        if (count < colors.length) {
-          mouseDown = true}
-        });
+      svg.addEventListener('mousedown', () => mouseDown = true);
 
       svg.addEventListener('mousemove', (e) => mouseDown && coords.push([`${e.clientX}, ${e.clientY}`]));
       
       svg.addEventListener('mouseup', () => {
-        if (count < colors.length) {
+        if (coords.length > 1) {
           line = document.createElementNS('http://www.w3.org/2000/svg', 'polyline')
           line.setAttribute("points", coords.join(" "))
           line.setAttribute("stroke", colors[count] || "#000")
           line.setAttribute("stroke-width", 10)
           line.setAttribute("fill", "none")
-          line.setAttribute("id", colors[count])
           svg.appendChild(line)
           line = null
           coords = []
           count++
-          mouseDown = false
         }
+        mouseDown = false
       });  
     </script>
   </body>
