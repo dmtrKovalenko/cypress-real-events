@@ -20,7 +20,7 @@
     "eslint": "^7.14.0",
     "eslint-plugin-cypress": "^2.11.2",
     "eslint-plugin-no-only-tests": "^2.4.0",
-    "fs-extra": "^9.0.1",
+    "fs-extra": "^10.0.1",
     "semantic-release": "^17.3.0",
     "typedoc": "^0.22.10",
     "typedoc-plugin-markdown": "^3.0.11",
