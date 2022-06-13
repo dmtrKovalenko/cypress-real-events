@@ -1,10 +1,10 @@
 version: 2.1
 orbs:
-  # "cypress-io/cypress@1" installs the latest published
-  # version "1.x.y" of the orb. We recommend you then use
-  # the strict explicit version "cypress-io/cypress@1.x.y"
+  # "cypress-io/cypress@2" installs the latest published
+  # version "2.x.y" of the orb. We recommend you then use
+  # the strict explicit version "cypress-io/cypress@2.x.y"
   # to lock the version and prevent unexpected CI changes
-  cypress: cypress-io/cypress@1
+  cypress: cypress-io/cypress@2
 jobs:
   build:
     docker:
@@ -25,7 +25,7 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/
-      - run: 
+      - run:
           name: Release
           working_directory: dist
           command: npx semantic-release
@@ -36,7 +36,7 @@ workflows:
       - cypress/install:
           yarn: true
       - build:
-          requires: 
+          requires:
             - cypress/install
       - cypress/run:
           parallelism: 2
@@ -57,7 +57,7 @@ workflows:
           # following examples from
           # https://circleci.com/docs/2.0/parallelism-faster-jobs/
           command: |
-            TESTFILES=$(circleci tests glob "cypress/integration/**/*spec.{js,jsx,ts,tsx}" | circleci tests split --total=2)
+            TESTFILES=$(circleci tests glob "cypress/e2e/**/*cy.{js,jsx,ts,tsx}" | circleci tests split --total=2)
             echo "Test files for this machine are $TESTFILES"
             npx cypress run --spec $TESTFILES
       - release:
@@ -66,6 +66,6 @@ workflows:
             branches:
               only:
                 - main
-          requires: 
+          requires:
             - build
             - cypress/run
