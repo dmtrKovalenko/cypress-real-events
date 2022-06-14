@@ -64,6 +64,17 @@ describe("cy.realClick", () => {
       .realClick({ clickCount: 2 });
   });
 
+  it("right click should only report secondary button being pressed", () => {
+    cy.get(".navbar-brand").then($navbarBrand => {
+      $navbarBrand.get(0).addEventListener('contextmenu', (ev) => {
+        ev.preventDefault()
+        expect(ev.buttons).to.eq(2)
+      })
+    })
+
+    cy.get('.navbar-brand').realClick({ button: 'right' })
+  });
+
   describe("scroll behavior", () => {
     function getScreenEdges() {
       const cypressAppWindow = window.parent.document.querySelector("iframe")
