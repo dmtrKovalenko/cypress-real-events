@@ -260,73 +260,81 @@ describe("cy.realMouseDown and cy.realMouseUp", () => {
   });
 });
 
-describe("realMouseDown and realMouseUp iframe behavior", () => {
-  beforeEach(() => {
-    cy.visit("./cypress/fixtures/iframe-page.html");
-  });
+describe(
+  "realMouseDown and realMouseUp iframe behavior",
+  { retries: 10 },
+  () => {
+    beforeEach(() => {
+      cy.visit("./cypress/fixtures/iframe-page.html");
+    });
 
-  it("sets elements inside iframes to active state", () => {
-    cy.get("iframe")
-      .then(($firstIframe) => {
-        return cy.wrap($firstIframe.contents().find("iframe"));
-      })
-      .then(($secondIframe) => {
-        return cy.wrap($secondIframe.contents().find("body"));
-      })
-      .within(() => {
-        cy.get("#target").then(($target) => {
-          expect($target.css("background-color")).to.equal("rgb(0, 128, 0)");
+    it("sets elements inside iframes to active state", () => {
+      cy.get("iframe")
+        .then(($firstIframe) => {
+          return cy.wrap($firstIframe.contents().find("iframe"));
+        })
+        .then(($secondIframe) => {
+          return cy.wrap($secondIframe.contents().find("body"));
+        })
+        .within(() => {
+          cy.get("#target").then(($target) => {
+            expect($target.css("background-color")).to.equal("rgb(0, 128, 0)");
+          });
+
+          cy.get("#target")
+            .realMouseDown()
+            .then(($target) => {
+              expect($target.css("background-color")).to.equal(
+                "rgb(0, 0, 255)"
+              );
+            });
+
+          // will go in hover state
+          cy.get("#target")
+            .realMouseUp()
+            .then(($target) => {
+              expect($target.css("background-color")).to.equal(
+                "rgb(255, 192, 203)"
+              );
+            });
         });
+    });
 
-        cy.get("#target")
-          .realMouseDown()
-          .then(($target) => {
-            expect($target.css("background-color")).to.equal("rgb(0, 0, 255)");
+    it("sets elements inside transformed iframes to active states", () => {
+      cy.get("iframe")
+        .then(($firstIframe) => {
+          $firstIframe.css("transform", "scale(.5)");
+          return cy.wrap($firstIframe.contents().find("iframe"));
+        })
+        .then(($secondIframe) => {
+          $secondIframe.css("transform", "scale(.75)");
+          return cy.wrap($secondIframe.contents().find("body"));
+        })
+        .within(() => {
+          cy.get("#target").then(($target) => {
+            expect($target.css("background-color")).to.equal("rgb(0, 128, 0)");
           });
 
-        // will go in hover state
-        cy.get("#target")
-          .realMouseUp()
-          .then(($target) => {
-            expect($target.css("background-color")).to.equal(
-              "rgb(255, 192, 203)"
-            );
-          });
-      });
-  });
+          cy.get("#target")
+            .realMouseDown()
+            .then(($target) => {
+              expect($target.css("background-color")).to.equal(
+                "rgb(0, 0, 255)"
+              );
+            });
 
-  it("sets elements inside transformed iframes to active states", () => {
-    cy.get("iframe")
-      .then(($firstIframe) => {
-        $firstIframe.css("transform", "scale(.5)");
-        return cy.wrap($firstIframe.contents().find("iframe"));
-      })
-      .then(($secondIframe) => {
-        $secondIframe.css("transform", "scale(.75)");
-        return cy.wrap($secondIframe.contents().find("body"));
-      })
-      .within(() => {
-        cy.get("#target").then(($target) => {
-          expect($target.css("background-color")).to.equal("rgb(0, 128, 0)");
+          // will go in hover state
+          cy.get("#target")
+            .realMouseUp()
+            .then(($target) => {
+              expect($target.css("background-color")).to.equal(
+                "rgb(255, 192, 203)"
+              );
+            });
         });
-
-        cy.get("#target")
-          .realMouseDown()
-          .then(($target) => {
-            expect($target.css("background-color")).to.equal("rgb(0, 0, 255)");
-          });
-
-        // will go in hover state
-        cy.get("#target")
-          .realMouseUp()
-          .then(($target) => {
-            expect($target.css("background-color")).to.equal(
-              "rgb(255, 192, 203)"
-            );
-          });
-      });
-  });
-});
+    });
+  }
+);
 
 describe("realMouseMove", () => {
   beforeEach(() => {
