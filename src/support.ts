@@ -51,6 +51,7 @@ Cypress.Commands.add(
 );
 Cypress.Commands.add(
   "realMouseMove",
+  // @ts-ignore
   { prevSubject: true },
   realMouseMove as unknown as NormalizeCypressCommand<typeof realMouseMove>
 );
