@@ -51,6 +51,7 @@ Cypress.Commands.add(
 );
 Cypress.Commands.add(
   "realMouseMove",
+  // @ts-expect-error HOW is it possible?!
   { prevSubject: true },
   realMouseMove as unknown as NormalizeCypressCommand<typeof realMouseMove>
 );

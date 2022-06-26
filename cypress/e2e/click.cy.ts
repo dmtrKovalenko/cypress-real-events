@@ -44,20 +44,20 @@ describe("cy.realClick", () => {
     cy.get(".action-btn")
       .then(($button) => {
         $button.get(0).addEventListener("dblclick", () => {
-          done()
+          done();
         });
       })
       .realClick({ clickCount: 2 });
   });
 
   it("should dispatch multiple clicks with clickCount greater than 1", (done) => {
-    let count = 0
+    let count = 0;
     cy.get(".action-btn")
       .then(($button) => {
         $button.get(0).addEventListener("click", () => {
-          count++
+          count++;
           if (count === 2) {
-            done()
+            done();
           }
         });
       })
@@ -65,20 +65,20 @@ describe("cy.realClick", () => {
   });
 
   it("right click should only report secondary button being pressed", () => {
-    cy.get(".navbar-brand").then($navbarBrand => {
-      $navbarBrand.get(0).addEventListener('contextmenu', (ev) => {
-        ev.preventDefault()
-        expect(ev.buttons).to.eq(2)
-      })
-    })
+    cy.get(".navbar-brand").then(($navbarBrand) => {
+      $navbarBrand.get(0).addEventListener("contextmenu", (ev) => {
+        ev.preventDefault();
+        expect(ev.buttons).to.eq(2);
+      });
+    });
 
-    cy.get('.navbar-brand').realClick({ button: 'right' })
+    cy.get(".navbar-brand").realClick({ button: "right" });
   });
 
   describe("scroll behavior", () => {
     function getScreenEdges() {
-      const cypressAppWindow = window.parent.document.querySelector("iframe")
-        .contentWindow;
+      const cypressAppWindow =
+        window.parent.document.querySelector("iframe").contentWindow;
       const windowTopEdge = cypressAppWindow.document.documentElement.scrollTop;
       const windowBottomEdge = windowTopEdge + cypressAppWindow.innerHeight;
       const windowCenter = windowTopEdge + cypressAppWindow.innerHeight / 2;
@@ -94,8 +94,8 @@ describe("cy.realClick", () => {
       const $elTop = $el.offset().top;
 
       return {
-        top: $elTop,
-        bottom: $elTop + $el.outerHeight(),
+        top: Math.floor($elTop),
+        bottom: Math.floor($elTop + $el.outerHeight()),
       };
     }
 
@@ -110,7 +110,7 @@ describe("cy.realClick", () => {
           const { top: $elTop } = getElementEdges($canvas);
           const { top: screenTop } = getScreenEdges();
 
-          expect($elTop).to.equal(screenTop);
+          expect($elTop).to.equal(Math.floor(screenTop));
         });
     });
 
@@ -123,8 +123,12 @@ describe("cy.realClick", () => {
 
           const screenCenter = screenTop + (screenBottom - screenTop) / 2;
 
-          expect($elTop).to.equal(screenCenter - $canvas.outerHeight() / 2);
-          expect($elBottom).to.equal(screenCenter + $canvas.outerHeight() / 2);
+          expect($elTop).to.eq(
+            Math.floor(screenCenter - $canvas.outerHeight() / 2)
+          );
+          expect($elBottom).to.equal(
+            Math.floor(screenCenter + $canvas.outerHeight() / 2)
+          );
         });
     });
 
@@ -135,7 +139,7 @@ describe("cy.realClick", () => {
           const { top: $elTop } = getElementEdges($canvas);
           const { top: screenTop } = getScreenEdges();
 
-          expect($elTop).to.equal(screenTop);
+          expect($elTop).to.equal(Math.floor(screenTop));
         });
     });
 
@@ -146,7 +150,7 @@ describe("cy.realClick", () => {
           const { bottom: $elBottom } = getElementEdges($canvas);
           const { bottom: screenBottom } = getScreenEdges();
 
-          expect($elBottom).to.equal(screenBottom);
+          expect($elBottom).to.equal(Math.floor(screenBottom));
         });
     });
 
@@ -159,7 +163,7 @@ describe("cy.realClick", () => {
           const { top: $elTop } = getElementEdges($canvas);
           const { top: screenTop } = getScreenEdges();
 
-          expect($elTop).to.equal(screenTop);
+          expect($elTop).to.equal(Math.floor(screenTop));
         });
 
       cy.window().scrollTo("top");
@@ -170,7 +174,7 @@ describe("cy.realClick", () => {
           const { bottom: $elBottom } = getElementEdges($canvas);
           const { bottom: screenBottom } = getScreenEdges();
 
-          expect($elBottom).to.equal(screenBottom);
+          expect($elBottom).to.equal(Math.floor(screenBottom));
         });
     });
   });

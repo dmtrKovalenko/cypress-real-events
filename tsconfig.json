@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "types": ["cypress"],
+    "types": ["cypress", "node"],
     "target": "es6",
     "module": "commonjs",
     "lib": ["DOM", "DOM.Iterable", "ES2016"],
@@ -9,5 +9,5 @@
     "strict": true,
     "moduleResolution": "node"
   },
-  "include": ["src/**/*.ts"]
+  "include": ["src/**/*.ts", "./node_modules/*"]
 }
