@@ -122,7 +122,7 @@ describe("cy.realHover", () => {
   });
 });
 
-describe("iframe behavior", () => {
+describe("iframe behavior", { retries: 10 }, () => {
   beforeEach(() => {
     cy.visit("./cypress/fixtures/iframe-page.html");
   });
