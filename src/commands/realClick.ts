@@ -4,6 +4,7 @@ import {
   ScrollBehaviorOptions,
   Position,
 } from "../getCypressElementCoordinates";
+import { mouseButtonNumbers } from "../mouseButtonNumbers";
 
 export interface RealClickOptions {
   /** Pointer type for realClick, if "pen" touch simulated */
@@ -74,7 +75,7 @@ export async function realClick(
       x,
       y,
       clickCount: currentClick,
-      buttons: 1,
+      buttons: mouseButtonNumbers[options.button ?? "left"],
       pointerType: options.pointer ?? "mouse",
       button: options.button ?? "left",
     });
@@ -84,7 +85,7 @@ export async function realClick(
       x,
       y,
       clickCount: currentClick,
-      buttons: 1,
+      buttons: mouseButtonNumbers[options.button ?? "left"],
       pointerType: options.pointer ?? "mouse",
       button: options.button ?? "left",
     });

@@ -1,4 +1,4 @@
-describe.skip("cy.realTouch", () => {
+describe("cy.realTouch", () => {
   beforeEach(() => {
     cy.visit("https://example.cypress.io/commands/actions");
   });
@@ -36,7 +36,7 @@ describe.skip("cy.realTouch", () => {
       .realTouch({ x: 170, y: 165 });
   });
 
-  it("touches with a default radius of 1", { retries: 4 }, (done) => {
+  it("touches with a default radius of 1", { retries: 10 }, (done) => {
     cy.get(".action-btn")
       .then(($button) => {
         $button.get(0).addEventListener("pointerdown", (event) => {
