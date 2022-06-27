@@ -26,9 +26,9 @@ describe("cy.realHover", () => {
       const windowCenter = windowTopEdge + cypressAppWindow.innerHeight / 2;
 
       return {
-        screenTop: windowTopEdge,
-        screenBottom: windowBottomEdge,
-        screenCenter: windowCenter,
+        screenTop: Math.floor(windowTopEdge),
+        screenBottom: Math.floor(windowBottomEdge),
+        screenCenter: Math.floor(windowCenter),
       };
     }
 
@@ -36,8 +36,8 @@ describe("cy.realHover", () => {
       const $elTop = $el.offset().top;
 
       return {
-        $elTop,
-        $elBottom: $elTop + $el.outerHeight(),
+        $elTop: Math.floor($elTop),
+        $elBottom: Math.floor($elTop + $el.outerHeight()),
       };
     }
 
@@ -65,8 +65,12 @@ describe("cy.realHover", () => {
 
           const screenCenter = screenTop + (screenBottom - screenTop) / 2;
 
-          expect($elTop).to.equal(screenCenter - $canvas.outerHeight() / 2);
-          expect($elBottom).to.equal(screenCenter + $canvas.outerHeight() / 2);
+          expect($elTop).to.equal(
+            Math.floor(screenCenter) - $canvas.outerHeight() / 2
+          );
+          expect($elBottom).to.equal(
+            Math.floor(screenCenter) + $canvas.outerHeight() / 2
+          );
         });
     });
 
@@ -77,7 +81,7 @@ describe("cy.realHover", () => {
           const { $elTop } = getElementEdges($canvas);
           const { screenTop } = getScreenEdges();
 
-          expect($elTop).to.equal(screenTop);
+          expect($elTop).to.equal(Math.floor(screenTop));
         });
     });
 
@@ -88,7 +92,7 @@ describe("cy.realHover", () => {
           const { $elBottom } = getElementEdges($canvas);
           const { screenBottom } = getScreenEdges();
 
-          expect($elBottom).to.equal(screenBottom);
+          expect($elBottom).to.equal(Math.floor(screenBottom));
         });
     });
 
@@ -101,7 +105,7 @@ describe("cy.realHover", () => {
           const { $elTop } = getElementEdges($canvas);
           const { screenTop } = getScreenEdges();
 
-          expect($elTop).to.equal(screenTop);
+          expect($elTop).to.equal(Math.floor(screenTop));
         });
 
       cy.window().scrollTo("top");
@@ -112,13 +116,13 @@ describe("cy.realHover", () => {
           const { $elBottom } = getElementEdges($canvas);
           const { screenBottom } = getScreenEdges();
 
-          expect($elBottom).to.equal(screenBottom);
+          expect($elBottom).to.equal(Math.floor(screenBottom));
         });
     });
   });
 });
 
-describe("iframe behavior", () => {
+describe("iframe behavior", { retries: 10 }, () => {
   beforeEach(() => {
     cy.visit("./cypress/fixtures/iframe-page.html");
   });

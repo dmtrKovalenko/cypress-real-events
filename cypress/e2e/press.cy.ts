@@ -1,11 +1,11 @@
-describe("cy.realPress", () => {
+describe("cy.realPress", { retries: 10 }, () => {
   it("Can type into an input", () => {
-    cy.intercept('http://presstest.com/', (req) => {
-      const html = document.implementation.createHTMLDocument()
-      html.body.innerHTML = `<input type="text">`
-      req.reply(html.documentElement.innerHTML)
-    })
-    cy.visit('http://presstest.com/')
+    cy.intercept("http://presstest.com/", (req) => {
+      const html = document.implementation.createHTMLDocument();
+      html.body.innerHTML = `<input type="text">`;
+      req.reply(html.documentElement.innerHTML);
+    });
+    cy.visit("http://presstest.com/");
     cy.get("input").focus();
 
     cy.realPress("c");
@@ -20,15 +20,15 @@ describe("cy.realPress", () => {
   });
 
   it("Can fire native Tab focus switch", () => {
-    cy.intercept('http://presstest.com/', (req) => {
-      const html = document.implementation.createHTMLDocument()
+    cy.intercept("http://presstest.com/", (req) => {
+      const html = document.implementation.createHTMLDocument();
       html.body.innerHTML = [
         `<input type="text">`,
-        `<button type="button">Click me</button>`
-      ].join('')
-      req.reply(html.documentElement.innerHTML)
-    })
-    cy.visit('http://presstest.com/')
+        `<button type="button">Click me</button>`,
+      ].join("");
+      req.reply(html.documentElement.innerHTML);
+    });
+    cy.visit("http://presstest.com/");
     cy.get("input").click();
     cy.realPress("Tab");
     cy.get("button").should("be.focused");

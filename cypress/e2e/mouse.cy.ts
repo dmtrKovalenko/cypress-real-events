@@ -75,30 +75,29 @@ describe("cy.realMouseDown and cy.realMouseUp", () => {
     });
   });
 
+  function getScreenEdges() {
+    const cypressAppWindow =
+      window.parent.document.querySelector("iframe").contentWindow;
+    const windowTopEdge = cypressAppWindow.document.documentElement.scrollTop;
+    const windowBottomEdge = windowTopEdge + cypressAppWindow.innerHeight;
+    const windowCenter = windowTopEdge + cypressAppWindow.innerHeight / 2;
+
+    return {
+      top: windowTopEdge,
+      bottom: windowBottomEdge,
+      center: windowCenter,
+    };
+  }
+
+  function getElementEdges($el: JQuery) {
+    const $elTop = $el.offset().top;
+
+    return {
+      top: Math.floor($elTop),
+      bottom: Math.floor($elTop + $el.outerHeight()),
+    };
+  }
   describe("realMouseDown scroll behavior", () => {
-    function getScreenEdges() {
-      const cypressAppWindow =
-        window.parent.document.querySelector("iframe").contentWindow;
-      const windowTopEdge = cypressAppWindow.document.documentElement.scrollTop;
-      const windowBottomEdge = windowTopEdge + cypressAppWindow.innerHeight;
-      const windowCenter = windowTopEdge + cypressAppWindow.innerHeight / 2;
-
-      return {
-        top: windowTopEdge,
-        bottom: windowBottomEdge,
-        center: windowCenter,
-      };
-    }
-
-    function getElementEdges($el: JQuery) {
-      const $elTop = $el.offset().top;
-
-      return {
-        top: $elTop,
-        bottom: $elTop + $el.outerHeight(),
-      };
-    }
-
     beforeEach(() => {
       cy.window().scrollTo("top");
     });
@@ -110,7 +109,7 @@ describe("cy.realMouseDown and cy.realMouseUp", () => {
           const { top: $elTop } = getElementEdges($canvas);
           const { top: screenTop } = getScreenEdges();
 
-          expect($elTop).to.equal(screenTop);
+          expect($elTop).to.equal(Math.floor(screenTop));
         });
     });
 
@@ -123,8 +122,12 @@ describe("cy.realMouseDown and cy.realMouseUp", () => {
 
           const screenCenter = screenTop + (screenBottom - screenTop) / 2;
 
-          expect($elTop).to.equal(screenCenter - $canvas.outerHeight() / 2);
-          expect($elBottom).to.equal(screenCenter + $canvas.outerHeight() / 2);
+          expect($elTop).to.equal(
+            Math.floor(screenCenter) - $canvas.outerHeight() / 2
+          );
+          expect($elBottom).to.equal(
+            Math.floor(screenCenter) + $canvas.outerHeight() / 2
+          );
         });
     });
 
@@ -135,7 +138,7 @@ describe("cy.realMouseDown and cy.realMouseUp", () => {
           const { top: $elTop } = getElementEdges($canvas);
           const { top: screenTop } = getScreenEdges();
 
-          expect($elTop).to.equal(screenTop);
+          expect($elTop).to.equal(Math.floor(screenTop));
         });
     });
 
@@ -146,7 +149,7 @@ describe("cy.realMouseDown and cy.realMouseUp", () => {
           const { bottom: $elBottom } = getElementEdges($canvas);
           const { bottom: screenBottom } = getScreenEdges();
 
-          expect($elBottom).to.equal(screenBottom);
+          expect($elBottom).to.equal(Math.floor(screenBottom));
         });
     });
 
@@ -159,7 +162,7 @@ describe("cy.realMouseDown and cy.realMouseUp", () => {
           const { top: $elTop } = getElementEdges($canvas);
           const { top: screenTop } = getScreenEdges();
 
-          expect($elTop).to.equal(screenTop);
+          expect($elTop).to.equal(Math.floor(screenTop));
         });
 
       cy.window().scrollTo("top");
@@ -170,35 +173,12 @@ describe("cy.realMouseDown and cy.realMouseUp", () => {
           const { bottom: $elBottom } = getElementEdges($canvas);
           const { bottom: screenBottom } = getScreenEdges();
 
-          expect($elBottom).to.equal(screenBottom);
+          expect($elBottom).to.equal(Math.floor(screenBottom));
         });
     });
   });
 
   describe("realMouseUp scroll behavior", () => {
-    function getScreenEdges() {
-      const cypressAppWindow =
-        window.parent.document.querySelector("iframe").contentWindow;
-      const windowTopEdge = cypressAppWindow.document.documentElement.scrollTop;
-      const windowBottomEdge = windowTopEdge + cypressAppWindow.innerHeight;
-      const windowCenter = windowTopEdge + cypressAppWindow.innerHeight / 2;
-
-      return {
-        top: windowTopEdge,
-        bottom: windowBottomEdge,
-        center: windowCenter,
-      };
-    }
-
-    function getElementEdges($el: JQuery) {
-      const $elTop = $el.offset().top;
-
-      return {
-        top: $elTop,
-        bottom: $elTop + $el.outerHeight(),
-      };
-    }
-
     beforeEach(() => {
       cy.window().scrollTo("top");
     });
@@ -210,7 +190,7 @@ describe("cy.realMouseDown and cy.realMouseUp", () => {
           const { top: $elTop } = getElementEdges($canvas);
           const { top: screenTop } = getScreenEdges();
 
-          expect($elTop).to.equal(screenTop);
+          expect($elTop).to.equal(Math.floor(screenTop));
         });
     });
 
@@ -223,8 +203,12 @@ describe("cy.realMouseDown and cy.realMouseUp", () => {
 
           const screenCenter = screenTop + (screenBottom - screenTop) / 2;
 
-          expect($elTop).to.equal(screenCenter - $canvas.outerHeight() / 2);
-          expect($elBottom).to.equal(screenCenter + $canvas.outerHeight() / 2);
+          expect($elTop).to.equal(
+            Math.floor(screenCenter) - $canvas.outerHeight() / 2
+          );
+          expect($elBottom).to.equal(
+            Math.floor(screenCenter) + $canvas.outerHeight() / 2
+          );
         });
     });
 
@@ -235,7 +219,7 @@ describe("cy.realMouseDown and cy.realMouseUp", () => {
           const { top: $elTop } = getElementEdges($canvas);
           const { top: screenTop } = getScreenEdges();
 
-          expect($elTop).to.equal(screenTop);
+          expect($elTop).to.equal(Math.floor(screenTop));
         });
     });
 
@@ -246,7 +230,7 @@ describe("cy.realMouseDown and cy.realMouseUp", () => {
           const { bottom: $elBottom } = getElementEdges($canvas);
           const { bottom: screenBottom } = getScreenEdges();
 
-          expect($elBottom).to.equal(screenBottom);
+          expect($elBottom).to.equal(Math.floor(screenBottom));
         });
     });
 
@@ -259,7 +243,7 @@ describe("cy.realMouseDown and cy.realMouseUp", () => {
           const { top: $elTop } = getElementEdges($canvas);
           const { top: screenTop } = getScreenEdges();
 
-          expect($elTop).to.equal(screenTop);
+          expect($elTop).to.equal(Math.floor(screenTop));
         });
 
       cy.window().scrollTo("top");
@@ -270,79 +254,87 @@ describe("cy.realMouseDown and cy.realMouseUp", () => {
           const { bottom: $elBottom } = getElementEdges($canvas);
           const { bottom: screenBottom } = getScreenEdges();
 
-          expect($elBottom).to.equal(screenBottom);
+          expect($elBottom).to.equal(Math.floor(screenBottom));
         });
     });
   });
 });
 
-describe("realMouseDown and realMouseUp iframe behavior", () => {
-  beforeEach(() => {
-    cy.visit("./cypress/fixtures/iframe-page.html");
-  });
+describe(
+  "realMouseDown and realMouseUp iframe behavior",
+  { retries: 10 },
+  () => {
+    beforeEach(() => {
+      cy.visit("./cypress/fixtures/iframe-page.html");
+    });
 
-  it("sets elements inside iframes to active state", () => {
-    cy.get("iframe")
-      .then(($firstIframe) => {
-        return cy.wrap($firstIframe.contents().find("iframe"));
-      })
-      .then(($secondIframe) => {
-        return cy.wrap($secondIframe.contents().find("body"));
-      })
-      .within(() => {
-        cy.get("#target").then(($target) => {
-          expect($target.css("background-color")).to.equal("rgb(0, 128, 0)");
+    it("sets elements inside iframes to active state", () => {
+      cy.get("iframe")
+        .then(($firstIframe) => {
+          return cy.wrap($firstIframe.contents().find("iframe"));
+        })
+        .then(($secondIframe) => {
+          return cy.wrap($secondIframe.contents().find("body"));
+        })
+        .within(() => {
+          cy.get("#target").then(($target) => {
+            expect($target.css("background-color")).to.equal("rgb(0, 128, 0)");
+          });
+
+          cy.get("#target")
+            .realMouseDown()
+            .then(($target) => {
+              expect($target.css("background-color")).to.equal(
+                "rgb(0, 0, 255)"
+              );
+            });
+
+          // will go in hover state
+          cy.get("#target")
+            .realMouseUp()
+            .then(($target) => {
+              expect($target.css("background-color")).to.equal(
+                "rgb(255, 192, 203)"
+              );
+            });
         });
+    });
 
-        cy.get("#target")
-          .realMouseDown()
-          .then(($target) => {
-            expect($target.css("background-color")).to.equal("rgb(0, 0, 255)");
+    it("sets elements inside transformed iframes to active states", () => {
+      cy.get("iframe")
+        .then(($firstIframe) => {
+          $firstIframe.css("transform", "scale(.5)");
+          return cy.wrap($firstIframe.contents().find("iframe"));
+        })
+        .then(($secondIframe) => {
+          $secondIframe.css("transform", "scale(.75)");
+          return cy.wrap($secondIframe.contents().find("body"));
+        })
+        .within(() => {
+          cy.get("#target").then(($target) => {
+            expect($target.css("background-color")).to.equal("rgb(0, 128, 0)");
           });
 
-        // will go in hover state
-        cy.get("#target")
-          .realMouseUp()
-          .then(($target) => {
-            expect($target.css("background-color")).to.equal(
-              "rgb(255, 192, 203)"
-            );
-          });
-      });
-  });
+          cy.get("#target")
+            .realMouseDown()
+            .then(($target) => {
+              expect($target.css("background-color")).to.equal(
+                "rgb(0, 0, 255)"
+              );
+            });
 
-  it("sets elements inside transformed iframes to active states", () => {
-    cy.get("iframe")
-      .then(($firstIframe) => {
-        $firstIframe.css("transform", "scale(.5)");
-        return cy.wrap($firstIframe.contents().find("iframe"));
-      })
-      .then(($secondIframe) => {
-        $secondIframe.css("transform", "scale(.75)");
-        return cy.wrap($secondIframe.contents().find("body"));
-      })
-      .within(() => {
-        cy.get("#target").then(($target) => {
-          expect($target.css("background-color")).to.equal("rgb(0, 128, 0)");
+          // will go in hover state
+          cy.get("#target")
+            .realMouseUp()
+            .then(($target) => {
+              expect($target.css("background-color")).to.equal(
+                "rgb(255, 192, 203)"
+              );
+            });
         });
-
-        cy.get("#target")
-          .realMouseDown()
-          .then(($target) => {
-            expect($target.css("background-color")).to.equal("rgb(0, 0, 255)");
-          });
-
-        // will go in hover state
-        cy.get("#target")
-          .realMouseUp()
-          .then(($target) => {
-            expect($target.css("background-color")).to.equal(
-              "rgb(255, 192, 203)"
-            );
-          });
-      });
-  });
-});
+    });
+  }
+);
 
 describe("realMouseMove", () => {
   beforeEach(() => {
