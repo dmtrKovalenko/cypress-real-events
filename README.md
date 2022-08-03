@@ -334,9 +334,7 @@ The easiest way to debug coordinates is to run any real events command and check
 
 ### 1. Why `cy.realHover` hovering state does not show in the visual regression services?
 
-Unfortunately, visual regression services like Happo and Percy do not solve this issue. Their architecture is based on saving dom snapshot, not the screenshot, and then rendering the snapshot on their machines. It means that the hover and focus state will be lost if it won't be serialized manually.
-
-It means that if you will use plain `cy.screenshot` it will take a screenshot with a hovering state because using the browser itself to make a screenshot. Testing hovering state is possible with, for example, [Visual Regression Tracker](https://github.com/Visual-Regression-Tracker/Visual-Regression-Tracker) and [cypress-image-snapshot](https://github.com/jaredpalmer/cypress-image-snapshot).
+Unfortunately, neither visual regression services like Happo and Percy nor plain cy.screenshot do not allow to test the hovering state. The hovering state is very different from any kind of js and css so it is not possible to capture it using dom snapshotting (like visual regression services do) and the screenshooting as well because cypress core itself is preventing hovering state in the screenshots.
 
 ### 2. When I am doing `cy.realHover` hovering state is not resetting after my checks
 
