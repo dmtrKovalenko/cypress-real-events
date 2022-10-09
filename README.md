@@ -217,7 +217,7 @@ cy.realType(text, options);
 
 | Name      | Type    | Default value | Description                                                                                                                           |
 | --------- | ------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| `text`    | string  | -             | text to type. Should be around the same as cypress's type command argument (https://docs.cypress.io/api/commands/type.html#Arguments) |
+| `text`    | string  | -             | text to type. Should be around the same as cypress's type command argument (https://docs.cypress.io/api/commands/type.html#Arguments. All the keys available [here](https://github.com/dmtrKovalenko/cypress-real-events/blob/main/src/keyCodeDefinitions.ts)  |
 | `options` | Options | {}            |                                                                                                                                       |
 
 Options:
