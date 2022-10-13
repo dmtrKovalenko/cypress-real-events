@@ -26,9 +26,9 @@ describe("cy.realHover", () => {
       const windowCenter = windowTopEdge + cypressAppWindow.innerHeight / 2;
 
       return {
-        screenTop: windowTopEdge,
-        screenBottom: windowBottomEdge,
-        screenCenter: windowCenter,
+        screenTop: Math.floor(windowTopEdge),
+        screenBottom: Math.floor(windowBottomEdge),
+        screenCenter: Math.floor(windowCenter),
       };
     }
 
@@ -36,8 +36,8 @@ describe("cy.realHover", () => {
       const $elTop = $el.offset().top;
 
       return {
-        $elTop,
-        $elBottom: $elTop + $el.outerHeight(),
+        $elTop: Math.floor($elTop),
+        $elBottom: Math.floor($elTop + $el.outerHeight()),
       };
     }
 
@@ -118,7 +118,7 @@ describe("cy.realHover", () => {
   });
 });
 
-describe("iframe behavior", () => {
+describe("iframe behavior", { retries: 10 }, () => {
   beforeEach(() => {
     cy.visit("./cypress/fixtures/iframe-page.html");
   });

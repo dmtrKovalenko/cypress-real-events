@@ -44,30 +44,41 @@ describe("cy.realClick", () => {
     cy.get(".action-btn")
       .then(($button) => {
         $button.get(0).addEventListener("dblclick", () => {
-          done()
+          done();
         });
       })
       .realClick({ clickCount: 2 });
   });
 
   it("should dispatch multiple clicks with clickCount greater than 1", (done) => {
-    let count = 0
+    let count = 0;
     cy.get(".action-btn")
       .then(($button) => {
         $button.get(0).addEventListener("click", () => {
-          count++
+          count++;
           if (count === 2) {
-            done()
+            done();
           }
         });
       })
       .realClick({ clickCount: 2 });
   });
 
+  it("right click should only report secondary button being pressed", () => {
+    cy.get(".navbar-brand").then(($navbarBrand) => {
+      $navbarBrand.get(0).addEventListener("contextmenu", (ev) => {
+        ev.preventDefault();
+        expect(ev.buttons).to.eq(2);
+      });
+    });
+
+    cy.get(".navbar-brand").realClick({ button: "right" });
+  });
+
   describe("scroll behavior", () => {
     function getScreenEdges() {
-      const cypressAppWindow = window.parent.document.querySelector("iframe")
-        .contentWindow;
+      const cypressAppWindow =
+        window.parent.document.querySelector("iframe").contentWindow;
       const windowTopEdge = cypressAppWindow.document.documentElement.scrollTop;
       const windowBottomEdge = windowTopEdge + cypressAppWindow.innerHeight;
       const windowCenter = windowTopEdge + cypressAppWindow.innerHeight / 2;
@@ -83,8 +94,8 @@ describe("cy.realClick", () => {
       const $elTop = $el.offset().top;
 
       return {
-        top: $elTop,
-        bottom: $elTop + $el.outerHeight(),
+        top: Math.floor($elTop),
+        bottom: Math.floor($elTop + $el.outerHeight()),
       };
     }
 
@@ -165,7 +176,7 @@ describe("cy.realClick", () => {
   });
 });
 
-describe("iframe behavior", () => {
+describe("iframe behavior", { retries: 10 }, () => {
   beforeEach(() => {
     cy.visit("./cypress/fixtures/iframe-page.html");
   });
