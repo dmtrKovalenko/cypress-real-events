@@ -28,7 +28,7 @@ export async function realMouseMove(
 ) {
   const basePosition= getCypressElementCoordinates(
     subject,
-    "topLeft",
+    options.position ?? "topLeft",
     options.scrollBehavior
   );
 

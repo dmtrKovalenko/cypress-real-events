@@ -349,3 +349,81 @@ describe("realMouseMove", () => {
       .should("eq", "1.8");
   });
 });
+
+describe("canvas drag with realMouseMove", () => {
+  it("realMouseMove accepts every explicit option.position", () => {
+    cy.visit("./cypress/fixtures/canvas-drag-svg.html");
+
+    cy.get("body")
+      .realMouseDown()
+      .realMouseMove(20, 10, { position: "topLeft" })
+      .realMouseMove(30, 20, { position: "topLeft" })
+      .realMouseUp();
+    cy.get("body")
+      .realMouseDown()
+      .realMouseMove(20, 10, { position: "top" })
+      .realMouseMove(30, 20, { position: "top" })
+      .realMouseUp();
+    cy.get("body")
+      .realMouseDown()
+      .realMouseMove(-20, 10, { position: "topRight" })
+      .realMouseMove(-30, 20, { position: "topRight" })
+      .realMouseUp();
+    cy.get("body")
+      .realMouseDown()
+      .realMouseMove(20, 10, { position: "left" })
+      .realMouseMove(30, 20, { position: "left" })
+      .realMouseUp();
+    cy.get("body")
+      .realMouseDown()
+      .realMouseMove(20, 10, { position: "center" })
+      .realMouseMove(30, 20, { position: "center" })
+      .realMouseUp();
+    cy.get("body")
+      .realMouseDown()
+      .realMouseMove(-20, 10, { position: "right" })
+      .realMouseMove(-30, 20, { position: "right" })
+      .realMouseUp();
+    cy.get("body")
+      .realMouseDown()
+      .realMouseMove(20, -10, { position: "bottomLeft" })
+      .realMouseMove(30, -20, { position: "bottomLeft" })
+      .realMouseUp();
+    cy.get("body")
+      .realMouseDown()
+      .realMouseMove(20, -10, { position: "bottom" })
+      .realMouseMove(30, -20, { position: "bottom" })
+      .realMouseUp();
+    cy.get("body")
+      .realMouseDown()
+      .realMouseMove(-20, -10, { position: "bottomRight" })
+      .realMouseMove(-30, -20, { position: "bottomRight" })
+      .realMouseUp();
+
+    // If every element is clickable, they are not overlapping.
+    cy.get("polyline").click({multiple: true})
+  });
+
+  it("realMouseMove default option.position is 'topLeft'", () => {
+    /**
+     * The last polyline element should overlap the first, 
+     * so they should have the same `points` attributes
+     * but all other siblings should have unique `points` attributes,
+     * so they should be clickable.
+     */
+      cy.get("body")
+      .realMouseDown()
+      .realMouseMove(20, 10)
+      .realMouseMove(30, 20)
+      .realMouseUp();
+  
+      cy.get('svg').within(() => {
+        cy.get(":first").should("have.attr", "points")
+          .then((first) => {
+            cy.get(":first").siblings().click({multiple: true})
+          cy.get(":last").should("have.attr", "points", first)
+        })
+      })
+    })
+
+});
