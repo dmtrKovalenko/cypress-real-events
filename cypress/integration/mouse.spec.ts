@@ -419,7 +419,6 @@ describe("canvas drag with realMouseMove", () => {
      * but all other siblings should have unique `points` attributes,
      * so they should be clickable.
      */
-
       cy.get("body")
       .realMouseDown()
       .realMouseMove(20, 10)
