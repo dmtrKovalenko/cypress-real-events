@@ -20,6 +20,9 @@
  <a/>
 <p />
 
+
+[![Stand With Ukraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/banner2-direct.svg)](https://vshymanskyy.github.io/StandWithUkraine/)
+
 ## Why?
 
 Cypress default events are simulated. That means that all events like `cy.click` or `cy.type` are fired from javascript. That's why these events will be untrusted (`event.isTrusted` will be `false`) and they can behave a little different from real native events. But for some cases, it can be impossible to use simulated events, for example, to fill a native alert or copy to the clipboard. This plugin solves this problem.
@@ -311,7 +314,7 @@ cy.get("sector").realMouseMove(x, y, options);
 Example:
 
 ```js
-cy.get("sector").realMouseUp(50, 50, { position: "center" }); // moves by 50px x and y from center of sector
+cy.get("sector").realMouseMove(50, 50, { position: "center" }); // moves by 50px x and y from center of sector
 ```
 
 Options:
