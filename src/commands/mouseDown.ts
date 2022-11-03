@@ -15,11 +15,17 @@ export interface realMouseDownOptions {
    */
   position?: Position;
   /**
+   * X and Y location of the realMouseDown event relative to the position.
+   * Changes the default value of position to "topLeft" if either are set.
+   * @example cy.realMouseDown({ x: 100, y: 100 })
+   */
+  x?: number;
+  y?: number;
+  /**
    * Controls how the page is scrolled to bring the subject into view, if needed.
    * @example cy.realMouseDown({ scrollBehavior: "top" });
    */
   scrollBehavior?: ScrollBehaviorOptions;
-
   /**
    * @default "left"
    */
@@ -31,7 +37,14 @@ export async function realMouseDown(
   subject: JQuery,
   options: realMouseDownOptions = {}
 ) {
-  const { x, y } = getCypressElementCoordinates(subject, options.position, options.scrollBehavior);
+  // Default position to "topLeft" if x or y are set.
+  const position = options.x != null || options.y != null
+    ? options.position ?? 'topLeft'
+    : options.position;
+
+  let { x, y } = getCypressElementCoordinates(subject, position, options.scrollBehavior);
+  x += options.x ?? 0;
+  y += options.y ?? 0;
 
   const log = Cypress.log({
     $el: subject,

@@ -46,7 +46,9 @@ describe("cy.realMouseDown and cy.realMouseUp", () => {
       .realMouseDown({ position: "bottom" })
       .realMouseUp({ position: "bottom" })
       .realMouseDown({ position: "bottomRight" })
-      .realMouseUp({ position: "bottomRight" });
+      .realMouseUp({ position: "bottomRight" })
+      .realMouseDown({ x: 5, y: 5 })
+      .realMouseUp({ x: 5, y: 5 });
   });
 
   describe("options.button", () => {
