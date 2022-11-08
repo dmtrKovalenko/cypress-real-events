@@ -18,11 +18,13 @@ function getPositionedCoordinates(
   y0: number,
   width: number,
   height: number,
-  position: Position
+  position: Position,
+  frameScale: number
 ) {
   if (typeof position === "object" && position !== null) {
     const { x, y } = position;
-    return [x0 + x, y0 + y];
+    // scale the position coordinates according to the viewport scale
+    return [x0 + x * frameScale, y0 + y * frameScale];
   }
 
   switch (position) {
@@ -134,6 +136,7 @@ function getElementPositionXY(htmlElement: HTMLElement) {
     y: frameY + elementY * frameScale,
     width: width * frameScale,
     height: height * frameScale,
+    frameScale: frameScale
   };
 }
 
@@ -141,6 +144,8 @@ function getElementPositionXY(htmlElement: HTMLElement) {
  * Cypress Automation debugee is the whole tab.
  * This function returns the element coordinates relative to the whole tab root that can be used in CDP request.
  * @param jqueryEl the element to introspect
+ * @param position the position of the event interaction on the element
+ * @param scrollBehavior custom scroll behavior options
  */
 export function getCypressElementCoordinates(
   jqueryEl: JQuery,
@@ -163,17 +168,19 @@ export function getCypressElementCoordinates(
     scrollIntoView(htmlElement, effectiveScrollBehavior);
   }
 
-  const { x, y, width, height } = getElementPositionXY(htmlElement);
+  const { x, y, width, height, frameScale } = getElementPositionXY(htmlElement);
   const [posX, posY] = getPositionedCoordinates(
     x,
     y,
     width,
     height,
-    position ?? "center"
+    position ?? "center",
+      frameScale
   );
 
   return {
     x: posX,
     y: posY,
+    frameScale: frameScale
   };
 }
