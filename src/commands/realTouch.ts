@@ -49,8 +49,8 @@ export async function realTouch(
 
   const elementCoordinates = getCypressElementCoordinates(subject, position);
   const elementPoint = {x: elementCoordinates.x, y: elementCoordinates.y}
-  const radiusX = (options.radiusX || options.radius || 1) * elementCoordinates.frameScale
-  const radiusY = (options.radiusY || options.radius || 1) * elementCoordinates.frameScale
+  const radiusX = (options.radiusX || options.radius || 1)
+  const radiusY = (options.radiusY || options.radius || 1)
 
 
 
