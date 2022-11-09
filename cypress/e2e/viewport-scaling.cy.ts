@@ -21,7 +21,7 @@ describe('draw on canvas with scaled viewport',()=>{
         cy.get(canvas).then(cnv =>{
             const url = cnv[0].toDataURL('image/png');
             const realData = url.replace(/^data:image\/png;base64,/, '')
-            cy.writeFile('out/cypress/clickDraw100.png', realData, 'base64')
+            cy.writeFile('cypress/screenshots/compareFile/clickDraw100.png', realData, 'base64')
             /**
              * Three clicks produce three 3x3 Pixel rectangles
              * Each of them should not be moved more than 1px in each direction
@@ -37,7 +37,7 @@ describe('draw on canvas with scaled viewport',()=>{
         cy.get(canvas).then(cnv =>{
             const url = cnv[0].toDataURL('image/png');
             const data = url.replace(/^data:image\/png;base64,/, '')
-            cy.writeFile('out/cypress/clickDrawScaled.png', data, 'base64')
+            cy.writeFile('cypress/screenshots/compareFile/clickDrawScaled.png', data, 'base64')
             compareImages('clickDrawScaled.png', 'clickDraw.png', 'clickDrawScaledDiff.png').should('be.lessThan', 19)
         })
     })
@@ -52,7 +52,7 @@ describe('draw on canvas with scaled viewport',()=>{
         cy.get(canvas).then(cnv =>{
             const url = cnv[0].toDataURL('image/png');
             const data = url.replace(/^data:image\/png;base64,/, '')
-            cy.writeFile('out/cypress/touchDraw100.png', data, 'base64')
+            cy.writeFile('cypress/screenshots/compareFile/touchDraw100.png', data, 'base64')
             /**
              * Three touches with different radius create the following rectanges:
              * Radius 0 --> default 3x3
@@ -71,7 +71,7 @@ describe('draw on canvas with scaled viewport',()=>{
         cy.get(canvas).then(cnv =>{
             const url = cnv[0].toDataURL('image/png');
             const data = url.replace(/^data:image\/png;base64,/, '')
-            cy.writeFile('out/cypress/touchDrawScaled.png', data, 'base64')
+            cy.writeFile('cypress/screenshots/compareFile/touchDrawScaled.png', data, 'base64')
             compareImages('touchDrawScaled.png', 'touchDraw.png', 'touchDrawScaledDiff.png').should('be.lessThan', 32)
         })
     })
@@ -79,14 +79,14 @@ describe('draw on canvas with scaled viewport',()=>{
 
 const compareImages = (realFile: string, compareFile: string, diffFile: string): Cypress.Chainable<number> => {
     return cy.fixture('images/'+compareFile, null).then((compareDate: Uint8Array)=> {
-        return cy.readFile('out/cypress/'+realFile, null).then((realData: Uint8Array) =>{
+        return cy.readFile('cypress/screenshots/compareFile/'+realFile, null).then((realData: Uint8Array) =>{
 
             const a =  PNG.sync.read(realData);
             const b = PNG.sync.read(compareDate);
             const {width, height} = a;
             const diff = new PNG({width, height});
             const diffPixel = pixelmatch(a.data, b.data, diff.data, width, height, {});
-            return cy.writeFile('out/cypress/'+diffFile, PNG.sync.write(diff).toString('binary'), { encoding: 'binary' }).then(()=>{
+            return cy.writeFile('cypress/screenshots/compareFile/'+diffFile, PNG.sync.write(diff).toString('binary'), { encoding: 'binary' }).then(()=>{
                 return diffPixel
             })
 
