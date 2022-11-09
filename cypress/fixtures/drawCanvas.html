@@ -1,14 +1,14 @@
 <!-- Thanks to https://stackoverflow.com/a/8398189/4528081 -->
-<html>
+<html lang="en">
 <script type="text/javascript">
-    var canvas, ctx, flag = false,
+    let canvas, ctx, flag = false,
         prevX = 0,
         currX = 0,
         prevY = 0,
         currY = 0,
         dot_flag = false;
 
-    var x = "black",
+    let x = "black",
         y = 2;
 
     function init() {
@@ -69,7 +69,7 @@
                 x = "white";
                 break;
         }
-        if (x == "white") y = 14;
+        if (x === "white") y = 14;
         else y = 2;
 
     }
@@ -90,9 +90,9 @@
 
 
     function findxy(res, e) {
-        var w = e.width ? e.width : 3
-        var h = e.height ? e.height : 3
-        if (res == 'down') {
+        const w = e.width ? e.width : 3;
+        const h = e.height ? e.height : 3;
+        if (res === 'down') {
             prevX = currX;
             prevY = currY;
             currX = e.clientX - canvas.offsetLeft;
@@ -108,10 +108,10 @@
                 dot_flag = false;
             }
         }
-        if (res == 'up' || res == "out") {
+        if (res === 'up' || res === "out") {
             flag = false;
         }
-        if (res == 'move') {
+        if (res === 'move') {
             if (flag) {
                 prevX = currX;
                 prevY = currY;
@@ -128,6 +128,7 @@
             display: inline-grid;
         }
     </style>
+    <title>Draw Canvas</title>
 </head>
 <body onload="init()">
 <div class="grid-container">
