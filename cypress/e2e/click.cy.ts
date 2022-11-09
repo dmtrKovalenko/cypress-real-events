@@ -66,7 +66,7 @@ describe("cy.realClick", () => {
 
   it("right click should only report secondary button being pressed", () => {
     cy.get(".navbar-brand").then(($navbarBrand) => {
-      $navbarBrand.get(0).addEventListener("contextmenu", (ev) => {
+      $navbarBrand.get(0).addEventListener("mousedown", (ev) => {
         ev.preventDefault();
         expect(ev.buttons).to.eq(2);
       });
