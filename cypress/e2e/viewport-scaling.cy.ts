@@ -4,6 +4,7 @@ import { PNG } from 'pngjs/browser';
 /**
  * No matter how th viewport is scaled by cypress, all clicks and draws should not be moved by more than 1 px in y and x direction
  * 1px tolerance in each direction is ok, because the scaling forces the click coordinates to round up or down
+ * 1px movement in one direction makes a difference of two pixels
  * **/
 
 describe('draw on canvas with scaled viewport',()=>{
@@ -27,7 +28,7 @@ describe('draw on canvas with scaled viewport',()=>{
              * Each of them should not be moved more than 1px in each direction
              * --> max allowed difference to the reference image 18px
             **/
-            compareImages('clickDraw100.png', 'clickDraw.png', 'clickDraw100Diff.png').should('be.lessThan', 19)
+            compareImages('clickDraw100.png', 'clickDraw.png', 'clickDraw100Diff.png').should('be.lessThan', 33)
         })
         cy.get('input').click();
         cy.viewport(1500, 1500 );
@@ -38,7 +39,7 @@ describe('draw on canvas with scaled viewport',()=>{
             const url = cnv[0].toDataURL('image/png');
             const data = url.replace(/^data:image\/png;base64,/, '')
             cy.writeFile('cypress/screenshots/compareFile/clickDrawScaled.png', data, 'base64')
-            compareImages('clickDrawScaled.png', 'clickDraw.png', 'clickDrawScaledDiff.png').should('be.lessThan', 19)
+            compareImages('clickDrawScaled.png', 'clickDraw.png', 'clickDrawScaledDiff.png').should('be.lessThan', 33)
         })
     })
 
@@ -57,11 +58,11 @@ describe('draw on canvas with scaled viewport',()=>{
              * Three touches with different radius create the following rectanges:
              * Radius 0 --> default 3x3
              * Radius 10 --> 10x10
-             * Radoius x:10 y:5 --> 10x15
+             * Radius x:10 y:5 --> 10x15
              * Each of them should not be moved more than 1px in each direction
              * --> max allowed difference to the reference image 31px
              **/
-            compareImages('touchDraw100.png', 'touchDraw.png', 'touchDraw100Diff.png').should('be.lessThan', 32)
+            compareImages('touchDraw100.png', 'touchDraw.png', 'touchDraw100Diff.png').should('be.lessThan', 63)
             })
         cy.get('input').click();
         cy.viewport(2000, 2000 );
@@ -72,7 +73,7 @@ describe('draw on canvas with scaled viewport',()=>{
             const url = cnv[0].toDataURL('image/png');
             const data = url.replace(/^data:image\/png;base64,/, '')
             cy.writeFile('cypress/screenshots/compareFile/touchDrawScaled.png', data, 'base64')
-            compareImages('touchDrawScaled.png', 'touchDraw.png', 'touchDrawScaledDiff.png').should('be.lessThan', 32)
+            compareImages('touchDrawScaled.png', 'touchDraw.png', 'touchDrawScaledDiff.png').should('be.lessThan', 63)
         })
     })
 })
