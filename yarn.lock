@@ -3512,6 +3512,13 @@ pify@^3.0.0:
   resolved "https://registry.yarnpkg.com/pify/-/pify-3.0.0.tgz#e5a4acd2c101fdf3d9a4d07f0dbc4db49dd28176"
   integrity sha512-C3FsVNH1udSEX48gGX1xfvwTWfsYWj5U+8/uK15BGzIGrKoUpghX8hWZwa/OFnakBiiVNmBvemTJR5mcy7iPcg==
 
+pixelmatch@^5.3.0:
+  version "5.3.0"
+  resolved "https://pkgs.dev.azure.com/diemobiliar/RWC/_packaging/npm-main/npm/registry/pixelmatch/-/pixelmatch-5.3.0.tgz#5e5321a7abedfb7962d60dbf345deda87cb9560a"
+  integrity sha1-XlMhp6vt+3li1g2/NF3tqHy5Vgo=
+  dependencies:
+    pngjs "^6.0.0"
+
 pkg-conf@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/pkg-conf/-/pkg-conf-2.1.0.tgz#2126514ca6f2abfebd168596df18ba57867f0058"
@@ -3519,6 +3526,11 @@ pkg-conf@^2.1.0:
   dependencies:
     find-up "^2.0.0"
     load-json-file "^4.0.0"
+
+pngjs@^6.0.0:
+  version "6.0.0"
+  resolved "https://pkgs.dev.azure.com/diemobiliar/RWC/_packaging/npm-main/npm/registry/pngjs/-/pngjs-6.0.0.tgz#ca9e5d2aa48db0228a52c419c3308e87720da821"
+  integrity sha1-yp5dKqSNsCKKUsQZwzCOh3INqCE=
 
 prelude-ls@^1.2.1:
   version "1.2.1"
