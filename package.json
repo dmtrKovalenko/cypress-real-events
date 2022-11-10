@@ -21,6 +21,7 @@
     "eslint-plugin-cypress": "^2.11.2",
     "eslint-plugin-no-only-tests": "^3.0.0",
     "fs-extra": "^9.0.1",
+    "pixelmatch": "^5.3.0",
     "semantic-release": "^17.3.0",
     "typedoc": "^0.22.10",
     "typedoc-plugin-markdown": "^3.0.11",
