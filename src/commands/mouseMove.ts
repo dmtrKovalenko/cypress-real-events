@@ -44,8 +44,8 @@ export async function realMouseMove(
   log.snapshot("before");
   await fireCdpCommand("Input.dispatchMouseEvent", {
     type: "mouseMoved",
-    x: x + basePosition.x,
-    y: y + basePosition.y,
+    x: x * basePosition.frameScale + basePosition.x,
+    y: y * basePosition.frameScale + basePosition.y,
   });
 
   log.snapshot("after").end();

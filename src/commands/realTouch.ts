@@ -46,10 +46,13 @@ export async function realTouch(
   const position = typeof options.x === 'number' || typeof options.y === 'number'
     ? { x: options.x || 0, y: options.y || 0 }
     : options.position;
-  const radiusX = options.radiusX || options.radius || 1
-  const radiusY = options.radiusY || options.radius || 1
 
-  const elementPoint = getCypressElementCoordinates(subject, position);
+  const elementCoordinates = getCypressElementCoordinates(subject, position);
+  const elementPoint = {x: elementCoordinates.x, y: elementCoordinates.y}
+  const radiusX = (options.radiusX || options.radius || 1)
+  const radiusY = (options.radiusY || options.radius || 1)
+
+
 
   const log = Cypress.log({
     $el: subject,

@@ -98,8 +98,8 @@ export async function realSwipe(
 
   const length = options.length ?? 10;
   const step = options.step ?? 10;
-  const startPosition = getCypressElementCoordinates(subject, position);
-
+  const elementCoordinates = getCypressElementCoordinates(subject, position);
+  const startPosition = {x: elementCoordinates.x, y: elementCoordinates.y} ;
   const log = Cypress.log({
     $el: subject,
     name: "realSwipe",
