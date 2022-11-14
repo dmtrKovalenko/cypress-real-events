@@ -64,17 +64,7 @@ yarn add cypress-real-events
 Register new commands by adding this to your `cypress/support/index.{js,ts}` file.
 
 ```js
-import "cypress-real-events/support";
-```
-
-If you are using typescript, also add the following to `cypress/tsconfig.json`
-
-```json
-{
-  "compilerOptions": {
-    "types": ["cypress", "cypress-real-events"]
-  }
-}
+import "cypress-real-events";
 ```
 
 ## API
