@@ -352,6 +352,19 @@ cy.get("[aria-label='Test Button']").should(
 );
 ```
 
+### 3. Why do I get "Are You Sure" popups when I am using real events and why I do not get them while using the normal cypress clicks?
+Sometimes when there are unsaved changes in a webform, and you leave the page, the web application asks you due the `onbeforeunload event` if you really want to leaf the page and loose the changes.
+
+You can try it on this [Demo Page](https://www.azyaamode.com/js/jquery/AYS/demo/are-you-sure-demo.html).
+
+In "normal" Cypress tests, these popup windows do not appear. 
+This is because no "real" user actions are performed on the application. 
+See [this](https://developer.mozilla.org/en-US/docs/Web/API/Window/beforeunload_event#security) page for more information about the beforeunload event.
+But when they appear, they block the whole test execution, and you have to handle them explicitly.
+Gleb Bahmutov writes about this behaviour and possible solutions in this [Blog Post](https://glebbahmutov.com/blog/onbeforeunload/).
+
+Now when you use this `real-events` plugin and perform a `realEvent` on your application, the browser thinks there happened a real user interaction.
+From now on your test is in an `active interaction` state, which allows the application to use all the features listed [here](https://developer.mozilla.org/en-US/docs/Web/Security/User_activation).
 ## UX
 
 One problem of the real native system events I need to mention – you will not get an error message if the event wasn't produced. Similar to selenium or playwright – if a javascript event was not fired you will not get a comprehensive error message.
