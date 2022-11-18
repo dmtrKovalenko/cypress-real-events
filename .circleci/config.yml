@@ -8,7 +8,7 @@ orbs:
 jobs:
   build:
     docker:
-      - image: circleci/node:lts
+      - image: cimg/node:lts
     steps:
       - attach_workspace:
           at: ~/
@@ -21,7 +21,7 @@ jobs:
 
   release:
     docker:
-      - image: circleci/node:lts
+      - image: cimg/node:lts
     steps:
       - attach_workspace:
           at: ~/
