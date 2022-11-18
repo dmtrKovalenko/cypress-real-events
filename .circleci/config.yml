@@ -4,7 +4,7 @@ orbs:
   # version "1.x.y" of the orb. We recommend you then use
   # the strict explicit version "cypress-io/cypress@1.x.y"
   # to lock the version and prevent unexpected CI changes
-  cypress: cypress-io/cypress@1
+  cypress: cypress-io/cypress@11
 jobs:
   build:
     docker:
