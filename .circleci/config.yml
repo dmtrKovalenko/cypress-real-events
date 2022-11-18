@@ -8,7 +8,7 @@ executors:
         type: string
         default: "14"
     docker:
-      - image: cypress/base:<< parameters.node >>
+      - image: cypress/base:14
 jobs:
   build:
     docker:
