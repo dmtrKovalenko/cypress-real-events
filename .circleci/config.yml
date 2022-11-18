@@ -1,14 +1,10 @@
 version: 2.1
 orbs:
-  # "cypress-io/cypress@1" installs the latest published
-  # version "1.x.y" of the orb. We recommend you then use
-  # the strict explicit version "cypress-io/cypress@1.x.y"
-  # to lock the version and prevent unexpected CI changes
-  cypress: cypress-io/cypress@1
+  cypress: cypress-io/cypress@2.2.0
 jobs:
   build:
     docker:
-      - image: circleci/node:lts
+      - image: cimg/node:lts
     steps:
       - attach_workspace:
           at: ~/
@@ -21,7 +17,7 @@ jobs:
 
   release:
     docker:
-      - image: circleci/node:lts
+      - image: cimg/node:lts
     steps:
       - attach_workspace:
           at: ~/
@@ -39,6 +35,7 @@ workflows:
           requires: 
             - cypress/install
       - cypress/run:
+          executor: cypress/base-14
           parallelism: 2
           # make sure app has been installed and built
           # before running tests across multiple machines
