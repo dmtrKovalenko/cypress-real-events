@@ -30,13 +30,13 @@ workflows:
   build:
     jobs:
       - cypress/install:
-          executor: cypress/base-14
+          executor: cypress/base-16-14-2-slim
           yarn: true
       - build:
           requires: 
             - cypress/install
       - cypress/run:
-          executor: cypress/base-14
+          executor: cypress/base-16-14-2-slim
           parallelism: 2
           # make sure app has been installed and built
           # before running tests across multiple machines
