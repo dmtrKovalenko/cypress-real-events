@@ -1,6 +1,17 @@
 version: 2.1
 orbs:
   cypress: cypress-io/cypress@2.2.0
+executors:
+  default:
+    parameters:
+      node:
+        type: string
+        default: '14.19.0'
+    docker:
+      - image: cypress/base:<< parameters.node >>
+  base-14:
+    docker:
+      - image: cypress/base:14
 jobs:
   build:
     docker:
