@@ -9,7 +9,6 @@ module.exports = {
     "plugin:cypress/recommended",
   ],
   rules: {
-    "no-only-tests/no-only-tests": "error",
-    "@typescript-eslint/explicit-module-boundary-types": "off"
+    "no-only-tests/no-only-tests": "error"
   },
 };
