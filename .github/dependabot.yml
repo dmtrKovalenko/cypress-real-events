@@ -6,11 +6,3 @@ updates:
     interval: daily
     time: "03:00"
   open-pull-requests-limit: 10
-  ignore:
-  - dependency-name: cypress
-    versions:
-    - 7.1.0
-  - dependency-name: eslint
-    versions:
-    - 7.24.0
-    - 7.25.0
