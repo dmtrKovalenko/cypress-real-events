@@ -30,6 +30,7 @@ workflows:
   build:
     jobs:
       - cypress/install:
+          executor: cypress/base-14
           yarn: true
       - build:
           requires: 
