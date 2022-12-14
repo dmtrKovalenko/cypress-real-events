@@ -401,29 +401,29 @@ describe("canvas drag with realMouseMove", () => {
       .realMouseUp();
 
     // If every element is clickable, they are not overlapping.
-    cy.get("polyline").click({ multiple: true });
+    cy.get("polyline").click({multiple: true})
   });
 
   it("realMouseMove default option.position is 'topLeft'", () => {
     /**
-     * The last polyline element should overlap the first,
+     * The last polyline element should overlap the first, 
      * so they should have the same `points` attributes
      * but all other siblings should have unique `points` attributes,
      * so they should be clickable.
      */
-    cy.get("body")
+      cy.get("body")
       .realMouseDown()
       .realMouseMove(20, 10)
       .realMouseMove(30, 20)
       .realMouseUp();
+  
+      cy.get('svg').within(() => {
+        cy.get(":first").should("have.attr", "points")
+          .then((first) => {
+            cy.get(":first").siblings().click({multiple: true})
+          cy.get(":last").should("have.attr", "points", first)
+        })
+      })
+    })
 
-    cy.get("svg").within(() => {
-      cy.get(":first")
-        .should("have.attr", "points")
-        .then((first) => {
-          cy.get(":first").siblings().click({ multiple: true });
-          cy.get(":last").should("have.attr", "points", first);
-        });
-    });
-  });
 });
