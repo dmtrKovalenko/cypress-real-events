@@ -418,11 +418,12 @@ describe("canvas drag with realMouseMove", () => {
       .realMouseUp();
 
     cy.get("svg").within(() => {
-      cy.get(":first").then((first) => {
-        cy.should("have.attr", "points");
-        cy.get(":first").siblings().click({ multiple: true });
-        cy.get(":last").should("have.attr", "points", first);
-      });
+      cy.get(":first")
+        .should("have.attr", "points")
+        .then((first) => {
+          cy.get(":first").siblings().click({ multiple: true });
+          cy.get(":last").should("have.attr", "points", first);
+        });
     });
   });
 });
