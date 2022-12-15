@@ -66,6 +66,14 @@ Register new commands by adding this to your `cypress/support/index.{js,ts}` fil
 ```js
 import "cypress-real-events";
 ```
+To include TypeScript declarations, add `"cypress-real-events"` to the `types` section of your [tsconfig.json](https://docs.cypress.io/guides/tooling/typescript-support) file:
+```json
+{
+  "compilerOptions": {
+    "types": ["cypress", "node", "cypress-real-events"]
+  }
+}
+```
 
 ## API
 
