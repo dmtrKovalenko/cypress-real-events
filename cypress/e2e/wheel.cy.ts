@@ -5,7 +5,7 @@ function assertWheel(opt: { deltax: string; deltay:string; trusted: string; clas
   cy.get(".target").should("have.text", opt.className);
 }
 
-describe("cy.realMouseDown and cy.realMouseUp", () => {
+describe("cy.realMouseWheel", () => {
   beforeEach(() => {
     cy.visit("./cypress/fixtures/wheel.html");
   });
