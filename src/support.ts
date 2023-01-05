@@ -6,7 +6,8 @@ import { realType } from "./commands/realType";
 import { realTouch } from "./commands/realTouch";
 import { realMouseDown } from "./commands/mouseDown";
 import { realMouseUp } from "./commands/mouseUp";
-import { realMouseMove} from "./commands/mouseMove";
+import { realMouseMove } from "./commands/mouseMove";
+import { realMouseWheel } from "./commands/mouseWheel";
 
 
 // TODO fix this unsafe convertions. This happens because cypress does not allow anymore to return Promise for types, but allows for command which is pretty useful for current implementation.
@@ -54,4 +55,9 @@ Cypress.Commands.add(
   // @ts-expect-error HOW is it possible?!
   { prevSubject: true },
   realMouseMove as unknown as NormalizeCypressCommand<typeof realMouseMove>
+);
+Cypress.Commands.add(
+  "realMouseWheel",
+  { prevSubject: true },
+  realMouseWheel as unknown as NormalizeCypressCommand<typeof realMouseWheel>
 );
