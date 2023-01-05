@@ -104,7 +104,7 @@ declare namespace Cypress {
       typeof import("./commands/mouseMove").realMouseMove
     >;
     /**
-     * Fires native system wheel event.
+     * Fires native system wheel scroll event.
      * @see https://github.com/dmtrKovalenko/cypress-real-events#cyrealMouseWheel
      * @example
      * cy.get("button").realMouseWheel({ scrollBehavior: false, deltaY: 500 })
