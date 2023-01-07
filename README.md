@@ -321,14 +321,6 @@ Options:
 - `Optional` **position**: "topLeft" | "top" | "topRight" | "left" | "center" | "right" | "bottomLeft" | "bottom" | "bottomRight"
 - `Optional` **scrollBehavior**: "center" | "top" | "bottom" | "nearest" | false
 
-## Coordinates
-
-Several commands from this plugin accept `{ x: number, y: number }` coordinates. There is an important note that these coordinates are relative to the whole tab to pass it right to the CDP. For regular elements, we calculate them automatically, but if you need to pass absolute coordinates you will need to provide them yourself.
-
-The easiest way to debug coordinates is to run any real events command and check the logged coordinates by clicking on the command.
-
-![checking coordinates example](./coordinates-log-screenshot.png)
-
 ## cy.realMouseWheel
 
 Fires native system mouse wheel event, scrolls the page.
@@ -340,11 +332,11 @@ cy.get("div").realMouseWheel(options);
 Example:
 
 ```js
-cy.get("div").realMouseUp({ deltaY: 100 }) // Scroll down, mouse will be positioned at centered by default.
-cy.get("div").realMouseUp({ deltaY: -100 }) // Scroll up, mouse will be positioned at centered by default.
-cy.get("div").realMouseUp({ deltaX: 500 }) // Scroll right, mouse will be positioned at centered by default.
-cy.get("div").realMouseUp({ deltaX: -500 }) // Scroll left, mouse will be positioned at centered by default.
-cy.get("div").realMouseUp({ deltaY: 100, deltaX: 100 }) // Scroll right and down, mouse will be positioned at centered by default.
+cy.get("div").realMouseWheel({ deltaY: 100 }) // Scroll down, mouse will be positioned at centered by default.
+cy.get("div").realMouseWheel({ deltaY: -100 }) // Scroll up, mouse will be positioned at centered by default.
+cy.get("div").realMouseWheel({ deltaX: 500 }) // Scroll right, mouse will be positioned at centered by default.
+cy.get("div").realMouseWheel({ deltaX: -500 }) // Scroll left, mouse will be positioned at centered by default.
+cy.get("div").realMouseWheel({ deltaY: 100, deltaX: 100 }) // Scroll right and down, mouse will be positioned at centered by default.
 ```
 
 Options:
@@ -352,6 +344,14 @@ Options:
 - `Optional` **scrollBehavior**: "center" | "top" | "bottom" | "nearest" | false
 - `Optional` **deltaX**: X delta in CSS pixels for mouse wheel event (default: 0). Positive values emulate a scroll right and negative values emulate scroll left event.
 - `Optional` **deltaY**: Y delta in CSS pixels for mouse wheel event (default: 0). Positive values emulate a scroll down and negative values emulate a scroll up event.
+
+## Coordinates
+
+Several commands from this plugin accept `{ x: number, y: number }` coordinates. There is an important note that these coordinates are relative to the whole tab to pass it right to the CDP. For regular elements, we calculate them automatically, but if you need to pass absolute coordinates you will need to provide them yourself.
+
+The easiest way to debug coordinates is to run any real events command and check the logged coordinates by clicking on the command.
+
+![checking coordinates example](./coordinates-log-screenshot.png)
 
 ## FAQ
 
