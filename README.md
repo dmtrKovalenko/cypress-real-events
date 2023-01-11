@@ -66,6 +66,14 @@ Register new commands by adding this to your `cypress/support/index.{js,ts}` fil
 ```js
 import "cypress-real-events";
 ```
+To include TypeScript declarations, add `"cypress-real-events"` to the `types` section of your [tsconfig.json](https://docs.cypress.io/guides/tooling/typescript-support) file:
+```json
+{
+  "compilerOptions": {
+    "types": ["cypress", "node", "cypress-real-events"]
+  }
+}
+```
 
 ## API
 
@@ -82,6 +90,7 @@ Here is an overview of the available **real** event commands:
 - [cy.realMouseDown](#cyrealmousedown)
 - [cy.realMouseUp](#cyrealmouseup)
 - [cy.realMouseMove](#cyrealmousemove)
+- [cy.realMouseWheel](#cyrealmousewheel)
 
 ## cy.realClick
 
@@ -312,6 +321,30 @@ Options:
 
 - `Optional` **position**: "topLeft" | "top" | "topRight" | "left" | "center" | "right" | "bottomLeft" | "bottom" | "bottomRight"
 - `Optional` **scrollBehavior**: "center" | "top" | "bottom" | "nearest" | false
+
+## cy.realMouseWheel
+
+Fires native system mouse wheel event, scrolls the page.
+
+```jsx
+cy.get("div").realMouseWheel(options);
+```
+
+Example:
+
+```js
+cy.get("div").realMouseWheel({ deltaY: 100 }) // Scroll down, mouse will be positioned at centered by default.
+cy.get("div").realMouseWheel({ deltaY: -100 }) // Scroll up, mouse will be positioned at centered by default.
+cy.get("div").realMouseWheel({ deltaX: 500 }) // Scroll right, mouse will be positioned at centered by default.
+cy.get("div").realMouseWheel({ deltaX: -500 }) // Scroll left, mouse will be positioned at centered by default.
+cy.get("div").realMouseWheel({ deltaY: 100, deltaX: 100 }) // Scroll right and down, mouse will be positioned at centered by default.
+```
+
+Options:
+
+- `Optional` **scrollBehavior**: "center" | "top" | "bottom" | "nearest" | false
+- `Optional` **deltaX**: X delta in CSS pixels for mouse wheel event (default: 0). Positive values emulate a scroll right and negative values emulate scroll left event.
+- `Optional` **deltaY**: Y delta in CSS pixels for mouse wheel event (default: 0). Positive values emulate a scroll down and negative values emulate a scroll up event.
 
 ## Coordinates
 

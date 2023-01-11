@@ -21,7 +21,7 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/
-      - run: 
+      - run:
           name: Release
           working_directory: dist
           command: npx semantic-release
@@ -33,7 +33,7 @@ workflows:
           executor: cypress/base-16-14-2-slim
           yarn: true
       - build:
-          requires: 
+          requires:
             - cypress/install
       - cypress/run:
           executor: cypress/base-16-14-2-slim
@@ -64,6 +64,6 @@ workflows:
             branches:
               only:
                 - main
-          requires: 
+          requires:
             - build
             - cypress/run
