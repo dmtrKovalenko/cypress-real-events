@@ -89,6 +89,7 @@ Here is an overview of the available **real** event commands:
 - [cy.realSwipe](#cyrealswipe)
 - [cy.realMouseDown](#cyrealmousedown)
 - [cy.realMouseUp](#cyrealmouseup)
+- [cy.realMouseMove](#cyrealmousemove)
 - [cy.realMouseWheel](#cyrealmousewheel)
 
 ## cy.realClick
