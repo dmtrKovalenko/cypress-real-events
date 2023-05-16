@@ -45,16 +45,29 @@ describe("cy.realPress", { retries: 10 }, () => {
 
     it("Fires trusted click on Enter", () => {
       cy.visit("./cypress/fixtures/keyboard-accessibility-test.html");
-      cy.get("#click-enter").focus().realPress("Enter");
+      cy.get("#click-enter").focus();
+      cy.get("#click-enter").realPress("Enter");
 
       cy.get("ul").contains(JSON.stringify({ isTrusted: true, type: "click" }));
     });
 
     it("Fires trusted click on Space", () => {
       cy.visit("./cypress/fixtures/keyboard-accessibility-test.html");
-      cy.get("#click-enter").focus().realPress("Space");
+      cy.get("#click-enter").focus();
+      cy.get("#click-enter").realPress("Space");
 
       cy.get("ul").contains(JSON.stringify({ isTrusted: true, type: "click" }));
+    });
+  });
+
+  context("Shortcuts", () => {
+    it("Fires shortcuts correctly", () => {
+      cy.visit("https://w3c.github.io/uievents/tools/key-event-viewer");
+      cy.realPress(["Meta", "E"]);
+
+      cy.get(":nth-child(6) > :nth-child(4)").contains("69E");
+      cy.get(":nth-child(6) > :nth-child(6)").contains("Meta");
+      cy.get(":nth-child(7) > :nth-child(4)").contains("91Meta");
     });
   });
 });
