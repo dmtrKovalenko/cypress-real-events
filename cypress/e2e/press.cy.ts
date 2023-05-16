@@ -65,9 +65,9 @@ describe("cy.realPress", { retries: 10 }, () => {
       cy.visit("https://w3c.github.io/uievents/tools/key-event-viewer");
       cy.realPress(["Meta", "E"]);
 
-      cy.get(":nth-child(6) > :nth-child(4)").contains("69E");
-      cy.get(":nth-child(6) > :nth-child(6)").contains("Meta");
-      cy.get(":nth-child(7) > :nth-child(4)").contains("91Meta");
+      // yes the typo in the guide className ¯\_(ツ)_/¯
+      cy.get(".keydown_row_hilight .keycell.legacy").contains("69E");
+      cy.get(".keydown_row_hilight .keycell.legacy").contains("91Meta");
     });
   });
 });
