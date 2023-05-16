@@ -34,46 +34,6 @@ describe("cy.realPress", { retries: 10 }, () => {
     cy.get("button").should("be.focused");
   });
 
-  context("shortcuts", () => {
-    beforeEach(() => {
-      cy.visit("https://wangchujiang.com/hotkeys/");
-      cy.get("[data-key=27]").realClick(); // just activate the listener
-    });
-
-    it("Can fire shortcuts", () => {
-      cy.realPress(["Control", "Shift", "R"]);
-      cy.realPress(["Alt", "Shift", "F5"]);
-    });
-
-    it("Fires correct js events", () => {
-      cy.document().then((document) => {
-        document.addEventListener("keyup", (e) => {
-          expect(e.isTrusted).to.be.true;
-          expect(e.shiftKey).to.be.true;
-          expect(e.altKey).to.be.true;
-
-          if (e.key === "Alt") {
-            expect(e.altKey).to.be.true;
-            expect(e.code).to.eq("AltLeft");
-            expect(e.keyCode).to.eq(18);
-          }
-          if (e.key === "Shift") {
-            expect(e.altKey).to.be.true;
-            expect(e.code).to.eq("ShiftLeft");
-            expect(e.keyCode).to.eq(16);
-          }
-          if (e.key === "F5") {
-            expect(e.altKey).to.be.true;
-            expect(e.code).to.eq("F5");
-            expect(e.keyCode).to.eq(116);
-          }
-        });
-      });
-
-      cy.realPress(["Alt", "Shift", "F5"]);
-    });
-  });
-
   context("Keyboard a11y testing", () => {
     it("Dispatches beforeinput and keypress event for Enter", () => {
       cy.visit("https://w3c.github.io/uievents/tools/key-event-viewer");
@@ -85,16 +45,29 @@ describe("cy.realPress", { retries: 10 }, () => {
 
     it("Fires trusted click on Enter", () => {
       cy.visit("./cypress/fixtures/keyboard-accessibility-test.html");
-      cy.get("#click-enter").focus().realPress("Enter");
+      cy.get("#click-enter").focus();
+      cy.get("#click-enter").realPress("Enter");
 
       cy.get("ul").contains(JSON.stringify({ isTrusted: true, type: "click" }));
     });
 
     it("Fires trusted click on Space", () => {
       cy.visit("./cypress/fixtures/keyboard-accessibility-test.html");
-      cy.get("#click-enter").focus().realPress("Space");
+      cy.get("#click-enter").focus();
+      cy.get("#click-enter").realPress("Space");
 
       cy.get("ul").contains(JSON.stringify({ isTrusted: true, type: "click" }));
+    });
+  });
+
+  context("Shortcuts", () => {
+    it("Fires shortcuts correctly", () => {
+      cy.visit("https://w3c.github.io/uievents/tools/key-event-viewer");
+      cy.realPress(["Meta", "E"]);
+
+      // yes the typo in the guide className ¯\_(ツ)_/¯
+      cy.get(".keydown_row_hilight .keycell.legacy").contains("69E");
+      cy.get(".keydown_row_hilight .keycell.legacy").contains("91Meta");
     });
   });
 });
