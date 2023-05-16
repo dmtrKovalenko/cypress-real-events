@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+  <style>
+    .main {
+      border: 1px solid #f09;
+      width: 300px;
+      height: 300px;
+      display: block;
+    }
+    .smallbox {
+      margin: 0px;
+      padding: 0px;
+      border: 1px solid #000;
+      width: 70px;
+      height: 300px;
+      float: right;
+      top: 0px;
+      right: 0px;
+      position: relative;
+      background-color: crimson;
+    }
+    .greenbox {
+      background-color: darkgreen;
+    }
+    body {
+      margin: 0px;
+      padding: 0px;
+    }
+    .scrollable-area {
+      width: 500px;
+      height: 300px;
+      border: 2px solid purple;
+      float: right;
+      overflow: scroll;
+    }
+    .scrollable-area .content {
+      width: 600px;
+      height: 600px;
+      display: block;
+    }
+    .scrollbutton button {
+      display: none;
+    }
+  </style>
+  <body class="body">
+    <div class="scrollable-area">
+      <div class="content">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In mattis, nulla ut tincidunt aliquet, nisl risus condimentum lorem, congue lacinia ligula diam ornare augue. Curabitur sodales tempor leo, nec semper justo dignissim id. Suspendisse ac turpis a quam pulvinar fringilla. Nulla at justo nec risus bibendum aliquet. Sed venenatis est eu magna pellentesque, ut tempus massa interdum. Nam risus ipsum, blandit quis rutrum vitae, volutpat porttitor est. Suspendisse eget tortor est. Ut ullamcorper nisi vel posuere facilisis. Vivamus iaculis dui sed arcu dapibus dapibus. Donec non finibus ipsum. Etiam vehicula in urna elementum ullamcorper. Fusce ac nunc venenatis lacus egestas venenatis.</p>
+        <p>Pellentesque sodales enim a risus ornare lobortis. Etiam pharetra nisi congue arcu dictum egestas. Mauris vel elit feugiat, commodo nunc in, tempus odio. Aliquam imperdiet mauris sit amet tellus tempus, sit amet dictum odio dapibus. Suspendisse cursus purus ante, a egestas dui fermentum eu. Nullam at cursus neque. Nunc eu sollicitudin enim. Nam ex ligula, feugiat eu hendrerit a, ultrices quis mauris. Maecenas ac arcu placerat, fringilla velit non, ornare felis.</p>
+        <p>consectetur velit id magna eleifend rutrum. Maecenas euismod et nulla vitae porttitor. In a elit vitae nisl feugiat lacinia. Morbi vulputate metus vel elementum pellentesque. Nulla lacinia ex vitae arcu porta, quis sagittis purus iaculis. Phasellus sit amet luctus ipsum. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec ex urna, dapibus posuere elementum non, vehicula non arcu. Vivamus ullamcorper augue ac quam pharetra feugiat. Ut a eros luctus, elementum elit sit amet, sollicitudin nisi.</p>
+        <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aenean imperdiet pulvinar justo, quis elementum ipsum consequat id. Vivamus aliquam sodales laoreet. Pellentesque ut augue vitae felis sodales cursus vel vel dolor. Suspendisse non turpis efficitur arcu ultrices lobortis ut ac augue. Morbi finibus vel justo sit amet laoreet. Proin id aliquam orci. Vivamus mi mauris, venenatis eget ullamcorper in, consequat eu tortor. Aenean at diam id sem ullamcorper porttitor sed ultrices massa. Suspendisse rhoncus facilisis arcu a congue. Donec dignissim et metus eu scelerisque. Nullam quis nisl sit amet dolor accumsan efficitur. Nulla vulputate, urna id pharetra aliquam, dui sapien imperdiet lectus, ut gravida augue turpis quis magna.</p>
+        <p>In imperdiet felis a lacus feugiat, ut ultrices erat rhoncus. Cras id magna rutrum, laoreet tortor in, rutrum tortor. Suspendisse ultricies congue elit, a laoreet nisl dignissim sit amet. Nunc pulvinar magna turpis, quis finibus nunc tempor non. Nulla at fermentum mauris. Nullam nec nibh et mi sagittis efficitur. Proin risus quam, mollis at erat sed, varius finibus dolor. Vivamus nulla quam, sagittis id dolor tincidunt, tristique lobortis velit.</p>
+      </div>
+    </div>
+
+    <div class="main greenbox">
+      <div class="smallbox redbox"></div>
+    </div>
+    <div>
+      <span>DeltaX:</span>
+      <span class="deltax"></span>
+    </div>
+    <div>
+      <span>DeltaY:</span>
+      <span class="deltay"></span>
+    </div>
+    <div>
+      <span>isTrusted:</span>
+      <span class="isTrusted"></span>
+    </div>
+    <div>
+      <span>Target:</span>
+      <span class="target"></span>
+    </div>
+    <br>
+    <div>
+      <span>Scroll Area Top:</span>
+      <span class="scrolloffset-top"></span>
+    </div>
+    <div>
+      <span>Scroll Area Left:</span>
+      <span class="scrolloffset-left"></span>
+    </div>
+
+    <hr />
+    <div class="scrollbutton">
+      <button type="button">Scroll Button</button>
+    </div>
+  </body>
+
+  <script>
+    function getOffset(el) {
+      const rect = el.getBoundingClientRect();
+      return {
+        left: rect.left + window.scrollX,
+        top: rect.top + window.scrollY
+      };
+    }
+
+    function fillScroll() {
+      const offset = getOffset(document.querySelector(".scrollable-area .content"));
+      document.querySelector(".scrolloffset-top").textContent = offset.top;
+      document.querySelector(".scrolloffset-left").textContent = offset.left;
+    }
+
+    window.addEventListener("load", () => {
+      fillScroll();
+    });
+
+    let isDisplayed = false;
+    document.querySelector(".scrollable-area").addEventListener("scroll", (evt) => {
+      fillScroll();
+      const offset = getOffset(document.querySelector(".scrollable-area .content"));
+      if (isDisplayed === false && offset.top < -190) {
+        document.querySelector(".scrollbutton button").style.display = "block";
+        isDisplayed = true;
+        return;
+      }
+
+      if (isDisplayed && offset.top > -190) {
+        document.querySelector(".scrollbutton button").style.display = "none";
+        isDisplayed = false;
+        return;
+      }
+    });
+
+    document.addEventListener('wheel', (evt) => {
+      document.querySelector(".deltax").textContent = evt.deltaX;
+      document.querySelector(".deltay").textContent = evt.deltaY;
+      document.querySelector(".isTrusted").textContent = evt.isTrusted ? "true" : "false";
+      document.querySelector(".target").textContent = evt.target.className;
+      fillScroll();
+    });
+  </script>
+</html>
