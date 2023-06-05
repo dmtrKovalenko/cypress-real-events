@@ -31,7 +31,7 @@ export interface realMouseDownOptions {
    * cy.get("body").realMouseDown({ x: 11, y: 12 }) // global click by coordinates
    */
   x?: number;
-  /**  X coordinate to click, relative to the Element. Overrides `position`.
+  /**  Y coordinate to click, relative to the Element. Overrides `position`.
    * @example
    * cy.get("canvas").realMouseDown({ x: 100, y: 115 })
    * cy.get("body").realMouseDown({ x: 11, y: 12 }) // global click by coordinates
