@@ -4,13 +4,14 @@ import {
   ScrollBehaviorOptions,
   getCypressElementCoordinates,
 } from "../getCypressElementCoordinates";
+import { keyToModifierBitMap } from "../keyToModifierBitMap";
 
 export interface RealHoverOptions {
   /**
    * If set to `pen`, simulates touch based hover (via long press)
    */
   pointer?: "mouse" | "pen";
-  /** 
+  /**
    * Position relative to the element where to hover the element.
    * @example cy.realHover({ position: "topLeft" })
    */
@@ -20,6 +21,11 @@ export interface RealHoverOptions {
    * @example cy.realHover({ scrollBehavior: "top" });
    */
   scrollBehavior?: ScrollBehaviorOptions;
+  /**
+   * Indicates whether the shift key was pressed or not when an event occurred
+   * @example cy.realHover({ shiftKey: true });
+   */
+  shiftKey?: boolean;
 }
 
 /** @ignore this, update documentation for this function at index.d.ts */
@@ -27,7 +33,11 @@ export async function realHover(
   subject: JQuery,
   options: RealHoverOptions = {}
 ) {
-  const { x, y } = getCypressElementCoordinates(subject, options.position, options.scrollBehavior);
+  const { x, y } = getCypressElementCoordinates(
+    subject,
+    options.position,
+    options.scrollBehavior
+  );
 
   const log = Cypress.log({
     $el: subject,
@@ -44,6 +54,7 @@ export async function realHover(
     type: "mouseMoved",
     button: "none",
     pointerType: options.pointer ?? "mouse",
+    modifiers: options.shiftKey ? keyToModifierBitMap.Shift : 0,
   });
 
   log.snapshot().end();
