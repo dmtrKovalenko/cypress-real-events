@@ -11,7 +11,7 @@ export interface RealHoverOptions {
    * If set to `pen`, simulates touch based hover (via long press)
    */
   pointer?: "mouse" | "pen";
-  /**
+  /** 
    * Position relative to the element where to hover the element.
    * @example cy.realHover({ position: "topLeft" })
    */
