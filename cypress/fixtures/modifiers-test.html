@@ -7,6 +7,8 @@
     <hr />
     <div id="mouse-down-div">Initiate mouse down with shift pressed</div>
     <hr />
+    <div id="mouse-up-div">Initiate mouse up with shift pressed</div>
+    <hr />
 
     <p id="result"></p>
   </body>
@@ -29,6 +31,10 @@
     document
       .getElementById("mouse-down-div")
       .addEventListener("mousedown", commonHandler);
+
+    document
+      .getElementById("mouse-up-div")
+      .addEventListener("mouseup", commonHandler);
   </script>
   <style>
     div {

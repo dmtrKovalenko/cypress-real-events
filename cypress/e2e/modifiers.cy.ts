@@ -18,6 +18,11 @@ describe("Events behavior with shiftKey modifier applied", () => {
     cy.contains("Shift key was pressed");
   });
 
+  it("detects shift key modifier on mpuseup", () => {
+    cy.get("#mouse-up-div").realMouseUp({ shiftKey: true });
+    cy.contains("Shift key was pressed");
+  });
+
   it("detects shift key modifier on mousemove", () => {
     cy.get("#mouse-move-div").realMouseMove(100, 50, { shiftKey: true });
     cy.contains("Shift key was pressed");
