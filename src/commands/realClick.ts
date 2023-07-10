@@ -73,7 +73,7 @@ export async function realClick(
 
   log.snapshot("before");
 
-  const { clickCount = 1 } = options;
+  const { clickCount = 1 } = options
 
   for (let currentClick = 1; currentClick <= clickCount; currentClick++) {
     await fireCdpCommand("Input.dispatchMouseEvent", {

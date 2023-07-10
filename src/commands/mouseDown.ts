@@ -37,11 +37,7 @@ export async function realMouseDown(
   subject: JQuery,
   options: realMouseDownOptions = {}
 ) {
-  const { x, y } = getCypressElementCoordinates(
-    subject,
-    options.position,
-    options.scrollBehavior
-  );
+  const { x, y } = getCypressElementCoordinates(subject, options.position, options.scrollBehavior);
 
   const log = Cypress.log({
     $el: subject,

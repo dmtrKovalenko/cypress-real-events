@@ -33,11 +33,7 @@ export async function realHover(
   subject: JQuery,
   options: RealHoverOptions = {}
 ) {
-  const { x, y } = getCypressElementCoordinates(
-    subject,
-    options.position,
-    options.scrollBehavior
-  );
+  const { x, y } = getCypressElementCoordinates(subject, options.position, options.scrollBehavior);
 
   const log = Cypress.log({
     $el: subject,
