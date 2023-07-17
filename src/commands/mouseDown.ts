@@ -25,6 +25,19 @@ export interface realMouseDownOptions {
    * @default "left"
    */
   button?: keyof typeof mouseButtonNumbers;
+
+  /**  X coordinate to click, relative to the Element. Overrides `position`.
+   * @example
+   * cy.get("canvas").realMouseDown({ x: 100, y: 115 })
+   * cy.get("body").realMouseDown({ x: 11, y: 12 }) // global click by coordinates
+   */
+  x?: number;
+  /**  Y coordinate to click, relative to the Element. Overrides `position`.
+   * @example
+   * cy.get("canvas").realMouseDown({ x: 100, y: 115 })
+   * cy.get("body").realMouseDown({ x: 11, y: 12 }) // global click by coordinates
+   */
+  y?: number;
   /**
    * Indicates whether the shift key was pressed or not when an event occurred
    * @example cy.realMouseDown({ shiftKey: true });
@@ -37,7 +50,14 @@ export async function realMouseDown(
   subject: JQuery,
   options: realMouseDownOptions = {}
 ) {
-  const { x, y } = getCypressElementCoordinates(subject, options.position, options.scrollBehavior);
+  const position =
+    options.x && options.y ? { x: options.x, y: options.y } : options.position;
+
+  const { x, y } = getCypressElementCoordinates(
+    subject,
+    position,
+    options.scrollBehavior
+  );
 
   const log = Cypress.log({
     $el: subject,
