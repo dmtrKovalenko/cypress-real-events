@@ -4,6 +4,7 @@ import {
   Position,
   ScrollBehaviorOptions,
 } from "../getCypressElementCoordinates";
+import { keyToModifierBitMap } from "../keyToModifierBitMap";
 
 export interface RealMouseMoveOptions {
   /**
@@ -14,9 +15,14 @@ export interface RealMouseMoveOptions {
   position?: Position;
   /**
    * Controls how the page is scrolled to bring the subject into view, if needed.
-   * @example cy.realClick({ scrollBehavior: "top" });
+   * @example cy.realMouseMove({ scrollBehavior: "top" });
    */
   scrollBehavior?: ScrollBehaviorOptions;
+  /**
+   * Indicates whether the shift key was pressed or not when an event occurred
+   * @example cy.realMouseMove({ shiftKey: true });
+   */
+  shiftKey?: boolean;
 }
 
 /** @ignore this, update documentation for this function at index.d.ts */
@@ -46,6 +52,7 @@ export async function realMouseMove(
     type: "mouseMoved",
     x: x * basePosition.frameScale + basePosition.x,
     y: y * basePosition.frameScale + basePosition.y,
+    modifiers: options.shiftKey ? keyToModifierBitMap.Shift : 0,
   });
 
   log.snapshot("after").end();
