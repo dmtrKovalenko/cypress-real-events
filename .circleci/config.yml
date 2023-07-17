@@ -13,7 +13,9 @@ jobs:
           install-command: yarn install --frozen-lockfile
       - persist_to_workspace:
           root: ~/
-          paths: .
+          paths: 
+            - .
+            - /usr/local/bin
   build:
     docker:
       - image: cimg/node:lts
