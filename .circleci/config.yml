@@ -12,28 +12,30 @@ jobs:
           install-browsers: true
           install-command: yarn install --frozen-lockfile
       - persist_to_workspace:
-          root: ~/
-          paths: 
-            - .
+          root: /
+          paths:
+            - ~/.
             - /usr/local/bin
   build:
     docker:
       - image: cimg/node:lts
     steps:
       - attach_workspace:
-          at: ~/
+          at: /
       - run: yarn lint
       - run: yarn build
       - run: node scripts/release.js
       - persist_to_workspace:
-          root: ~/
-          paths: .
+          root: /
+          paths:
+            - ~/.
+            - /usr/local/bin
   run-tests-in-parallel:
     executor: cypress/default
     parallelism: 2
     steps:
       - attach_workspace:
-          at: ~/
+          at: /
       - cypress/run-tests:
           # following examples from
           # https://circleci.com/docs/2.0/parallelism-faster-jobs/
@@ -46,7 +48,7 @@ jobs:
       - image: cimg/node:lts
     steps:
       - attach_workspace:
-          at: ~/
+          at: /
       - run:
           name: Release
           working_directory: dist
