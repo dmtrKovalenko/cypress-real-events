@@ -21,7 +21,7 @@ export interface RealTypeOptions {
 
 const availableChars = Object.keys(keyCodeDefinitions);
 function assertChar(
-  char: string
+  char: string,
 ): asserts char is keyof typeof keyCodeDefinitions {
   if (!availableChars.includes(char)) {
     throw new Error(`Unrecognized character "${char}".`);

@@ -1,5 +1,8 @@
-import { fireCdpCommand } from '../fireCdpCommand';
-import { getCypressElementCoordinates, Position } from '../getCypressElementCoordinates';
+import { fireCdpCommand } from "../fireCdpCommand";
+import {
+  getCypressElementCoordinates,
+  Position,
+} from "../getCypressElementCoordinates";
 
 export interface RealTouchOptions {
   /**
@@ -41,18 +44,17 @@ export interface RealTouchOptions {
 
 export async function realTouch(
   subject: JQuery,
-  options: RealTouchOptions = {}
+  options: RealTouchOptions = {},
 ) {
-  const position = typeof options.x === 'number' || typeof options.y === 'number'
-    ? { x: options.x || 0, y: options.y || 0 }
-    : options.position;
+  const position =
+    typeof options.x === "number" || typeof options.y === "number"
+      ? { x: options.x || 0, y: options.y || 0 }
+      : options.position;
 
   const elementCoordinates = getCypressElementCoordinates(subject, position);
-  const elementPoint = {x: elementCoordinates.x, y: elementCoordinates.y}
-  const radiusX = (options.radiusX || options.radius || 1)
-  const radiusY = (options.radiusY || options.radius || 1)
-
-
+  const elementPoint = { x: elementCoordinates.x, y: elementCoordinates.y };
+  const radiusX = options.radiusX || options.radius || 1;
+  const radiusY = options.radiusY || options.radius || 1;
 
   const log = Cypress.log({
     $el: subject,
@@ -63,17 +65,17 @@ export async function realTouch(
       "Touched Area (Radius)": {
         x: radiusX,
         y: radiusY,
-      }
-    })
-  })
+      },
+    }),
+  });
 
   log.snapshot("before");
 
   const touchPoint = {
     ...elementPoint,
     radiusX,
-    radiusY
-  }
+    radiusY,
+  };
 
   await fireCdpCommand("Input.dispatchTouchEvent", {
     type: "touchStart",
@@ -83,7 +85,7 @@ export async function realTouch(
   await fireCdpCommand("Input.dispatchTouchEvent", {
     type: "touchEnd",
     touchPoints: [touchPoint],
-  })
+  });
 
   log.snapshot("after").end();
 

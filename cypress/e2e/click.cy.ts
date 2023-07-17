@@ -124,10 +124,10 @@ describe("cy.realClick", () => {
           const screenCenter = screenTop + (screenBottom - screenTop) / 2;
 
           expect($elTop).to.eq(
-            Math.floor(screenCenter - $canvas.outerHeight() / 2)
+            Math.floor(screenCenter - $canvas.outerHeight() / 2),
           );
           expect($elBottom).to.equal(
-            Math.floor(screenCenter + $canvas.outerHeight() / 2)
+            Math.floor(screenCenter + $canvas.outerHeight() / 2),
           );
         });
     });
