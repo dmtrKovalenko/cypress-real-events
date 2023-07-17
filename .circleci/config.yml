@@ -3,8 +3,7 @@ orbs:
   cypress: cypress-io/cypress@3
 jobs:
   install:
-    docker:
-      - image: cimg/node:lts
+    executor: cypress/default
     steps:
       - attach_workspace:
           at: ~/
