@@ -35,6 +35,7 @@ jobs:
           at: ~/
       - cypress/install:
           install-browsers: true
+          install-command: "echo 'skipping install'"
       - cypress/run-tests:
           # following examples from
           # https://circleci.com/docs/2.0/parallelism-faster-jobs/
