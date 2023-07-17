@@ -42,7 +42,7 @@ jobs:
           cypress-command: |
             TESTFILES=$(circleci tests glob "cypress/e2e/**/*.cy.ts" | circleci tests split --total=2)
             echo "Test files for this machine are $TESTFILES"
-            npx cypress run --spec $TESTFILES
+            npx cypress run --browser chrome --spec $TESTFILES
 
   release:
     docker:
