@@ -49,6 +49,7 @@ workflows:
           # this avoids installing same dependencies 10 times
           requires:
             - install
+          install-command: echo 'Nothing to install in this job'
           # following examples from
           # https://circleci.com/docs/2.0/parallelism-faster-jobs/
           cypress-command: |
