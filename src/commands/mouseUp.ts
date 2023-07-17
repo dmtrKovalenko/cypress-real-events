@@ -24,6 +24,18 @@ export interface realMouseUpOptions {
    * @default "left"
    */
   button?: keyof typeof mouseButtonNumbers;
+  /**  X coordinate to click, relative to the Element. Overrides `position`.
+   * @example
+   * cy.get("canvas").realMouseUp({ x: 100, y: 115 })
+   * cy.get("body").realMouseUp({ x: 11, y: 12 }) // global click by coordinates
+   */
+  x?: number;
+  /**  Y coordinate to click, relative to the Element. Overrides `position`.
+   * @example
+   * cy.get("canvas").realMouseUp({ x: 100, y: 115 })
+   * cy.get("body").realMouseUp({ x: 11, y: 12 }) // global click by coordinates
+   */
+  y?: number;
   /**
    * Indicates whether the shift key was pressed or not when an event occurred
    * @example cy.realMouseUp({ shiftKey: true });
@@ -36,7 +48,14 @@ export async function realMouseUp(
   subject: JQuery,
   options: realMouseUpOptions = {}
 ) {
-  const { x, y } = getCypressElementCoordinates(subject, options.position, options.scrollBehavior);
+  const position =
+    options.x && options.y ? { x: options.x, y: options.y } : options.position;
+
+  const { x, y } = getCypressElementCoordinates(
+    subject,
+    position,
+    options.scrollBehavior
+  );
 
   const log = Cypress.log({
     $el: subject,
