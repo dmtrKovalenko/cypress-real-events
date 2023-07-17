@@ -6,14 +6,15 @@ jobs:
     docker:
       - image: cimg/node:lts
     steps:
-      - checkout
       - attach_workspace:
           at: ~/
-      - run: yarn install --frozen-lockfile
+      - checkout
+      - cypress/install:
+          install-browsers: true
+          install-command: yarn install --frozen-lockfile
       - persist_to_workspace:
           root: ~/
           paths: .
-
   build:
     docker:
       - image: cimg/node:lts
@@ -26,7 +27,19 @@ jobs:
       - persist_to_workspace:
           root: ~/
           paths: .
-
+  run-tests-in-parallel:
+    executor: cypress/default
+    parallelism: 2
+    steps:
+      - attach_workspace:
+          at: ~/
+      - cypress/run-tests:
+          # following examples from
+          # https://circleci.com/docs/2.0/parallelism-faster-jobs/
+          cypress-command: |
+            TESTFILES=$(circleci tests glob "cypress/e2e/**/*.cy.ts" | circleci tests split --total=2)
+            echo "Test files for this machine are $TESTFILES"
+            npx cypress run --browser chrome --spec $TESTFILES
   release:
     docker:
       - image: cimg/node:lts
@@ -43,23 +56,13 @@ workflows:
     jobs:
       - install
       - build:
+          name: Build and lint
           requires:
             - install
-      - cypress/run:
-          parallelism: 2
-          install-browsers: true
-          # make sure app has been installed and built
-          # before running tests across multiple machines
-          # this avoids installing same dependencies 10 times
+      - run-tests-in-parallel:
+          name: Run Cypress tests
           requires:
             - install
-          install-command: echo 'Nothing to install in this job'
-          # following examples from
-          # https://circleci.com/docs/2.0/parallelism-faster-jobs/
-          cypress-command: |
-            TESTFILES=$(circleci tests glob "cypress/e2e/**/*.cy.ts" | circleci tests split --total=2)
-            echo "Test files for this machine are $TESTFILES"
-            npx cypress run --spec $TESTFILES
       - release:
           name: NPM release
           filters:
@@ -67,5 +70,5 @@ workflows:
               only:
                 - main
           requires:
-            - build
-            - cypress/run
+            - Build and lint
+            - Run Cypress tests
