@@ -6,7 +6,7 @@ jobs:
     executor: cypress/default
     steps:
       - attach_workspace:
-          at: ~/
+          at: /
       - checkout
       - cypress/install:
           install-browsers: true
