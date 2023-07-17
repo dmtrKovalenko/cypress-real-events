@@ -11,8 +11,6 @@ jobs:
       - cypress/install:
           install-browsers: true
           install-command: yarn install --frozen-lockfile
-      - run: mkdir -p ~/.local/bin
-      - run: cp /usr/bin/google-chrome-stable ~/.local/bin/google-chrome-stable
       - persist_to_workspace:
           root: ~/
           paths: .
@@ -35,7 +33,8 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/
-      - run: sudo mv ~/.local/bin/google-chrome-stable /usr/bin/google-chrome-stable
+      - cypress/install:
+          install-browsers: true
       - cypress/run-tests:
           # following examples from
           # https://circleci.com/docs/2.0/parallelism-faster-jobs/
