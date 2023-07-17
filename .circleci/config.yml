@@ -6,6 +6,7 @@ jobs:
     docker:
       - image: cimg/node:lts
     steps:
+      - checkout
       - attach_workspace:
           at: ~/
       - run: yarn install --frozen-lockfile
