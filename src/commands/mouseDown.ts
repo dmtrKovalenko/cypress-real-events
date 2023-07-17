@@ -5,6 +5,7 @@ import {
   Position,
 } from "../getCypressElementCoordinates";
 import { mouseButtonNumbers } from "../mouseButtonNumbers";
+import { keyToModifierBitMap } from "../keyToModifierBitMap";
 
 export interface realMouseDownOptions {
   /** Pointer type for realMouseDown, if "pen" touch simulated */
@@ -37,6 +38,11 @@ export interface realMouseDownOptions {
    * cy.get("body").realMouseDown({ x: 11, y: 12 }) // global click by coordinates
    */
   y?: number;
+  /**
+   * Indicates whether the shift key was pressed or not when an event occurred
+   * @example cy.realMouseDown({ shiftKey: true });
+   */
+  shiftKey?: boolean;
 }
 
 /** @ignore this, update documentation for this function at index.d.ts */
@@ -71,6 +77,7 @@ export async function realMouseDown(
     buttons: mouseButtonNumbers[options.button ?? "left"],
     pointerType: options.pointer ?? "mouse",
     button: options.button ?? "left",
+    modifiers: options.shiftKey ? keyToModifierBitMap.Shift : 0,
   });
 
   log.snapshot("after").end();

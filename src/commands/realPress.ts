@@ -1,5 +1,6 @@
 import { fireCdpCommand } from "../fireCdpCommand";
 import { keyCodeDefinitions } from "../keyCodeDefinitions";
+import { keyToModifierBitMap } from "../keyToModifierBitMap";
 
 export interface RealPressOptions {
   /**
@@ -33,13 +34,6 @@ function getKeyDefinition(key: keyof typeof keyCodeDefinitions) {
     windowsVirtualKeyCode: keyCode,
   };
 }
-
-const keyToModifierBitMap: Record<string, number> = {
-  Alt: 1,
-  Control: 2,
-  Meta: 4,
-  Shift: 8,
-};
 
 type Key = keyof typeof keyCodeDefinitions;
 // unfortunately passing a string like Shift+P is not possible cause typescript template literals can not handle such giant union

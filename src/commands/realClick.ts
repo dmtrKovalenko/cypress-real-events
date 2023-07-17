@@ -5,6 +5,7 @@ import {
   Position,
 } from "../getCypressElementCoordinates";
 import { mouseButtonNumbers } from "../mouseButtonNumbers";
+import { keyToModifierBitMap } from "../keyToModifierBitMap";
 
 export interface RealClickOptions {
   /** Pointer type for realClick, if "pen" touch simulated */
@@ -38,6 +39,11 @@ export interface RealClickOptions {
    * @example cy.realClick({ clickCount: 2 });
    */
   clickCount?: number;
+  /**
+   * Indicates whether the shift key was pressed or not when an event occurred
+   * @example cy.realClick({ shiftKey: true });
+   */
+  shiftKey?: boolean;
 }
 
 /** @ignore this, update documentation for this function at index.d.ts */
@@ -76,6 +82,7 @@ export async function realClick(
       buttons: mouseButtonNumbers[options.button ?? "left"],
       pointerType: options.pointer ?? "mouse",
       button: options.button ?? "left",
+      modifiers: options.shiftKey ? keyToModifierBitMap.Shift : 0,
     });
 
     await fireCdpCommand("Input.dispatchMouseEvent", {
@@ -86,6 +93,7 @@ export async function realClick(
       buttons: mouseButtonNumbers[options.button ?? "left"],
       pointerType: options.pointer ?? "mouse",
       button: options.button ?? "left",
+      modifiers: options.shiftKey ? keyToModifierBitMap.Shift : 0,
     });
   }
 
