@@ -3,52 +3,53 @@ orbs:
   cypress: cypress-io/cypress@3
 jobs:
   install:
-    executor: cypress/default
+    docker:
+      - image: cimg/node:lts
     steps:
-      - attach_workspace:
-          at: /
       - checkout
+      - attach_workspace:
+          at: ~/
       - cypress/install:
           install-browsers: true
           install-command: yarn install --frozen-lockfile
+      - run: mv usr/bin/google-chrome-stable ~/.local/bin/google-chrome-stable
       - persist_to_workspace:
-          root: /
-          paths:
-            - ~/.
-            - /usr/local/bin
+          root: ~/
+          paths: .
+
   build:
     docker:
       - image: cimg/node:lts
     steps:
       - attach_workspace:
-          at: /
+          at: ~/
       - run: yarn lint
       - run: yarn build
       - run: node scripts/release.js
       - persist_to_workspace:
-          root: /
-          paths:
-            - ~/.
-            - /usr/local/bin
+          root: ~/
+          paths: .
   run-tests-in-parallel:
     executor: cypress/default
     parallelism: 2
     steps:
       - attach_workspace:
-          at: /
+          at: ~/
+      - run: mv ~/.local/bin/google-chrome-stable usr/bin/google-chrome-stable
       - cypress/run-tests:
           # following examples from
           # https://circleci.com/docs/2.0/parallelism-faster-jobs/
           cypress-command: |
             TESTFILES=$(circleci tests glob "cypress/e2e/**/*.cy.ts" | circleci tests split --total=2)
             echo "Test files for this machine are $TESTFILES"
-            npx cypress run --browser chrome --spec $TESTFILES
+            npx cypress run --spec $TESTFILES
+
   release:
     docker:
       - image: cimg/node:lts
     steps:
       - attach_workspace:
-          at: /
+          at: ~/
       - run:
           name: Release
           working_directory: dist
@@ -59,7 +60,6 @@ workflows:
     jobs:
       - install
       - build:
-          name: Build and lint
           requires:
             - install
       - run-tests-in-parallel:
@@ -73,5 +73,5 @@ workflows:
               only:
                 - main
           requires:
-            - Build and lint
+            - build
             - Run Cypress tests
