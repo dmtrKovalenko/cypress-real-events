@@ -35,7 +35,7 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/
-      - run: mv ~/.local/bin/google-chrome-stable /usr/bin/google-chrome-stable
+      - run: sudo mv ~/.local/bin/google-chrome-stable /usr/bin/google-chrome-stable
       - cypress/run-tests:
           # following examples from
           # https://circleci.com/docs/2.0/parallelism-faster-jobs/
