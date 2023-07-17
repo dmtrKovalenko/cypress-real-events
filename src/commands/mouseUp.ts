@@ -46,7 +46,7 @@ export interface realMouseUpOptions {
 /** @ignore this, update documentation for this function at index.d.ts */
 export async function realMouseUp(
   subject: JQuery,
-  options: realMouseUpOptions = {}
+  options: realMouseUpOptions = {},
 ) {
   const position =
     options.x && options.y ? { x: options.x, y: options.y } : options.position;
@@ -54,7 +54,7 @@ export async function realMouseUp(
   const { x, y } = getCypressElementCoordinates(
     subject,
     position,
-    options.scrollBehavior
+    options.scrollBehavior,
   );
 
   const log = Cypress.log({

@@ -28,14 +28,14 @@ export interface RealMouseMoveOptions {
 /** @ignore this, update documentation for this function at index.d.ts */
 export async function realMouseMove(
   subject: JQuery,
-  x: number ,
+  x: number,
   y: number,
-  options: RealMouseMoveOptions = {}
+  options: RealMouseMoveOptions = {},
 ) {
-  const basePosition= getCypressElementCoordinates(
+  const basePosition = getCypressElementCoordinates(
     subject,
     options.position ?? "topLeft",
-    options.scrollBehavior
+    options.scrollBehavior,
   );
 
   const log = Cypress.log({

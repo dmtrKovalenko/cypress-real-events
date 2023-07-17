@@ -9,7 +9,7 @@ describe("cy.realType", () => {
 
     cy.get("input[name=q]").should(
       "have.value",
-      "cypress can produce real events"
+      "cypress can produce real events",
     );
   });
 

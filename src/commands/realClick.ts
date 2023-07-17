@@ -49,7 +49,7 @@ export interface RealClickOptions {
 /** @ignore this, update documentation for this function at index.d.ts */
 export async function realClick(
   subject: JQuery,
-  options: RealClickOptions = {}
+  options: RealClickOptions = {},
 ) {
   const position =
     options.x && options.y ? { x: options.x, y: options.y } : options.position;
@@ -57,7 +57,7 @@ export async function realClick(
   const { x, y } = getCypressElementCoordinates(
     subject,
     position,
-    options.scrollBehavior
+    options.scrollBehavior,
   );
 
   const log = Cypress.log({

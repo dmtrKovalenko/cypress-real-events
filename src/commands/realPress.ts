@@ -42,7 +42,7 @@ type KeyOrShortcut = Key | Array<Key>;
 /** @ignore this, update documentation for this function at index.d.ts */
 export async function realPress(
   keyOrShortcut: KeyOrShortcut,
-  options: RealPressOptions = {}
+  options: RealPressOptions = {},
 ) {
   let log;
 
@@ -88,7 +88,7 @@ export async function realPress(
         modifiers,
         ...key,
       });
-    })
+    }),
   );
 
   log?.snapshot("after").end();
