@@ -1,7 +1,15 @@
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@2.2.0
+  cypress: cypress-io/cypress@3
 jobs:
+  install:
+    docker:
+      - image: cimg/node:lts
+    steps:
+      - attach_workspace:
+          at: ~/
+      - run: yarn install --frozen-lockfile
+
   build:
     docker:
       - image: cimg/node:lts
@@ -29,32 +37,21 @@ jobs:
 workflows:
   build:
     jobs:
-      - cypress/install:
-          executor: cypress/base-18.16.0
-          yarn: true
+      - install
       - build:
           requires:
-            - cypress/install
+            - install
       - cypress/run:
-          executor: cypress/base-18.16.0
           parallelism: 2
+          install-browsers: true
           # make sure app has been installed and built
           # before running tests across multiple machines
           # this avoids installing same dependencies 10 times
           requires:
-            - cypress/install
-          browser: chrome
-          # notice a trick to avoid re-installing dependencies
-          # in this job - a do-nothing "install-command" parameter
-          install-command: echo 'Nothing to install in this job'
-          yarn: true
-          no-workspace: true
-          # we are not going to use results from this job anywhere else
-          record: false
-          store_artifacts: true
+            - install
           # following examples from
           # https://circleci.com/docs/2.0/parallelism-faster-jobs/
-          command: |
+          cypress-command: |
             TESTFILES=$(circleci tests glob "cypress/e2e/**/*.cy.ts" | circleci tests split --total=2)
             echo "Test files for this machine are $TESTFILES"
             npx cypress run --spec $TESTFILES
