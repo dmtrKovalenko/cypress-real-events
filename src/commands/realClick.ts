@@ -45,10 +45,8 @@ export async function realClick(
   subject: JQuery,
   options: RealClickOptions = {}
 ) {
-  // prettier-ignore
-  const position = options.x && options.y
-    ? { x: options.x, y: options.y }
-    : options.position;
+  const position =
+    options.x && options.y ? { x: options.x, y: options.y } : options.position;
 
   const { x, y } = getCypressElementCoordinates(
     subject,
@@ -67,7 +65,7 @@ export async function realClick(
 
   log.snapshot("before");
 
-  const { clickCount = 1 } = options
+  const { clickCount = 1 } = options;
 
   for (let currentClick = 1; currentClick <= clickCount; currentClick++) {
     await fireCdpCommand("Input.dispatchMouseEvent", {
