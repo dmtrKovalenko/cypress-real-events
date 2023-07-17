@@ -1,4 +1,9 @@
-function assertWheel(opt: { deltax: string; deltay:string; trusted: string; className: string }) {
+function assertWheel(opt: {
+  deltax: string;
+  deltay: string;
+  trusted: string;
+  className: string;
+}) {
   cy.get(".deltax").should("have.text", opt.deltax, "DeltaX");
   cy.get(".deltay").should("have.text", opt.deltay, "DeltaY");
   cy.get(".isTrusted").should("have.text", opt.trusted);
@@ -16,7 +21,7 @@ describe("cy.realMouseWheel", () => {
       deltax: "0",
       deltay: "100",
       trusted: "true",
-      className: "main greenbox"
+      className: "main greenbox",
     });
   });
 
@@ -26,7 +31,7 @@ describe("cy.realMouseWheel", () => {
       deltax: "0",
       deltay: "75",
       trusted: "true",
-      className: "smallbox redbox"
+      className: "smallbox redbox",
     });
   });
 
@@ -36,7 +41,7 @@ describe("cy.realMouseWheel", () => {
       deltax: "25",
       deltay: "0",
       trusted: "true",
-      className: "smallbox redbox"
+      className: "smallbox redbox",
     });
   });
 
@@ -46,7 +51,7 @@ describe("cy.realMouseWheel", () => {
       deltax: "33",
       deltay: "33",
       trusted: "true",
-      className: "smallbox redbox"
+      className: "smallbox redbox",
     });
   });
 

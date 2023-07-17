@@ -8,9 +8,7 @@ jobs:
       - checkout
       - attach_workspace:
           at: ~/
-      - cypress/install:
-          install-browsers: true
-          install-command: yarn install --frozen-lockfile
+      - run: yarn install --frozen-lockfile
       - persist_to_workspace:
           root: ~/
           paths: .
@@ -23,6 +21,7 @@ jobs:
           at: ~/
       - run: yarn lint
       - run: yarn build
+      - run: yarn format-check
       - run: node scripts/release.js
       - persist_to_workspace:
           root: ~/

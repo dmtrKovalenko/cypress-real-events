@@ -31,8 +31,15 @@ export interface RealMouseWheelOptions {
 }
 
 /** @ignore this, update documentation for this function at index.d.ts */
-export async function realMouseWheel(subject: JQuery, options: RealMouseWheelOptions = {}) {
-  const { x, y } = getCypressElementCoordinates(subject, options.position, options.scrollBehavior);
+export async function realMouseWheel(
+  subject: JQuery,
+  options: RealMouseWheelOptions = {},
+) {
+  const { x, y } = getCypressElementCoordinates(
+    subject,
+    options.position,
+    options.scrollBehavior,
+  );
   const { deltaX = 0, deltaY = 0 } = options || {};
 
   if (deltaX === 0 && deltaY === 0) {

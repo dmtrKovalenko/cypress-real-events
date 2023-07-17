@@ -8,6 +8,8 @@
     "build": "tsc",
     "lint": "yarn eslint './{src,cypress}/**/*.ts'",
     "release": "yarn build && yarn version && node scripts/release.js && yarn publish dist",
+    "format": "yarn prettier --write './{src,cypress}/**/*.ts'",
+    "format-check": "yarn prettier --check './{src,cypress}/**/*.ts'",
     "semantic-release": "semantic-release"
   },
   "peerDependencies": {
@@ -35,5 +37,8 @@
     "branches": [
       "main"
     ]
+  },
+  "dependencies": {
+    "prettier": "^3.0.0"
   }
 }

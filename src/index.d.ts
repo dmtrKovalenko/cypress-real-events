@@ -64,7 +64,9 @@ declare namespace Cypress {
      * @param key key to type. Should be the same as cypress's default type command argument (https://docs.cypress.io/api/commands/type.html#Arguments)
      * @param options press options
      */
-    realPress: NormalizeNonSubjectCypressCommand<typeof import("./commands/realPress").realPress>;
+    realPress: NormalizeNonSubjectCypressCommand<
+      typeof import("./commands/realPress").realPress
+    >;
     /**
      * Runs a sequence of native press event (via cy.press)
      * Type event is global. Make sure that it is not attached to any field.
@@ -74,7 +76,9 @@ declare namespace Cypress {
      * cy.realType("some text {enter}")
      * @param text text to type. Should be the same as cypress's default type command argument (https://docs.cypress.io/api/commands/type.html#Arguments)
      */
-    realType: NormalizeNonSubjectCypressCommand<typeof import("./commands/realType").realType>;
+    realType: NormalizeNonSubjectCypressCommand<
+      typeof import("./commands/realType").realType
+    >;
     /**
      * Fires native system mousePressed event.
      * @see https://github.com/dmtrKovalenko/cypress-real-events#cyrealMouseDown
@@ -94,12 +98,12 @@ declare namespace Cypress {
       typeof import("./commands/mouseUp").realMouseUp
     >;
     /**
-    * Fires native system mouseMoved event.
-    * Moves mouse inside a subject to the provided amount of coordinates from top left corner (adjustable with position option.)
-    * @see https://github.com/dmtrKovalenko/cypress-real-events#cyrealMouseMove
-    * @example
-    * cy.get("button").realMouseUp()
-    */
+     * Fires native system mouseMoved event.
+     * Moves mouse inside a subject to the provided amount of coordinates from top left corner (adjustable with position option.)
+     * @see https://github.com/dmtrKovalenko/cypress-real-events#cyrealMouseMove
+     * @example
+     * cy.get("button").realMouseUp()
+     */
     realMouseMove: NormalizeCypressCommand<
       typeof import("./commands/mouseMove").realMouseMove
     >;

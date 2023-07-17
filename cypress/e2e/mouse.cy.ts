@@ -7,19 +7,19 @@ describe("cy.realMouseDown and cy.realMouseUp", () => {
     cy.get(".action-btn").should(
       "have.css",
       "background-color",
-      "rgb(217, 83, 79)"
+      "rgb(217, 83, 79)",
     );
     cy.get(".action-btn").realMouseDown();
     cy.get(".action-btn").should(
       "have.css",
       "background-color",
-      "rgb(172, 41, 37)"
+      "rgb(172, 41, 37)",
     );
     cy.get(".action-btn").realMouseUp(); // will go in hover state
     cy.get(".action-btn").should(
       "have.css",
       "background-color",
-      "rgb(201, 48, 44)"
+      "rgb(201, 48, 44)",
     );
   });
 
@@ -123,10 +123,10 @@ describe("cy.realMouseDown and cy.realMouseUp", () => {
           const screenCenter = screenTop + (screenBottom - screenTop) / 2;
 
           expect($elTop).to.equal(
-            Math.floor(screenCenter) - $canvas.outerHeight() / 2
+            Math.floor(screenCenter) - $canvas.outerHeight() / 2,
           );
           expect($elBottom).to.equal(
-            Math.floor(screenCenter) + $canvas.outerHeight() / 2
+            Math.floor(screenCenter) + $canvas.outerHeight() / 2,
           );
         });
     });
@@ -204,10 +204,10 @@ describe("cy.realMouseDown and cy.realMouseUp", () => {
           const screenCenter = screenTop + (screenBottom - screenTop) / 2;
 
           expect($elTop).to.equal(
-            Math.floor(screenCenter) - $canvas.outerHeight() / 2
+            Math.floor(screenCenter) - $canvas.outerHeight() / 2,
           );
           expect($elBottom).to.equal(
-            Math.floor(screenCenter) + $canvas.outerHeight() / 2
+            Math.floor(screenCenter) + $canvas.outerHeight() / 2,
           );
         });
     });
@@ -285,7 +285,7 @@ describe(
             .realMouseDown()
             .then(($target) => {
               expect($target.css("background-color")).to.equal(
-                "rgb(0, 0, 255)"
+                "rgb(0, 0, 255)",
               );
             });
 
@@ -294,7 +294,7 @@ describe(
             .realMouseUp()
             .then(($target) => {
               expect($target.css("background-color")).to.equal(
-                "rgb(255, 192, 203)"
+                "rgb(255, 192, 203)",
               );
             });
         });
@@ -319,7 +319,7 @@ describe(
             .realMouseDown()
             .then(($target) => {
               expect($target.css("background-color")).to.equal(
-                "rgb(0, 0, 255)"
+                "rgb(0, 0, 255)",
               );
             });
 
@@ -328,12 +328,12 @@ describe(
             .realMouseUp()
             .then(($target) => {
               expect($target.css("background-color")).to.equal(
-                "rgb(255, 192, 203)"
+                "rgb(255, 192, 203)",
               );
             });
         });
     });
-  }
+  },
 );
 
 describe("realMouseMove", () => {

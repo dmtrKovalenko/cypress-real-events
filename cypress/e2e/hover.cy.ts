@@ -13,7 +13,7 @@ describe("cy.realHover", () => {
     cy.get(".action-btn").should(
       "have.css",
       "background-color",
-      "rgb(217, 83, 79)"
+      "rgb(217, 83, 79)",
     );
   });
 
@@ -66,10 +66,10 @@ describe("cy.realHover", () => {
           const screenCenter = screenTop + (screenBottom - screenTop) / 2;
 
           expect($elTop).to.equal(
-            Math.floor(screenCenter) - $canvas.outerHeight() / 2
+            Math.floor(screenCenter) - $canvas.outerHeight() / 2,
           );
           expect($elBottom).to.equal(
-            Math.floor(screenCenter) + $canvas.outerHeight() / 2
+            Math.floor(screenCenter) + $canvas.outerHeight() / 2,
           );
         });
     });
@@ -144,7 +144,7 @@ describe("iframe behavior", { retries: 10 }, () => {
           .realHover()
           .then(($target) => {
             expect($target.css("background-color")).to.equal(
-              "rgb(255, 192, 203)"
+              "rgb(255, 192, 203)",
             );
           });
       });
@@ -169,7 +169,7 @@ describe("iframe behavior", { retries: 10 }, () => {
           .realHover()
           .then(($target) => {
             expect($target.css("background-color")).to.equal(
-              "rgb(255, 192, 203)"
+              "rgb(255, 192, 203)",
             );
           });
       });

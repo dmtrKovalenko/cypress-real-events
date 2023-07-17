@@ -11,7 +11,7 @@ export interface RealHoverOptions {
    * If set to `pen`, simulates touch based hover (via long press)
    */
   pointer?: "mouse" | "pen";
-  /** 
+  /**
    * Position relative to the element where to hover the element.
    * @example cy.realHover({ position: "topLeft" })
    */
@@ -31,9 +31,13 @@ export interface RealHoverOptions {
 /** @ignore this, update documentation for this function at index.d.ts */
 export async function realHover(
   subject: JQuery,
-  options: RealHoverOptions = {}
+  options: RealHoverOptions = {},
 ) {
-  const { x, y } = getCypressElementCoordinates(subject, options.position, options.scrollBehavior);
+  const { x, y } = getCypressElementCoordinates(
+    subject,
+    options.position,
+    options.scrollBehavior,
+  );
 
   const log = Cypress.log({
     $el: subject,

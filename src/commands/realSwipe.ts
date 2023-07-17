@@ -51,11 +51,11 @@ async function forEachSwipePosition(
     direction: SwipeDirection;
     startPosition: { x: number; y: number };
   },
-  onStep: (pos: { x: number; y: number }) => Promise<void>
+  onStep: (pos: { x: number; y: number }) => Promise<void>,
 ) {
   if (length < step) {
     throw new Error(
-      "cy.realSwipe: options.length can not be smaller than options.step"
+      "cy.realSwipe: options.length can not be smaller than options.step",
     );
   }
 
@@ -89,7 +89,7 @@ async function forEachSwipePosition(
 export async function realSwipe(
   subject: JQuery,
   direction: SwipeDirection,
-  options: RealSwipeOptions = {}
+  options: RealSwipeOptions = {},
 ) {
   const position =
     options.x && options.y
@@ -99,7 +99,7 @@ export async function realSwipe(
   const length = options.length ?? 10;
   const step = options.step ?? 10;
   const elementCoordinates = getCypressElementCoordinates(subject, position);
-  const startPosition = {x: elementCoordinates.x, y: elementCoordinates.y} ;
+  const startPosition = { x: elementCoordinates.x, y: elementCoordinates.y };
   const log = Cypress.log({
     $el: subject,
     name: "realSwipe",
@@ -128,7 +128,7 @@ export async function realSwipe(
       fireCdpCommand("Input.dispatchTouchEvent", {
         type: "touchMove",
         touchPoints: [position],
-      })
+      }),
   );
 
   await fireCdpCommand("Input.dispatchTouchEvent", {
