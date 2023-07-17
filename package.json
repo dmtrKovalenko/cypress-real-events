@@ -1,6 +1,6 @@
 {
   "name": "cypress-real-events",
-  "version": "1.8.2",
+  "version": "1.9.1",
   "description": "Real native events for cypress. Dispatched via CDP.",
   "author": "Dmitriy Kovalenko",
   "license": "MIT",
