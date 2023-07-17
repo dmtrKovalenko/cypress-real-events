@@ -11,6 +11,7 @@ jobs:
       - cypress/install:
           install-browsers: true
           install-command: yarn install --frozen-lockfile
+      - run: mkdir -p ~/.local/bin
       - run: mv /usr/bin/google-chrome-stable ~/.local/bin/google-chrome-stable
       - persist_to_workspace:
           root: ~/
