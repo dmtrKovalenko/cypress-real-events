@@ -38,8 +38,5 @@
     "branches": [
       "main"
     ]
-  },
-  "dependencies": {
-    "prettier": "^3.0.0"
   }
 }
