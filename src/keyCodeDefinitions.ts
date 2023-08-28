@@ -260,6 +260,7 @@ export const keyCodeDefinitions =  {
   '?': {'keyCode': 191, 'key': '?', 'code': 'Slash'},
   '~': {'keyCode': 192, 'key': '~', 'code': 'Backquote'},
   '{': {'keyCode': 219, 'key': '{', 'code': 'BracketLeft'},
+  '{{}': {'keyCode': 219, 'key': '{', 'code': 'BracketLeft'},
   '|': {'keyCode': 220, 'key': '|', 'code': 'Backslash'},
   '}': {'keyCode': 221, 'key': '}', 'code': 'BracketRight'},
   '"': {'keyCode': 222, 'key': '"', 'code': 'Quote'}
