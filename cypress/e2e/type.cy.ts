@@ -30,4 +30,12 @@ describe("cy.realType", () => {
     cy.get("input[name=q]").realClick({ clickCount: 3 });
     cy.realPress("Backspace");
   });
+
+  it("can type braces", () => {
+    cy.realType("{");
+    cy.get("input[name=q]").should("have.value", "{");
+    cy.realPress("Backspace");
+    cy.realType("{{}test}");
+    cy.get("input[name=q]").should("have.value", "{test}");
+  });
 });
