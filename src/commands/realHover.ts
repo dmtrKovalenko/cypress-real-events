@@ -4,7 +4,7 @@ import {
   ScrollBehaviorOptions,
   getCypressElementCoordinates,
 } from "../getCypressElementCoordinates";
-import { getModifier } from "../getModifier";
+import { getModifiers } from "../getModifiers";
 
 export interface RealHoverOptions {
   /**
@@ -51,7 +51,7 @@ export async function realHover(
     }),
   });
 
-  const modifier = getModifier(options); 
+  const modifiers = getModifiers(options); 
 
   await fireCdpCommand("Input.dispatchMouseEvent", {
     x,
@@ -59,7 +59,7 @@ export async function realHover(
     type: "mouseMoved",
     button: "none",
     pointerType: options.pointer ?? "mouse",
-    modifiers: modifier,
+    modifiers: modifiers,
   });
 
   log.snapshot().end();

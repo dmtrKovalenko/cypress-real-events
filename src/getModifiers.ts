@@ -10,28 +10,30 @@ import { keyToModifierBitMap } from "./keyToModifierBitMap";
  * @param {boolean} [options.metaKey] - Whether the Meta key is pressed 
  * @returns {number} The modifier bit mask flags
  */
-export function getModifier(options: {
+export function getModifiers(options: {
   shiftKey?: boolean;
   altKey?: boolean;
   ctrlKey?: boolean; 
   metaKey?: boolean;
 }): number {
 
+  let modifiers = 0;
+
   if (options.shiftKey) {
-    return keyToModifierBitMap.Shift;
+    modifiers = modifiers | keyToModifierBitMap.Shift;
   }
 
   if (options.altKey) {
-    return keyToModifierBitMap.Alt;
+    modifiers = modifiers | keyToModifierBitMap.Alt; 
   }
 
   if (options.ctrlKey) {
-    return keyToModifierBitMap.Control;
+    modifiers = modifiers | keyToModifierBitMap.Control;
   }
 
   if (options.metaKey) {
-    return keyToModifierBitMap.Meta;
+    modifiers = modifiers | keyToModifierBitMap.Meta;
   }
 
-  return 0;
+  return modifiers;
 }

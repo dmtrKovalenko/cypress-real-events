@@ -5,7 +5,7 @@ import {
   Position,
 } from "../getCypressElementCoordinates";
 import { mouseButtonNumbers } from "../mouseButtonNumbers";
-import { getModifier } from "../getModifier";
+import { getModifiers } from "../getModifiers";
 
 export interface RealClickOptions {
   /** Pointer type for realClick, if "pen" touch simulated */
@@ -72,7 +72,7 @@ export async function realClick(
     }),
   });
 
-  const modifier = getModifier(options); 
+  const modifiers = getModifiers(options); 
 
   log.snapshot("before");
 
@@ -87,7 +87,7 @@ export async function realClick(
       buttons: mouseButtonNumbers[options.button ?? "left"],
       pointerType: options.pointer ?? "mouse",
       button: options.button ?? "left",
-      modifiers: modifier,
+      modifiers: modifiers,
     });
 
     await fireCdpCommand("Input.dispatchMouseEvent", {
@@ -98,7 +98,7 @@ export async function realClick(
       buttons: mouseButtonNumbers[options.button ?? "left"],
       pointerType: options.pointer ?? "mouse",
       button: options.button ?? "left",
-      modifiers: modifier,
+      modifiers: modifiers,
     });
   }
 

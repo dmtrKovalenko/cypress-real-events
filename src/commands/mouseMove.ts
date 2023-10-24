@@ -4,7 +4,7 @@ import {
   Position,
   ScrollBehaviorOptions,
 } from "../getCypressElementCoordinates";
-import { getModifier } from "../getModifier";
+import { getModifiers } from "../getModifiers";
 
 export interface RealMouseMoveOptions {
   /**
@@ -50,14 +50,14 @@ export async function realMouseMove(
     }),
   });
 
-  const modifier = getModifier(options); 
+  const modifiers = getModifiers(options); 
 
   log.snapshot("before");
   await fireCdpCommand("Input.dispatchMouseEvent", {
     type: "mouseMoved",
     x: x * basePosition.frameScale + basePosition.x,
     y: y * basePosition.frameScale + basePosition.y,
-    modifiers: modifier,
+    modifiers: modifiers,
   });
 
   log.snapshot("after").end();

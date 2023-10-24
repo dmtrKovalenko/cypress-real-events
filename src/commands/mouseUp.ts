@@ -5,7 +5,7 @@ import {
   Position,
 } from "../getCypressElementCoordinates";
 import { mouseButtonNumbers } from "../mouseButtonNumbers";
-import { getModifier } from "../getModifier";
+import { getModifiers } from "../getModifiers";
 
 export interface realMouseUpOptions {
   /** Pointer type for realMouseUp, if "pen" touch simulated */
@@ -69,7 +69,7 @@ export async function realMouseUp(
     }),
   });
 
-  const modifier = getModifier(options); 
+  const modifiers = getModifiers(options); 
 
   log.snapshot("before");
   await fireCdpCommand("Input.dispatchMouseEvent", {
@@ -80,7 +80,7 @@ export async function realMouseUp(
     buttons: mouseButtonNumbers[options.button ?? "left"],
     pointerType: options.pointer ?? "mouse",
     button: options.button ?? "left",
-    modifiers: modifier,
+    modifiers: modifiers,
   });
 
   log.snapshot("after").end();
