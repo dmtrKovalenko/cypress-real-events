@@ -1,4 +1,4 @@
-describe("Events behavior with modifiers applied", () => {
+describe("Events behavior with modifiers combination applied", () => {
   beforeEach(() => {
     cy.visit("./cypress/fixtures/modifiers-test.html");
   });

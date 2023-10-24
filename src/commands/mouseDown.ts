@@ -39,7 +39,7 @@ export interface realMouseDownOptions {
    */
   y?: number;
   /**
-   * Indicates whether the modifier (shiftKey | altKey | ctrlKey | metaKey) was pressed or not when an event occurred
+   * Indicates whether any modifier (shiftKey | altKey | ctrlKey | metaKey) was pressed or not when an event occurred
    * @example cy.realMouseDown({ shiftKey: true });
    */
   shiftKey?: boolean;
