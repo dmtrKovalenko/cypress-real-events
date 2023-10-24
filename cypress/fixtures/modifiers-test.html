@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
   <body>
-    <button id="action-button">Click on me with modifier (shift/alt/ctrl/meta) pressed</button>
+    <button id="action-button">Click on me with modifier(s) (shift/alt/ctrl/meta) pressed</button>
     <hr />
-    <div id="mouse-move-div">Hover/mousemove over me with modifier (shift/alt/ctrl/meta) pressed</div>
+    <div id="mouse-move-div">Hover/mousemove over me with modifier(s) (shift/alt/ctrl/meta) pressed</div>
     <hr />
-    <div id="mouse-down-div">Initiate mouse down with modifier (shift/alt/ctrl/meta) pressed</div>
+    <div id="mouse-down-div">Initiate mouse down with modifie(s) (shift/alt/ctrl/meta) pressed</div>
     <hr />
-    <div id="mouse-up-div">Initiate mouse up with modifier (shift/alt/ctrl/meta) pressed</div>
+    <div id="mouse-up-div">Initiate mouse up with modifier(s) (shift/alt/ctrl/meta) pressed</div>
     <hr />
 
     <p id="result"></p>
@@ -17,10 +17,12 @@
 
     function commonHandler(e) {
       resultBox.innerHTML = "";
-      if (e.shiftKey) resultBox.innerHTML = "shiftKey was pressed";
-      if (e.altKey) resultBox.innerHTML = "altKey was pressed";
-      if (e.ctrlKey) resultBox.innerHTML = "ctrlKey was pressed";
-      if (e.metaKey) resultBox.innerHTML = "metaKey was pressed";
+      const modifiers = ['shiftKey', 'altKey', 'ctrlKey', 'metaKey'];
+      for (let mod of modifiers) {
+        if (e[mod]) {
+          resultBox.innerHTML += `${mod} was pressed<br>`; 
+        }
+      }
     }
 
     document
