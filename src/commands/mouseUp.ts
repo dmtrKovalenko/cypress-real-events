@@ -42,7 +42,7 @@ export interface realMouseUpOptions {
    */
   shiftKey?: boolean;
   altKey?: boolean;
-  ctrlKey?: boolean; 
+  ctrlKey?: boolean;
   metaKey?: boolean;
 }
 
@@ -69,7 +69,7 @@ export async function realMouseUp(
     }),
   });
 
-  const modifiers = getModifiers(options); 
+  const modifiers = getModifiers(options);
 
   log.snapshot("before");
   await fireCdpCommand("Input.dispatchMouseEvent", {

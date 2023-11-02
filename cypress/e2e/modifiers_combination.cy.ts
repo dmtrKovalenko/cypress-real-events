@@ -5,11 +5,13 @@ describe("Events behavior with modifiers combination applied", () => {
 
   const modifierKeys = ["shiftKey", "altKey", "ctrlKey"];
 
-  function createModifierObject(modifierKeys: string[]): Record<string, boolean> {
-    const options = {}; 
+  function createModifierObject(
+    modifierKeys: string[],
+  ): Record<string, boolean> {
+    const options = {};
     for (const key of modifierKeys) {
-      options[key] = true; 
-    }   
+      options[key] = true;
+    }
     return options;
   }
 
@@ -20,35 +22,39 @@ describe("Events behavior with modifiers combination applied", () => {
   it.skip(`detects ${modifierKeys} modifiers on click`, () => {
     cy.get("#action-button").realClick(createModifierObject(modifierKeys));
     for (const key of modifierKeys) {
-      cy.contains(`${key} was pressed`); 
+      cy.contains(`${key} was pressed`);
     }
   });
 
   it(`detects ${modifierKeys} modifiers on hover`, () => {
     cy.get("#mouse-move-div").realHover(createModifierObject(modifierKeys));
     for (const key of modifierKeys) {
-      cy.contains(`${key} was pressed`); 
+      cy.contains(`${key} was pressed`);
     }
   });
 
   it(`detects ${modifierKeys} modifiers on mousedown`, () => {
     cy.get("#mouse-down-div").realMouseDown(createModifierObject(modifierKeys));
     for (const key of modifierKeys) {
-      cy.contains(`${key} was pressed`); 
+      cy.contains(`${key} was pressed`);
     }
   });
 
   it(`detects ${modifierKeys} modifiers on mpuseup`, () => {
     cy.get("#mouse-up-div").realMouseUp(createModifierObject(modifierKeys));
     for (const key of modifierKeys) {
-      cy.contains(`${key} was pressed`); 
+      cy.contains(`${key} was pressed`);
     }
   });
 
   it(`detects ${modifierKeys} modifiers on mousemove`, () => {
-    cy.get("#mouse-move-div").realMouseMove(100, 50, createModifierObject(modifierKeys));
+    cy.get("#mouse-move-div").realMouseMove(
+      100,
+      50,
+      createModifierObject(modifierKeys),
+    );
     for (const key of modifierKeys) {
-      cy.contains(`${key} was pressed`); 
+      cy.contains(`${key} was pressed`);
     }
   });
 });

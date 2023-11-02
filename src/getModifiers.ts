@@ -7,16 +7,15 @@ import { keyToModifierBitMap } from "./keyToModifierBitMap";
  * @param {boolean} [options.shiftKey] - Whether the Shift key is pressed
  * @param {boolean} [options.altKey] - Whether the Alt key is pressed
  * @param {boolean} [options.ctrlKey] - Whether the Control key is pressed
- * @param {boolean} [options.metaKey] - Whether the Meta key is pressed 
+ * @param {boolean} [options.metaKey] - Whether the Meta key is pressed
  * @returns {number} The modifier bit mask flags
  */
 export function getModifiers(options: {
   shiftKey?: boolean;
   altKey?: boolean;
-  ctrlKey?: boolean; 
+  ctrlKey?: boolean;
   metaKey?: boolean;
 }): number {
-
   let modifiers = 0;
 
   if (options.shiftKey) {
@@ -24,7 +23,7 @@ export function getModifiers(options: {
   }
 
   if (options.altKey) {
-    modifiers = modifiers | keyToModifierBitMap.Alt; 
+    modifiers = modifiers | keyToModifierBitMap.Alt;
   }
 
   if (options.ctrlKey) {

@@ -11,7 +11,7 @@ describe("Events behavior with single modifier applied", () => {
     return options;
   }
 
-  modifierKeys.forEach(modifierKey => {
+  modifierKeys.forEach((modifierKey) => {
     // NOTE: for some reason after upgrading CI to use Chrome 116 and Cypress 13 this particular test fails
     // and only on CI. Figure out if this is a real issue or some version conflict | cypress bug.
     //
@@ -27,7 +27,9 @@ describe("Events behavior with single modifier applied", () => {
     });
 
     it(`detects ${modifierKey} modifier on mousedown`, () => {
-      cy.get("#mouse-down-div").realMouseDown(createModifierObject(modifierKey));
+      cy.get("#mouse-down-div").realMouseDown(
+        createModifierObject(modifierKey),
+      );
       cy.contains(`${modifierKey} was pressed`);
     });
 
@@ -37,7 +39,11 @@ describe("Events behavior with single modifier applied", () => {
     });
 
     it(`detects ${modifierKey} modifier on mousemove`, () => {
-      cy.get("#mouse-move-div").realMouseMove(100, 50, createModifierObject(modifierKey));
+      cy.get("#mouse-move-div").realMouseMove(
+        100,
+        50,
+        createModifierObject(modifierKey),
+      );
       cy.contains(`${modifierKey} was pressed`);
     });
   });

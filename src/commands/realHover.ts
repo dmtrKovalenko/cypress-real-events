@@ -27,7 +27,7 @@ export interface RealHoverOptions {
    */
   shiftKey?: boolean;
   altKey?: boolean;
-  ctrlKey?: boolean; 
+  ctrlKey?: boolean;
   metaKey?: boolean;
 }
 
@@ -51,7 +51,7 @@ export async function realHover(
     }),
   });
 
-  const modifiers = getModifiers(options); 
+  const modifiers = getModifiers(options);
 
   await fireCdpCommand("Input.dispatchMouseEvent", {
     x,
