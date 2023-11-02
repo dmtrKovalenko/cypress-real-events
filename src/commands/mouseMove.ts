@@ -4,7 +4,7 @@ import {
   Position,
   ScrollBehaviorOptions,
 } from "../getCypressElementCoordinates";
-import { keyToModifierBitMap } from "../keyToModifierBitMap";
+import { getModifiers } from "../getModifiers";
 
 export interface RealMouseMoveOptions {
   /**
@@ -19,10 +19,13 @@ export interface RealMouseMoveOptions {
    */
   scrollBehavior?: ScrollBehaviorOptions;
   /**
-   * Indicates whether the shift key was pressed or not when an event occurred
-   * @example cy.realMouseMove({ shiftKey: true });
+   * Indicates whether any modifier (shiftKey | altKey | ctrlKey | metaKey) was pressed or not when an event occurred
+   * @example cy.realMouseDown({ shiftKey: true });
    */
   shiftKey?: boolean;
+  altKey?: boolean;
+  ctrlKey?: boolean;
+  metaKey?: boolean;
 }
 
 /** @ignore this, update documentation for this function at index.d.ts */
@@ -47,12 +50,14 @@ export async function realMouseMove(
     }),
   });
 
+  const modifiers = getModifiers(options);
+
   log.snapshot("before");
   await fireCdpCommand("Input.dispatchMouseEvent", {
     type: "mouseMoved",
     x: x * basePosition.frameScale + basePosition.x,
     y: y * basePosition.frameScale + basePosition.y,
-    modifiers: options.shiftKey ? keyToModifierBitMap.Shift : 0,
+    modifiers: modifiers,
   });
 
   log.snapshot("after").end();

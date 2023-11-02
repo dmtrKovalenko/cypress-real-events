@@ -5,7 +5,7 @@ import {
   Position,
 } from "../getCypressElementCoordinates";
 import { mouseButtonNumbers } from "../mouseButtonNumbers";
-import { keyToModifierBitMap } from "../keyToModifierBitMap";
+import { getModifiers } from "../getModifiers";
 
 export interface realMouseUpOptions {
   /** Pointer type for realMouseUp, if "pen" touch simulated */
@@ -37,10 +37,13 @@ export interface realMouseUpOptions {
    */
   y?: number;
   /**
-   * Indicates whether the shift key was pressed or not when an event occurred
-   * @example cy.realMouseUp({ shiftKey: true });
+   * Indicates whether any modifier (shiftKey | altKey | ctrlKey | metaKey) was pressed or not when an event occurred
+   * @example cy.realMouseDown({ shiftKey: true });
    */
   shiftKey?: boolean;
+  altKey?: boolean;
+  ctrlKey?: boolean;
+  metaKey?: boolean;
 }
 
 /** @ignore this, update documentation for this function at index.d.ts */
@@ -66,6 +69,8 @@ export async function realMouseUp(
     }),
   });
 
+  const modifiers = getModifiers(options);
+
   log.snapshot("before");
   await fireCdpCommand("Input.dispatchMouseEvent", {
     type: "mouseReleased",
@@ -75,7 +80,7 @@ export async function realMouseUp(
     buttons: mouseButtonNumbers[options.button ?? "left"],
     pointerType: options.pointer ?? "mouse",
     button: options.button ?? "left",
-    modifiers: options.shiftKey ? keyToModifierBitMap.Shift : 0,
+    modifiers: modifiers,
   });
 
   log.snapshot("after").end();

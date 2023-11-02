@@ -5,7 +5,7 @@ import {
   Position,
 } from "../getCypressElementCoordinates";
 import { mouseButtonNumbers } from "../mouseButtonNumbers";
-import { keyToModifierBitMap } from "../keyToModifierBitMap";
+import { getModifiers } from "../getModifiers";
 
 export interface realMouseDownOptions {
   /** Pointer type for realMouseDown, if "pen" touch simulated */
@@ -39,10 +39,13 @@ export interface realMouseDownOptions {
    */
   y?: number;
   /**
-   * Indicates whether the shift key was pressed or not when an event occurred
+   * Indicates whether any modifier (shiftKey | altKey | ctrlKey | metaKey) was pressed or not when an event occurred
    * @example cy.realMouseDown({ shiftKey: true });
    */
   shiftKey?: boolean;
+  altKey?: boolean;
+  ctrlKey?: boolean;
+  metaKey?: boolean;
   /**
    * The normalized pressure, which has a range of [0,1]. It affects the `pressure` property of the triggered
    * pointerdown event.
@@ -76,6 +79,8 @@ export async function realMouseDown(
     }),
   });
 
+  const modifiers = getModifiers(options);
+
   log.snapshot("before");
   await fireCdpCommand("Input.dispatchMouseEvent", {
     type: "mousePressed",
@@ -85,7 +90,7 @@ export async function realMouseDown(
     buttons: mouseButtonNumbers[options.button ?? "left"],
     pointerType: options.pointer ?? "mouse",
     button: options.button ?? "left",
-    modifiers: options.shiftKey ? keyToModifierBitMap.Shift : 0,
+    modifiers: modifiers,
     force: options.pressure ?? 0.5,
   });
 

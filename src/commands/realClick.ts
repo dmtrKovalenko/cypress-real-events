@@ -5,7 +5,7 @@ import {
   Position,
 } from "../getCypressElementCoordinates";
 import { mouseButtonNumbers } from "../mouseButtonNumbers";
-import { keyToModifierBitMap } from "../keyToModifierBitMap";
+import { getModifiers } from "../getModifiers";
 
 export interface RealClickOptions {
   /** Pointer type for realClick, if "pen" touch simulated */
@@ -40,10 +40,13 @@ export interface RealClickOptions {
    */
   clickCount?: number;
   /**
-   * Indicates whether the shift key was pressed or not when an event occurred
-   * @example cy.realClick({ shiftKey: true });
+   * Indicates whether any modifier (shiftKey | altKey | ctrlKey | metaKey) was pressed or not when an event occurred
+   * @example cy.realMouseDown({ shiftKey: true });
    */
   shiftKey?: boolean;
+  altKey?: boolean;
+  ctrlKey?: boolean;
+  metaKey?: boolean;
 
   /**
    * The normalized pressure, which has a range of [0,1]. It affects the `pressure` property of the triggered
@@ -78,6 +81,8 @@ export async function realClick(
     }),
   });
 
+  const modifiers = getModifiers(options);
+
   log.snapshot("before");
 
   const { clickCount = 1 } = options;
@@ -91,7 +96,7 @@ export async function realClick(
       buttons: mouseButtonNumbers[options.button ?? "left"],
       pointerType: options.pointer ?? "mouse",
       button: options.button ?? "left",
-      modifiers: options.shiftKey ? keyToModifierBitMap.Shift : 0,
+      modifiers: modifiers,
       force: options.pressure ?? 0.5,
     });
 
@@ -103,7 +108,7 @@ export async function realClick(
       buttons: mouseButtonNumbers[options.button ?? "left"],
       pointerType: options.pointer ?? "mouse",
       button: options.button ?? "left",
-      modifiers: options.shiftKey ? keyToModifierBitMap.Shift : 0,
+      modifiers: modifiers,
     });
   }
 
