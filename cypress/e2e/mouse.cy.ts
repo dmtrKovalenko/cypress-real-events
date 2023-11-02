@@ -49,6 +49,33 @@ describe("cy.realMouseDown and cy.realMouseUp", () => {
       .realMouseUp({ position: "bottomRight" });
   });
 
+  it("results in pointerdown events with the default pressure of 0.5", () => {
+    const handler = cy.stub();
+    cy.get(".action-btn")
+      .then(($button) => {
+        $button[0].addEventListener("pointerdown", (e) =>
+          handler("pointerdown", e.pressure),
+        );
+      })
+      .realMouseDown();
+    cy.wrap(handler).should("be.calledWith", "pointerdown", 0.5);
+  });
+
+  it("allows for setting pressure of the pointerdown event", () => {
+    const handler = cy.stub();
+    cy.get(".action-btn")
+      .then(($button) => {
+        $button[0].addEventListener("pointerdown", (e) =>
+          handler("pointerdown", Math.round(e.pressure * 100) / 100),
+        );
+      })
+      .realMouseDown({ pressure: 0 })
+      .realMouseDown({ pressure: 0.4 });
+    cy.wrap(handler)
+      .should("be.calledWith", "pointerdown", 0)
+      .should("be.calledWith", "pointerdown", 0.4);
+  });
+
   describe("options.button", () => {
     it("should allow to press down mouse using middle button", (done) => {
       cy.get(".action-btn")

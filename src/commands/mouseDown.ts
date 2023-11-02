@@ -46,6 +46,14 @@ export interface realMouseDownOptions {
   altKey?: boolean;
   ctrlKey?: boolean;
   metaKey?: boolean;
+  /**
+   * The normalized pressure, which has a range of [0,1]. It affects the `pressure` property of the triggered
+   * pointerdown event.
+   *
+   * @type {number}
+   * @default {0.5}
+   */
+  pressure?: number;
 }
 
 /** @ignore this, update documentation for this function at index.d.ts */
@@ -83,6 +91,7 @@ export async function realMouseDown(
     pointerType: options.pointer ?? "mouse",
     button: options.button ?? "left",
     modifiers: modifiers,
+    force: options.pressure ?? 0.5,
   });
 
   log.snapshot("after").end();
