@@ -32,10 +32,10 @@ describe("Events behavior with single modifier applied", () => {
       );
       cy.contains(`${modifierKey} was pressed`);
     });
-   it(`detects ${modifierKey} modifier on mpuseup`, () => {
-     cy.get("#mouse-up-div").realMouseUp(createModifierObject(modifierKey));
-     cy.contains(`${modifierKey} was pressed`);
-   });
+    it(`detects ${modifierKey} modifier on mpuseup`, () => {
+      cy.get("#mouse-up-div").realMouseUp(createModifierObject(modifierKey));
+      cy.contains(`${modifierKey} was pressed`);
+    });
     it(`detects ${modifierKey} modifier on mousemove`, () => {
       cy.get("#mouse-move-div").realMouseMove(
         100,
