@@ -75,6 +75,41 @@ describe("cy.realClick", () => {
     cy.get(".navbar-brand").realClick({ button: "right" });
   });
 
+  it("results in pointerdown events with the default pressure of 0.5", () => {
+    const handler = cy.stub();
+    cy.get(".action-btn")
+      .then(($button) => {
+        $button[0].addEventListener("pointerdown", (e) =>
+          handler("pointerdown", e.pressure),
+        );
+        $button[0].addEventListener("pointerup", (e) =>
+          handler("pointerup", e.pressure),
+        );
+      })
+      .realClick();
+    cy.wrap(handler).should("be.calledWith", "pointerdown", 0.5);
+    cy.wrap(handler).should("be.calledWith", "pointerup", 0);
+  });
+
+  it("allows for setting pressure of the pointerdown event", () => {
+    const handler = cy.stub();
+    cy.get(".action-btn")
+      .then(($button) => {
+        $button[0].addEventListener("pointerdown", (e) =>
+          handler("pointerdown", Math.round(e.pressure * 100) / 100),
+        );
+        $button[0].addEventListener("pointerup", (e) =>
+          handler("pointerup", Math.round(e.pressure * 100) / 100),
+        );
+      })
+      .realClick({ pressure: 0 })
+      .realClick({ pressure: 0.4 });
+    cy.wrap(handler)
+      .should("be.calledWith", "pointerdown", 0)
+      .should("be.calledWith", "pointerdown", 0.4)
+      .should("be.calledWith", "pointerup", 0);
+  });
+
   describe("scroll behavior", () => {
     function getScreenEdges() {
       const cypressAppWindow =

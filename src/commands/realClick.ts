@@ -44,6 +44,15 @@ export interface RealClickOptions {
    * @example cy.realClick({ shiftKey: true });
    */
   shiftKey?: boolean;
+
+  /**
+   * The normalized pressure, which has a range of [0,1]. It affects the `pressure` property of the triggered
+   * pointerdown event.
+   *
+   * @type {number}
+   * @default {0.5}
+   */
+  pressure?: number;
 }
 
 /** @ignore this, update documentation for this function at index.d.ts */
@@ -83,6 +92,7 @@ export async function realClick(
       pointerType: options.pointer ?? "mouse",
       button: options.button ?? "left",
       modifiers: options.shiftKey ? keyToModifierBitMap.Shift : 0,
+      force: options.pressure ?? 0.5,
     });
 
     await fireCdpCommand("Input.dispatchMouseEvent", {
