@@ -25,14 +25,14 @@ export interface RealSwipeOptions {
    */
   y?: number;
   /** Length of swipe (in pixels)
-   * @default 50
+   * @default 10
    * @example
    * cy.get(".drawer").realSwipe("toLeft", { length: 50 })
    */
   length?: number;
   /**
-   * Swipe step (how often new touch move will be generated). Less more precise
-   * ! Must be less than options.length
+   * Swipe step (how often new touch move will be generated).
+   * Must be less than or equal options.length
    * @default 10
    * cy.get(".drawer").realSwipe("toLeft", { step: 5 })
    */

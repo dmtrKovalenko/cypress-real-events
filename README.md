@@ -254,6 +254,7 @@ cy.realSwipe(direction, options);
 Options:
 
 - `Optional` **length**: undefined \| number **`default`** 10
+- `Optional` **step**: undefined \| number **`default`** 10
 - `Optional` **x**: undefined \| number ([more about coordinates](#coordinates))
 - `Optional` **y**: undefined \| number ([more about coordinates](#coordinates))
 - `Optional` **touchPosition**: "topLeft" | "top" | "topRight" | "left" | "center" | "right" | "bottomLeft" | "bottom" | "bottomRight"
