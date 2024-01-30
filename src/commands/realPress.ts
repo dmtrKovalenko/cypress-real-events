@@ -1,6 +1,7 @@
 import { fireCdpCommand } from "../fireCdpCommand";
 import { keyCodeDefinitions } from "../keyCodeDefinitions";
 import { keyToModifierBitMap } from "../keyToModifierBitMap";
+import { wait } from "../utils";
 
 export interface RealPressOptions {
   /**
@@ -78,7 +79,7 @@ export async function realPress(
       });
     }
 
-    await new Promise((res) => setTimeout(res, options.pressDelay ?? 25));
+    await wait(options.pressDelay ?? 25);
   }
 
   await Promise.all(

@@ -1,5 +1,6 @@
 import { keyCodeDefinitions } from "../keyCodeDefinitions";
 import { realPress } from "./realPress";
+import { wait } from "../utils";
 
 export interface RealTypeOptions {
   /**
@@ -58,7 +59,7 @@ export async function realType(text: string, options: RealTypeOptions = {}) {
       log: false,
     });
 
-    await new Promise((res) => setTimeout(res, options.delay ?? 25));
+    await wait(options.delay ?? 25);
   }
 
   log?.snapshot("after").end();

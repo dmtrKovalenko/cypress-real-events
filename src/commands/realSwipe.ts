@@ -37,6 +37,13 @@ export interface RealSwipeOptions {
    * cy.get(".drawer").realSwipe("toLeft", { step: 5 })
    */
   step?: number;
+
+  /**
+   * Delay between touchStart and touchMove events (ms)
+   * @default 0
+   * cy.get(".drawer").realSwipe("toLeft", { touchMoveDelay: 300 })
+   */
+  touchMoveDelay?: number;
 }
 
 async function forEachSwipePosition(
@@ -117,6 +124,12 @@ export async function realSwipe(
     touchPoints: [startPosition],
   });
 
+  if (options.touchMoveDelay) {
+    // cy.wait() can't be used here since we are in a command that returns a promise.
+    // Read more: https://on.cypress.io/returning-promise-and-commands-in-another-command
+    await wait(options.touchMoveDelay);
+  }
+
   await forEachSwipePosition(
     {
       length,
@@ -140,3 +153,4 @@ export async function realSwipe(
 
   return subject;
 }
+const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
