@@ -39,8 +39,8 @@ describe("cy.realType", () => {
     cy.get("input[name=q]").should("have.value", "{test}");
   });
 
-  it("can type text with emoji", () => {
-    const msg = "cypress-real-events is awesome! ❤️❤️❤️❤️❤️❤️"
+  it("can type text with emoji and cyrillic characters", () => {
+    const msg = "cypress-real-events is awesome! ❤️❤️❤️❤️❤️❤️ В"
     cy.realType(msg);
 
     cy.get("input[name=q]").should(
