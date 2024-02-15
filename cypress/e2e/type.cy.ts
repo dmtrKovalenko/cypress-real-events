@@ -40,12 +40,9 @@ describe("cy.realType", () => {
   });
 
   it("can type text with emoji and cyrillic characters", () => {
-    const msg = "cypress-real-events is awesome! ❤️❤️❤️❤️❤️❤️ В"
+    const msg = "cypress-real-events is awesome! ❤️❤️❤️❤️❤️❤️ В";
     cy.realType(msg);
 
-    cy.get("input[name=q]").should(
-      "have.value",
-      msg,
-    );
+    cy.get("input[name=q]").should("have.value", msg);
   });
 });

@@ -18,7 +18,6 @@ export interface RealTypeOptions {
   log?: boolean;
 }
 
-
 /** @ignore this, update documentation for this function at index.d.ts */
 export async function realType(text: string, options: RealTypeOptions = {}) {
   let log;
