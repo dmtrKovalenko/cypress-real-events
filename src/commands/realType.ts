@@ -1,5 +1,4 @@
-import { keyCodeDefinitions } from "../keyCodeDefinitions";
-import { realPress } from "./realPress";
+import { realPress, type KeyOrShortcut } from "./realPress";
 
 export interface RealTypeOptions {
   /**
@@ -19,14 +18,6 @@ export interface RealTypeOptions {
   log?: boolean;
 }
 
-const availableChars = Object.keys(keyCodeDefinitions);
-function assertChar(
-  char: string,
-): asserts char is keyof typeof keyCodeDefinitions {
-  if (!availableChars.includes(char)) {
-    throw new Error(`Unrecognized character "${char}".`);
-  }
-}
 
 /** @ignore this, update documentation for this function at index.d.ts */
 export async function realType(text: string, options: RealTypeOptions = {}) {
@@ -52,8 +43,7 @@ export async function realType(text: string, options: RealTypeOptions = {}) {
     }, [] as string[]);
 
   for (const char of chars) {
-    assertChar(char);
-    await realPress(char, {
+    await realPress(char as KeyOrShortcut, {
       pressDelay: options.pressDelay ?? 15,
       log: false,
     });

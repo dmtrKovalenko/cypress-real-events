@@ -38,4 +38,14 @@ describe("cy.realType", () => {
     cy.realType("{{}test}");
     cy.get("input[name=q]").should("have.value", "{test}");
   });
+
+  it("can type text with emoji", () => {
+    const msg = "cypress-real-events is awesome! ❤️❤️❤️❤️❤️❤️"
+    cy.realType(msg);
+
+    cy.get("input[name=q]").should(
+      "have.value",
+      msg,
+    );
+  });
 });

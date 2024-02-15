@@ -15,10 +15,27 @@ export interface RealPressOptions {
   log?: boolean;
 }
 
-function getKeyDefinition(key: keyof typeof keyCodeDefinitions) {
-  const keyDefinition = keyCodeDefinitions[key];
+// Emoji Unicode range
+const EMOJI_RE = /[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F700}-\u{1F77F}\u{1F780}-\u{1F7FF}\u{1F800}-\u{1F8FF}\u{1F900}-\u{1F9FF}\u{1FA00}-\u{1FA6F}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/u;
+
+function isEmoji(char: string) {
+  return EMOJI_RE.test(char);
+}
+
+function getKeyDefinition(key: string) {
+  const keyDefinition = keyCodeDefinitions[key as keyof typeof keyCodeDefinitions];
 
   if (!keyDefinition) {
+    if (key.length === 1 || isEmoji(key)) {
+      return {
+        keyCode: key.charCodeAt(0),
+        key,
+        text: key,
+        code: `Key${key.toUpperCase()}`,
+        location: 0,
+        windowsVirtualKeyCode: key.charCodeAt(0),
+      }
+    }
     throw new Error(`Unsupported key '${key}'.`);
   }
 
@@ -37,11 +54,11 @@ function getKeyDefinition(key: keyof typeof keyCodeDefinitions) {
 
 type Key = keyof typeof keyCodeDefinitions;
 // unfortunately passing a string like Shift+P is not possible cause typescript template literals can not handle such giant union
-type KeyOrShortcut = Key | Array<Key>;
+export type KeyOrShortcut = Key | Array<Key>;
 
 /** @ignore this, update documentation for this function at index.d.ts */
 export async function realPress(
-  keyOrShortcut: KeyOrShortcut,
+  keyOrShortcut: string | string[],
   options: RealPressOptions = {},
 ) {
   let log;
