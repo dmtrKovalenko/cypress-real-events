@@ -57,3 +57,14 @@ describe("cy.realSwipe", () => {
     });
   });
 });
+
+describe("touchMoveDelay", () => {
+  it("adds a delay between touch start and touch move events", () => {
+    cy.visit("./cypress/fixtures/swipe-touch-move-delay");
+    cy.get("[role=gridcell]").contains("14").realSwipe("toRight", {
+      touchMoveDelay: 300,
+      length: 70,
+    });
+    cy.get("[role=gridcell][aria-selected=true]").should("have.length", 3);
+  });
+});
