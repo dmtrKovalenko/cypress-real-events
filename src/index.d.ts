@@ -46,8 +46,8 @@ declare namespace Cypress {
     >;
     /**
      * Fires native touch swipe event. Actually fires sequence of native events: touchStart -> touchMove[] -> touchEnd
-     * @see https://github.com/dmtrKovalenko/cypress-real-events#cyrealhover
-     * @example
+     * @see https://github.com/dmtrKovalenko/cypress-real-events#cyrealswipe
+     * * @example
      * cy.get("swipeableRoot").realSwipe("toLeft") // or toRight, toTop, toBottom
      * cy.get("swipeableRoot").realSwipe("toBottom", { length: 100, step: 10 })
      * @param options hover options
