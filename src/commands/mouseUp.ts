@@ -7,7 +7,7 @@ import {
 import { mouseButtonNumbers } from "../mouseButtonNumbers";
 import { getModifiers } from "../getModifiers";
 
-export interface realMouseUpOptions {
+export interface RealMouseUpOptions {
   /** Pointer type for realMouseUp, if "pen" touch simulated */
   pointer?: "mouse" | "pen";
   /**
@@ -49,7 +49,7 @@ export interface realMouseUpOptions {
 /** @ignore this, update documentation for this function at index.d.ts */
 export async function realMouseUp(
   subject: JQuery,
-  options: realMouseUpOptions = {},
+  options: RealMouseUpOptions = {},
 ) {
   const position =
     options.x && options.y ? { x: options.x, y: options.y } : options.position;
