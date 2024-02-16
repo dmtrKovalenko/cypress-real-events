@@ -1,0 +1,66 @@
+<!-- ChatGPT did this -->
+<!DOCTYPE html>
+<html>
+
+<head>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    .tabs {
+      display: flex;
+    }
+
+    .tab-button {
+      border: 1px solid #ccc;
+      padding: 10px;
+      cursor: pointer;
+      flex: 1;
+      text-align: center;
+      background-color: #f0f0f0;
+    }
+
+    .tab-button.active {
+      background-color: #fff;
+    }
+
+    .tab-content {
+      border: 1px solid #ccc;
+      padding: 10px;
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="tabs">
+    <div id="tab1" class="tab-button active" tabindex="0">Tab 1</div>
+    <div id="tab2" class="tab-button" tabindex="1">Tab 2</div>
+    <div id="tab3" class="tab-button" tabindex="2">Tab 3</div>
+  </div>
+  <div id="content1" class="tab-content active">Content 1</div>
+  <div id="content2" class="tab-content">Content 2</div>
+  <div id="content3" class="tab-content">Content 3</div>
+
+  <script>
+    let tabs = document.querySelectorAll('.tab-button');
+    let contents = document.querySelectorAll('.tab-content');
+
+    tabs.forEach((tab, index) => {
+      tab.addEventListener('focus', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        contents.forEach(c => c.classList.remove('active'));
+
+        tab.classList.add('active');
+        contents[index].classList.add('active');
+      });
+    });
+  </script>
+</body>
+
+</html>
