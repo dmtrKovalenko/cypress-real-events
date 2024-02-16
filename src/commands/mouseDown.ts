@@ -7,7 +7,7 @@ import {
 import { mouseButtonNumbers } from "../mouseButtonNumbers";
 import { getModifiers } from "../getModifiers";
 
-export interface realMouseDownOptions {
+export interface RealMouseDownOptions {
   /** Pointer type for realMouseDown, if "pen" touch simulated */
   pointer?: "mouse" | "pen";
   /**
@@ -59,7 +59,7 @@ export interface realMouseDownOptions {
 /** @ignore this, update documentation for this function at index.d.ts */
 export async function realMouseDown(
   subject: JQuery,
-  options: realMouseDownOptions = {},
+  options: RealMouseDownOptions = {},
 ) {
   const position =
     options.x && options.y ? { x: options.x, y: options.y } : options.position;
