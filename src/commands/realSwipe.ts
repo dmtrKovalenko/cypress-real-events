@@ -99,8 +99,8 @@ export async function realSwipe(
   options: RealSwipeOptions = {},
 ) {
   const position =
-    options.x && options.y
-      ? { x: options.x, y: options.y }
+    typeof options.x === "number" || typeof options.y === "number"
+      ? { x: options.x ?? 0, y: options.y ?? 0 }
       : options.touchPosition;
 
   const length = options.length ?? 10;

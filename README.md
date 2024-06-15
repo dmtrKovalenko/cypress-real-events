@@ -16,7 +16,7 @@
  <a/>
  <img src="https://img.shields.io/badge/made-with%20love-orange?style=for-the-badge"/>
  <a href="https://twitter.com/goose_plus_plus">
-   <img src="https://img.shields.io/twitter/follow/goose_plus_plus?color=blue&style=for-the-badge">
+   <img src="https://img.shields.io/twitter/follow/neogoose_btw?color=blue&style=for-the-badge">
  <a/>
 <p />
 
