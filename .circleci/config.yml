@@ -70,7 +70,7 @@ workflows:
           filters:
             branches:
               only:
-                - main
+                - release
           requires:
             - build
             - Run Cypress tests
