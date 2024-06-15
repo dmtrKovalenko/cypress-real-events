@@ -21,8 +21,15 @@ describe("cy.realType", () => {
   });
 
   it("supports cypress's keys shortcuts", () => {
-    cy.realType("Something{backspace}{backspace}");
-    cy.get("input[name=q]").should("have.value", "Somethi");
+    cy.realType("Something{backspace}{moveToStart}{rightarrow}{backspace}");
+    cy.get("input[name=q]").should("have.value", "omethin");
+  });
+
+  it("can select text", () => {
+    cy.realType("to replace");
+    cy.get("input[name=q]").realClick({ clickCount: 3 });
+    cy.realType("{backspace}something");
+    cy.get("input[name=q]").should("have.value", "something");
   });
 
   it("can clear text input", () => {
