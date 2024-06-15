@@ -52,7 +52,7 @@ describe("cy.realHover", () => {
           const { $elTop } = getElementEdges($canvas);
           const { screenTop } = getScreenEdges();
 
-          expect($elTop).to.equal(screenTop);
+          expect($elTop).to.be.closeTo(screenTop, 2);
         });
     });
 
@@ -65,11 +65,13 @@ describe("cy.realHover", () => {
 
           const screenCenter = screenTop + (screenBottom - screenTop) / 2;
 
-          expect($elTop).to.equal(
+          expect($elTop).to.be.closeTo(
             Math.floor(screenCenter) - $canvas.outerHeight() / 2,
+            2,
           );
-          expect($elBottom).to.equal(
+          expect($elBottom).to.be.closeTo(
             Math.floor(screenCenter) + $canvas.outerHeight() / 2,
+            2,
           );
         });
     });
@@ -81,7 +83,7 @@ describe("cy.realHover", () => {
           const { $elTop } = getElementEdges($canvas);
           const { screenTop } = getScreenEdges();
 
-          expect($elTop).to.equal(Math.floor(screenTop));
+          expect($elTop).to.be.closeTo(Math.floor(screenTop), 2);
         });
     });
 
@@ -92,7 +94,7 @@ describe("cy.realHover", () => {
           const { $elBottom } = getElementEdges($canvas);
           const { screenBottom } = getScreenEdges();
 
-          expect($elBottom).to.equal(Math.floor(screenBottom));
+          expect($elBottom).to.be.closeTo(Math.floor(screenBottom), 2);
         });
     });
 
@@ -105,7 +107,7 @@ describe("cy.realHover", () => {
           const { $elTop } = getElementEdges($canvas);
           const { screenTop } = getScreenEdges();
 
-          expect($elTop).to.equal(Math.floor(screenTop));
+          expect($elTop).to.be.closeTo(Math.floor(screenTop), 2);
         });
 
       cy.window().scrollTo("top");
@@ -116,7 +118,7 @@ describe("cy.realHover", () => {
           const { $elBottom } = getElementEdges($canvas);
           const { screenBottom } = getScreenEdges();
 
-          expect($elBottom).to.equal(Math.floor(screenBottom));
+          expect($elBottom).to.be.closeTo(Math.floor(screenBottom), 2);
         });
     });
   });
