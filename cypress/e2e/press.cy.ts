@@ -14,6 +14,19 @@ describe("cy.realPress", { retries: 10 }, () => {
     cy.get("input").should("have.value", "cypress");
   });
 
+  it("Can type non alpha-num into an input", () => {
+    cy.intercept("http://presstest.com/", (req) => {
+      const html = document.implementation.createHTMLDocument();
+      html.body.innerHTML = `<input type="text">`;
+      req.reply(html.documentElement.innerHTML);
+    });
+    cy.visit("http://presstest.com/");
+    cy.get("input").focus();
+
+    cy.realPress("😊");
+    cy.get("input").should("have.value", "😊");
+  });
+
   it("Can fire native Tab focus switch", () => {
     cy.visit("./cypress/fixtures/focus-order.html");
     cy.window().focus();
