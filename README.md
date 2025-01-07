@@ -61,12 +61,14 @@ npm install cypress-real-events
 yarn add cypress-real-events
 ```
 
-Register new commands by adding this to your `cypress/support/index.{js,ts}` file.
+Register new commands by adding this to your `cypress/support/e2e.{js,ts}` (or `components.{js|ts}`) file:
 
 ```js
 import "cypress-real-events";
 ```
+
 To include TypeScript declarations, add `"cypress-real-events"` to the `types` section of your [tsconfig.json](https://docs.cypress.io/guides/tooling/typescript-support) file:
+
 ```json
 {
   "compilerOptions": {
