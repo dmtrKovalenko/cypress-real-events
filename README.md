@@ -15,7 +15,7 @@
    <img src="https://img.shields.io/circleci/build/github/dmtrKovalenko/cypress-real-events/main?style=for-the-badge" alt="npm version">
  <a/>
  <img src="https://img.shields.io/badge/made-with%20love-orange?style=for-the-badge"/>
- <a href="https://twitter.com/goose_plus_plus">
+ <a href="https://twitter.com/neogoose_btw">
    <img src="https://img.shields.io/twitter/follow/neogoose_btw?color=blue&style=for-the-badge">
  <a/>
 <p />
