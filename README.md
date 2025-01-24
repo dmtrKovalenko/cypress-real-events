@@ -164,7 +164,7 @@ cy.realPress(key, options);
 
 | Name      | Type                 | Default value | Description                                                                                                                                                                                                                                                      |
 | --------- | -------------------- | ------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `key`     | `string \| string[]` | -             | key or keys to press. Should be the same as cypress's [type command argument](https://docs.cypress.io/api/commands/type.html#Arguments). All the keys available [here](https://github.com/dmtrKovalenko/cypress-real-events/blob/main/src/keyCodeDefinitions.ts) |
+| `key`     | `string \| string[]` | -             | key or keys to press. Should be the same as cypress's [type command argument](https://docs.cypress.io/api/commands/type.html#Arguments). |
 | `options` | Options              | {}            |                                                                                                                                                                                                                                                                  |
 
 Options:
@@ -219,7 +219,7 @@ cy.realType(text, options);
 
 | Name      | Type    | Default value | Description                                                                                                                           |
 | --------- | ------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| `text`    | string  | -             | text to type. Should be around the same as cypress's type command argument (https://docs.cypress.io/api/commands/type.html#Arguments. All the keys available [here](https://github.com/dmtrKovalenko/cypress-real-events/blob/main/src/keyCodeDefinitions.ts)  |
+| `text`    | string  | -             | text to type. Should be around the same as cypress's type command argument                                                            |
 | `options` | Options | {}            |                                                                                                                                       |
 
 Options:
