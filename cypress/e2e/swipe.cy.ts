@@ -22,7 +22,7 @@ describe("cy.realSwipe", () => {
         button: "top",
         swipe: "toTop",
         length: 300,
-        touchPosition: "center",
+        touchPosition: "bottom",
       },
       {
         button: "bottom",

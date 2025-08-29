@@ -20,9 +20,6 @@
  <a/>
 <p />
 
-
-[![Stand With Ukraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/banner2-direct.svg)](https://vshymanskyy.github.io/StandWithUkraine/)
-
 ## Why?
 
 Cypress default events are simulated. That means that all events like `cy.click` or `cy.type` are fired from javascript. That's why these events will be untrusted (`event.isTrusted` will be `false`) and they can behave a little different from real native events. But for some cases, it can be impossible to use simulated events, for example, to fill a native alert or copy to the clipboard. This plugin solves this problem.
@@ -76,6 +73,13 @@ To include TypeScript declarations, add `"cypress-real-events"` to the `types` s
   }
 }
 ```
+
+## CI
+
+On CI in the same way as for regular cypress tests real commands will work only in the real browser. Make sure to install a real browser using `cypress install` command.
+
+> [!IMPORTANT]  
+> cypress-browsers docker image has issues with running real events commands, the CDP protocol sometimes not working properly. It is recommended to use standard cypress/default or node:lts docker image and install browser using `cypress install` command.
 
 ## API
 
@@ -217,10 +221,10 @@ cy.realType(text, options);
 
 #### Parameters:
 
-| Name      | Type    | Default value | Description                                                                                                                           |
-| --------- | ------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| `text`    | string  | -             | text to type. Should be around the same as cypress's type command argument (https://docs.cypress.io/api/commands/type.html#Arguments. All the keys available [here](https://github.com/dmtrKovalenko/cypress-real-events/blob/main/src/keyCodeDefinitions.ts)  |
-| `options` | Options | {}            |                                                                                                                                       |
+| Name      | Type    | Default value | Description                                                                                                                                                                                                                                                   |
+| --------- | ------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `text`    | string  | -             | text to type. Should be around the same as cypress's type command argument (https://docs.cypress.io/api/commands/type.html#Arguments. All the keys available [here](https://github.com/dmtrKovalenko/cypress-real-events/blob/main/src/keyCodeDefinitions.ts) |
+| `options` | Options | {}            |                                                                                                                                                                                                                                                               |
 
 Options:
 
@@ -337,11 +341,11 @@ cy.get("div").realMouseWheel(options);
 Example:
 
 ```js
-cy.get("div").realMouseWheel({ deltaY: 100 }) // Scroll down, mouse will be positioned at centered by default.
-cy.get("div").realMouseWheel({ deltaY: -100 }) // Scroll up, mouse will be positioned at centered by default.
-cy.get("div").realMouseWheel({ deltaX: 500 }) // Scroll right, mouse will be positioned at centered by default.
-cy.get("div").realMouseWheel({ deltaX: -500 }) // Scroll left, mouse will be positioned at centered by default.
-cy.get("div").realMouseWheel({ deltaY: 100, deltaX: 100 }) // Scroll right and down, mouse will be positioned at centered by default.
+cy.get("div").realMouseWheel({ deltaY: 100 }); // Scroll down, mouse will be positioned at centered by default.
+cy.get("div").realMouseWheel({ deltaY: -100 }); // Scroll up, mouse will be positioned at centered by default.
+cy.get("div").realMouseWheel({ deltaX: 500 }); // Scroll right, mouse will be positioned at centered by default.
+cy.get("div").realMouseWheel({ deltaX: -500 }); // Scroll left, mouse will be positioned at centered by default.
+cy.get("div").realMouseWheel({ deltaY: 100, deltaX: 100 }); // Scroll right and down, mouse will be positioned at centered by default.
 ```
 
 Options:
@@ -386,23 +390,25 @@ cy.get("body").realHover({ position: "topLeft" });
 cy.get("[aria-label='Test Button']").should(
   "have.css",
   "background-color",
-  "rgb(217, 83, 79)"
+  "rgb(217, 83, 79)",
 );
 ```
 
 ### 3. Why do I get "Are You Sure" popups when I am using real events and why I do not get them while using the normal cypress clicks?
+
 Sometimes when there are unsaved changes in a webform, and you leave the page, the web application asks you due the `onbeforeunload event` if you really want to leaf the page and loose the changes.
 
 You can try it on this [Demo Page](https://www.azyaamode.com/js/jquery/AYS/demo/are-you-sure-demo.html).
 
-In "normal" Cypress tests, these popup windows do not appear. 
-This is because no "real" user actions are performed on the application. 
+In "normal" Cypress tests, these popup windows do not appear.
+This is because no "real" user actions are performed on the application.
 See [this](https://developer.mozilla.org/en-US/docs/Web/API/Window/beforeunload_event#security) page for more information about the beforeunload event.
 But when they appear, they block the whole test execution, and you have to handle them explicitly.
 Gleb Bahmutov writes about this behaviour and possible solutions in this [Blog Post](https://glebbahmutov.com/blog/onbeforeunload/).
 
 Now when you use this `real-events` plugin and perform a `realEvent` on your application, the browser thinks there happened a real user interaction.
 From now on your test is in an `active interaction` state, which allows the application to use all the features listed [here](https://developer.mozilla.org/en-US/docs/Web/Security/User_activation).
+
 ## UX
 
 One problem of the real native system events I need to mention – you will not get an error message if the event wasn't produced. Similar to selenium or playwright – if a javascript event was not fired you will not get a comprehensive error message.
