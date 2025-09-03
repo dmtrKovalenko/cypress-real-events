@@ -5,6 +5,7 @@ import {
   ScrollBehaviorOptions,
 } from "../getCypressElementCoordinates";
 import { getModifiers } from "../getModifiers";
+import { mouseButtonNumbers } from "../mouseButtonNumbers";
 
 export interface RealMouseMoveOptions {
   /**
@@ -26,6 +27,12 @@ export interface RealMouseMoveOptions {
   altKey?: boolean;
   ctrlKey?: boolean;
   metaKey?: boolean;
+  /**
+   * Keeps a mouse button down while moving the mouse
+   * @default 'none'
+   * @example cy.realMouseMove(x, y, { keepMouseDownButton: 'left' })
+   */
+  keepMouseDownButton?: keyof typeof mouseButtonNumbers;
 }
 
 /** @ignore this, update documentation for this function at index.d.ts */
@@ -58,6 +65,7 @@ export async function realMouseMove(
     x: x * basePosition.frameScale + basePosition.x,
     y: y * basePosition.frameScale + basePosition.y,
     modifiers: modifiers,
+    ...(options.keepMouseDownButton && { button: options.keepMouseDownButton }),
   });
 
   log.snapshot("after").end();
