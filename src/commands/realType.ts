@@ -47,7 +47,7 @@ export async function realType(text: string, options: RealTypeOptions = {}) {
     .split(/({.+?})/)
     .filter(Boolean)
     .reduce((acc, group) => {
-      return /({.+?})/.test(group)
+      return /({.+?})/.test(group) && availableChars.includes(group)
         ? [...acc, group]
         : [...acc, ...group.split("")];
     }, [] as string[]);
