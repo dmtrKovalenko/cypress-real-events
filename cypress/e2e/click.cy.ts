@@ -112,9 +112,17 @@ describe("cy.realClick", () => {
 
   describe("scroll behavior", () => {
     function getScreenEdges() {
-      const cypressAppWindow =
-        window.parent.document.querySelector("iframe").contentWindow;
-      const windowTopEdge = cypressAppWindow.document.documentElement.scrollTop;
+      const autIframe = (window.parent.document.querySelector(
+        "iframe.aut-iframe",
+      ) ||
+        window.parent.document.querySelector("iframe[data-cy=aut-iframe]") ||
+        window.parent.document.querySelector("iframe")) as HTMLIFrameElement;
+      const cypressAppWindow = autIframe.contentWindow as Window;
+      const windowTopEdge =
+        cypressAppWindow.scrollY ??
+        cypressAppWindow.document.documentElement.scrollTop ??
+        cypressAppWindow.document.body.scrollTop ??
+        0;
       const windowBottomEdge = windowTopEdge + cypressAppWindow.innerHeight;
       const windowCenter = windowTopEdge + cypressAppWindow.innerHeight / 2;
 
