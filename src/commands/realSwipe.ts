@@ -2,11 +2,17 @@ import { fireCdpCommand } from "../fireCdpCommand";
 import {
   getCypressElementCoordinates,
   Position,
+  ScrollBehaviorOptions,
 } from "../getCypressElementCoordinates";
 
 export type SwipeDirection = "toLeft" | "toTop" | "toRight" | "toBottom";
 
 export interface RealSwipeOptions {
+  /**
+   * Controls how the page is scrolled to bring the subject into view, if needed.
+   * @example cy.realSwipe("toLeft", { scrollBehavior: "top" });
+   */
+  scrollBehavior?: ScrollBehaviorOptions;
   /**
    * The point of the element where touch event will be executed
    * @example cy.realSwipe({ position: "topLeft" })
@@ -105,7 +111,11 @@ export async function realSwipe(
 
   const length = options.length ?? 10;
   const step = options.step ?? 10;
-  const elementCoordinates = getCypressElementCoordinates(subject, position);
+  const elementCoordinates = getCypressElementCoordinates(
+    subject,
+    position,
+    options.scrollBehavior,
+  );
   const startPosition = { x: elementCoordinates.x, y: elementCoordinates.y };
   const log = Cypress.log({
     $el: subject,

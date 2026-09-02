@@ -40,7 +40,7 @@ describe("cy.realSwipe", () => {
         touchPosition,
       });
 
-      cy.get(".MuiDrawer-paper").should("not.be.visible");
+      cy.get(".MuiDrawer-paper").should("not.exist");
     });
   });
 
