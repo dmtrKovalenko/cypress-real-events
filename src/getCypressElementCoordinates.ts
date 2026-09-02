@@ -153,7 +153,10 @@ export function getCypressElementCoordinates(
   scrollBehavior?: ScrollBehaviorOptions,
 ) {
   const htmlElement = jqueryEl.get(0);
-  const cypressAppFrame = window.parent.document.querySelector("iframe");
+  const cypressAppFrame =
+    window.parent.document.querySelector("iframe.aut-iframe") ||
+    window.parent.document.querySelector("iframe[data-cy=aut-iframe]") ||
+    window.parent.document.querySelector("iframe");
 
   if (!cypressAppFrame) {
     throw new Error(
