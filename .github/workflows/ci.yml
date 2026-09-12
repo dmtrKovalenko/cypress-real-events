@@ -29,19 +29,20 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        specs:
-          - "cypress/e2e/{click,hover,modifiers,modifiers_combination,mouse,press}.cy.ts"
-          - "cypress/e2e/{swipe,touch,type,viewport-scaling,wheel}.cy.ts"
+        shard: [1, 2]
     steps:
       - uses: actions/checkout@v4
+      - id: specs
+        run: |
+          echo "list=$(ls cypress/e2e/*.cy.ts | awk -v n=${{ strategy.job-total }} -v i=${{ matrix.shard }} 'NR % n == i - 1' | paste -sd,)" >> "$GITHUB_OUTPUT"
       - uses: cypress-io/github-action@v6
         with:
           browser: chrome
-          spec: ${{ matrix.specs }}
+          spec: ${{ steps.specs.outputs.list }}
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-screenshots-${{ strategy.job-index }}
+          name: cypress-screenshots-${{ matrix.shard }}
           path: cypress/screenshots
           if-no-files-found: ignore
 
