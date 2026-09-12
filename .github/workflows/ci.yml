@@ -1,0 +1,73 @@
+name: CI
+
+on:
+  push:
+    branches: [main, release]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: yarn
+      - run: yarn install --frozen-lockfile
+      - run: yarn lint
+      - run: yarn format-check
+      - run: yarn build
+      - run: node scripts/release.js
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist
+
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2]
+    steps:
+      - uses: actions/checkout@v4
+      - id: specs
+        run: |
+          echo "list=$(ls cypress/e2e/*.cy.ts | awk -v n=${{ strategy.job-total }} -v i=${{ matrix.shard }} 'NR % n == i - 1' | paste -sd,)" >> "$GITHUB_OUTPUT"
+      - uses: cypress-io/github-action@v6
+        with:
+          browser: chrome
+          spec: ${{ steps.specs.outputs.list }}
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: cypress-screenshots-${{ matrix.shard }}
+          path: cypress/screenshots
+          if-no-files-found: ignore
+
+  release:
+    if: github.ref == 'refs/heads/release'
+    needs: [build, test]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: npm install -g npm@latest
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist
+      - run: npx semantic-release@25
+        working-directory: dist
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
